@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bgV-s7-mwa">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SettingsViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +15,230 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zenphoto Site URL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lM7-3z-SyX">
+                                <rect key="frame" x="227" y="108" width="147" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://gallery.ampomtan.com/" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gzt-kQ-Uzl">
+                                <rect key="frame" x="175" y="137" width="250" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Zenphoto Site URL"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="R8W-lR-M8v"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="zaB-xW-vUc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQF-dT-h3b">
+                                <rect key="frame" x="261" y="175" width="79" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="79" id="IEP-W2-sIQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meV-Y9-bFv">
+                                <rect key="frame" x="225" y="204" width="150" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Username"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="FZZ-ws-ghu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hu-41-pjw">
+                                <rect key="frame" x="262" y="242" width="76" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="VSS-I5-K20"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21k-sq-HSl">
+                                <rect key="frame" x="283" y="309" width="34" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Save">
+                                    <accessibilityTraits key="traits" none="YES" button="YES"/>
+                                </accessibility>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xCn-mN-L8J"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ycG-wI-pjv">
+                                <rect key="frame" x="225" y="271" width="150" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Password"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="5cZ-5b-DWa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="didEndOnExit:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="pfE-1x-AM2"/>
+                                    <action selector="editingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="mFt-Hk-Rma"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Hu-41-pjw" firstAttribute="top" secondItem="meV-Y9-bFv" secondAttribute="bottom" constant="8" id="1mx-Gn-8tV"/>
+                            <constraint firstItem="meV-Y9-bFv" firstAttribute="top" secondItem="vQF-dT-h3b" secondAttribute="bottom" constant="8" id="Ax8-2U-g0a"/>
+                            <constraint firstAttribute="centerX" secondItem="ycG-wI-pjv" secondAttribute="centerX" id="DF0-cW-AA6"/>
+                            <constraint firstItem="21k-sq-HSl" firstAttribute="top" secondItem="ycG-wI-pjv" secondAttribute="bottom" constant="8" id="ENI-Hk-VBY"/>
+                            <constraint firstAttribute="centerX" secondItem="21k-sq-HSl" secondAttribute="centerX" id="GL8-Gt-pKB"/>
+                            <constraint firstItem="gzt-kQ-Uzl" firstAttribute="top" secondItem="lM7-3z-SyX" secondAttribute="bottom" constant="8" id="ITp-Ak-HTG"/>
+                            <constraint firstAttribute="centerX" secondItem="meV-Y9-bFv" secondAttribute="centerX" id="QST-EF-6AV"/>
+                            <constraint firstItem="ycG-wI-pjv" firstAttribute="top" secondItem="7Hu-41-pjw" secondAttribute="bottom" constant="8" id="UUC-Rw-cbd"/>
+                            <constraint firstItem="lM7-3z-SyX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="YNm-i1-uBZ"/>
+                            <constraint firstAttribute="centerX" secondItem="gzt-kQ-Uzl" secondAttribute="centerX" id="Yom-Of-wty"/>
+                            <constraint firstItem="vQF-dT-h3b" firstAttribute="top" secondItem="gzt-kQ-Uzl" secondAttribute="bottom" constant="8" id="aD4-LT-gQ2"/>
+                            <constraint firstAttribute="centerX" secondItem="7Hu-41-pjw" secondAttribute="centerX" id="tsJ-hf-PJa"/>
+                            <constraint firstAttribute="centerX" secondItem="lM7-3z-SyX" secondAttribute="centerX" id="vZu-tO-HN8"/>
+                            <constraint firstAttribute="centerX" secondItem="vQF-dT-h3b" secondAttribute="centerX" id="wXj-DM-2Cv"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="Password" destination="ycG-wI-pjv" id="Bpu-Rk-uAr"/>
+                        <outlet property="SiteURL" destination="gzt-kQ-Uzl" id="MPa-9i-bop"/>
+                        <outlet property="Username" destination="meV-Y9-bFv" id="rwA-h4-emC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="439"/>
+        </scene>
+        <!--Album List View Controller-->
+        <scene sceneID="FMQ-wS-o5c">
+            <objects>
+                <tableViewController id="TAo-Es-JVy" customClass="AlbumListViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="app-YS-g99">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="AlbumCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AlbumCell" rowHeight="80" id="m0Z-6L-Bhn" customClass="AlbumListViewCell" customModule="zenphoto" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0Z-6L-Bhn" id="6w6-o0-mZ3">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gof-g1-4qr">
+                                            <rect key="frame" x="8" y="1" width="79" height="79"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ0-QR-Tsg">
+                                            <rect key="frame" x="95" y="29" width="472" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="albumName" destination="gQ0-QR-Tsg" id="IfZ-BN-9SM"/>
+                                    <outlet property="albumThumb" destination="gof-g1-4qr" id="aKR-Zg-ToV"/>
+                                    <segue destination="gEc-Fq-t9H" kind="show" identifier="showImageList" id="m10-z5-3ao"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TAo-Es-JVy" id="lnx-km-hh9"/>
+                            <outlet property="delegate" destination="TAo-Es-JVy" id="hyH-Kc-cQ1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="sqZ-W8-rxH">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="x3u-Ou-iTP">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="toSettingsView" id="DZY-GL-IbD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nhi-aW-YYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="-250"/>
+        </scene>
+        <!--Image List View Controller-->
+        <scene sceneID="fBb-9e-eXg">
+            <objects>
+                <collectionViewController id="gEc-Fq-t9H" customClass="ImageListViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="4pF-pp-CjO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="TPT-MK-lXO">
+                            <size key="itemSize" width="125" height="125"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="cAg-iq-Y3p">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OYb-Fw-qaw">
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="CKo-2D-hwz" kind="show" identifier="showImage" id="1aK-Cf-cOt"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="gEc-Fq-t9H" id="iiR-UV-8t5"/>
+                            <outlet property="delegate" destination="gEc-Fq-t9H" id="9PV-wY-1PN"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DTP-dB-MBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="953" y="-247"/>
+        </scene>
+        <!--Image Page View Controller-->
+        <scene sceneID="XWG-dN-2Kd">
+            <objects>
+                <viewController id="CKo-2D-hwz" customClass="ImagePageViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1qM-2X-aIl"/>
+                        <viewControllerLayoutGuide type="bottom" id="gXZ-IY-sUM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BQg-P2-ve7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1596" y="-247"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Shb-8N-1Vi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bgV-s7-mwa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kqx-I3-eNp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TAo-Es-JVy" kind="relationship" relationship="rootViewController" id="b7o-7x-H9I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lyu-pH-8l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-336" y="-247"/>
         </scene>
     </scenes>
 </document>
