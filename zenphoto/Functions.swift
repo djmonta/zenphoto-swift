@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 let config = NSUserDefaults.standardUserDefaults()
 let alertView: UIAlertView = UIAlertView()
@@ -55,7 +54,7 @@ func checkConnection() -> Bool {
     var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     var param = [method: d]
     
-    Alamofire.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+    Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
         if json != nil {
             var jsonObj = JSON(json!)
             if let results = jsonObj["code"].stringValue as String? {

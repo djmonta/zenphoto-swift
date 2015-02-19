@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class AlbumListViewController: UITableViewController {
     
@@ -39,7 +38,7 @@ class AlbumListViewController: UITableViewController {
         var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method : d]
         
-        Alamofire.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
             if json != nil {
                 var jsonObj = JSON(json!)
                 if let results = jsonObj.arrayValue as [JSON]? {
