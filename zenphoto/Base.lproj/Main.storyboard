@@ -22,7 +22,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://gallery.ampomtan.com/" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gzt-kQ-Uzl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://YOUR_URL/zenphoto/" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gzt-kQ-Uzl">
                                 <rect key="frame" x="175" y="137" width="250" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Zenphoto Site URL"/>
                                 <constraints>

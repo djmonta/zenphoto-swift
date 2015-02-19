@@ -36,10 +36,8 @@ func encode64(userData: Dictionary<String, AnyObject>) -> String? {
 
 func URLinit() -> NSURL {
     var URL: String! = config.stringForKey("URL")
-    if !URL.hasSuffix("/") {
-        URL = URL + "/"
-    }
-    let ZenRPC_URL: NSURL = NSURL(string: URL + "plugins/ZenPublisher/ZenRPC.php")!
+    if !URL.hasSuffix("/") { URL = URL + "/" }
+    let ZenRPC_URL: NSURL = NSURL(string: URL + "plugins/iphone/ZenRPC.php")!
     //println(ZenRPC_URL)
     
     return ZenRPC_URL
