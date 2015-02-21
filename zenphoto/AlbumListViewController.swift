@@ -12,6 +12,10 @@ class AlbumListViewController: UITableViewController {
     
     var albums: [JSON]? = []
     
+    @IBAction func btnAdd(sender: AnyObject) {
+        println("Add")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

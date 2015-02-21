@@ -156,7 +156,11 @@
                                 <segue destination="BYZ-38-t0r" kind="show" identifier="toSettingsView" id="DZY-GL-IbD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="8gc-sZ-sHO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8gc-sZ-sHO">
+                            <connections>
+                                <action selector="btnAdd:" destination="TAo-Es-JVy" id="8WM-Bs-8bQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nhi-aW-YYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -201,7 +205,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="SQf-M9-5GZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="W5q-GO-Dfy"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="W5q-GO-Dfy">
+                            <connections>
+                                <action selector="btnAdd:" destination="gEc-Fq-t9H" id="D89-T0-sII"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DTP-dB-MBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,6 +269,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="HqU-re-zrh">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="TAo-Es-JVy" kind="relationship" relationship="rootViewController" id="b7o-7x-H9I"/>
                     </connections>
