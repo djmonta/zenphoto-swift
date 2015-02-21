@@ -18,18 +18,17 @@ class ImageListViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
-        // self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
+
         self.navigationItem.title = self.albumInfo?["name"].string!
         var albumId: String = self.albumInfo?["id"].string as String!
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.hidesBarsOnTap = false
     }
     
     func calcThumbSize() -> CGSize {
@@ -39,10 +38,18 @@ class ImageListViewController: UICollectionViewController {
         
         var width: CGFloat
         
-        if screenSize.size.height > screenSize.size.width {
-            width = (screenSize.size.width - 3) / 4
+        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+            if screenSize.size.height > screenSize.size.width {
+                width = (screenSize.size.width - 3) / 4
+            } else {
+                width = (screenSize.size.width - 6) / 7
+            }
         } else {
-            width = (screenSize.size.width - 6) / 7
+            if screenSize.size.height > screenSize.size.width {
+                width = (screenSize.size.width - 3) / 8
+            } else {
+                width = (screenSize.size.width - 6) / 14
+            }
         }
         
         size = CGSizeMake(width, width)

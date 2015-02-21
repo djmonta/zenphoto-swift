@@ -156,6 +156,7 @@
                                 <segue destination="BYZ-38-t0r" kind="show" identifier="toSettingsView" id="DZY-GL-IbD"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="8gc-sZ-sHO"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nhi-aW-YYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -199,6 +200,9 @@
                             <outlet property="delegate" destination="gEc-Fq-t9H" id="9PV-wY-1PN"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="SQf-M9-5GZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="W5q-GO-Dfy"/>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DTP-dB-MBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -217,10 +221,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="YRI-aL-jwa">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Y1h-Ve-Ufg">
+                            <connections>
+                                <action selector="btnExport:" destination="CKo-2D-hwz" id="tyo-PZ-y45"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1596" y="-247"/>
+        </scene>
+        <!--Image View-->
+        <scene sceneID="fyK-fp-s5n">
+            <objects>
+                <viewController storyboardIdentifier="ImageView" id="Dxl-U7-H4i" customClass="ImageView" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tSE-ag-Ipy"/>
+                        <viewControllerLayoutGuide type="bottom" id="bUW-j8-uPQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oNy-YT-yzH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IpI-ve-3yV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1596" y="424"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Shb-8N-1Vi">

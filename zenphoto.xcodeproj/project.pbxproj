@@ -80,6 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		704DE3911A98E00700CB999A /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FAE1A949C7700807758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		708B1FA01A949C7700807758 = {
 			isa = PBXGroup;
 			children = (
+				704DE3911A98E00700CB999A /* Photos.framework */,
 				708B1FAB1A949C7700807758 /* zenphoto */,
 				708B1FC41A949C7800807758 /* zenphotoTests */,
 				708B1FAA1A949C7700807758 /* Products */,

@@ -25,6 +25,10 @@ class AlbumListViewController: UITableViewController {
         }
         
     }
+
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.hidesBarsOnTap = false
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

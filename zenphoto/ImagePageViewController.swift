@@ -17,10 +17,15 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
     
     var currentIndex : Int = 0
     
+    @IBAction func btnExport(sender: AnyObject) {
+        println("Export")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
+        self.navigationController?.hidesBarsOnTap = true
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController!.dataSource = self
         
@@ -81,7 +86,8 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         }
         
         // Create a new view controller and pass suitable data.
-        let pageContentViewController = ImageView()
+        let pageContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as ImageView
+        //let pageContentViewController = ImageView()
         
         pageContentViewController.image = images?[index]
         pageContentViewController.pageIndex = index
