@@ -20,33 +20,34 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let folder = self.image?["folder"].string!
-        let filename = self.image?["name"].string!
-        var URL: String! = config.stringForKey("URL")
-        if !URL.hasSuffix("/") { URL = URL + "/" }
-        let imageURL: NSURL = NSURL(string: URL + "albums/" + folder! + "/" + filename!)!
-        
-        self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.hnk_setImageFromURL(imageURL)
-        
-        self.navigationItem.title = filename
-        
         self.scrollView.delegate = self
-        //self.scrollView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+        self.scrollView.backgroundColor = UIColor.clearColor()
+        self.scrollView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.scrollView.minimumZoomScale = 1
         self.scrollView.maximumZoomScale = 8
         self.scrollView.scrollEnabled = true
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
+
+        self.view.addSubview(scrollView)
+        
+        let folder = self.image?["folder"].string!
+        let filename = self.image?["name"].string!
+        var URL: String! = config.stringForKey("URL")
+        if !URL.hasSuffix("/") { URL = URL + "/" }
+        let imageURL: NSURL = NSURL(string: URL + "albums/" + folder! + "/" + filename!)!
+        self.navigationItem.title = filename
+
+        self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+        self.imageView.contentMode = .ScaleAspectFit
+        self.imageView.hnk_setImageFromURL(imageURL)
         
         var doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
         
-        self.view.addSubview(scrollView)
-        self.view.addSubview(imageView)
+        self.scrollView.addSubview(imageView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,7 +63,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         return self.imageView
     }
     // ダブルタップ
-    func doubleTap(gesture: UITapGestureRecognizer) -> Void {
+    func doubleTap(gesture: UITapGestureRecognizer) {
         
         if ( self.scrollView.zoomScale < self.scrollView.maximumZoomScale ) {
             
@@ -75,7 +76,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         }
     }
     // 領域
-    func zoomRectForScale(scale:CGFloat, center: CGPoint) -> CGRect{
+    func zoomRectForScale(scale:CGFloat, center: CGPoint) -> CGRect {
         var zoomRect: CGRect = CGRect()
         zoomRect.size.height = self.scrollView.frame.size.height / scale
         zoomRect.size.width = self.scrollView.frame.size.width / scale
