@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		704DE3951A9A318400CB999A /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 704DE3941A9A318400CB999A /* FontAwesome.otf */; };
+		704DE3971A9A319100CB999A /* FontAwesome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704DE3961A9A319100CB999A /* FontAwesome.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
 		708B1FB41A949C7700807758 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB31A949C7700807758 /* ViewController.swift */; };
@@ -80,6 +82,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		704DE3941A9A318400CB999A /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		704DE3961A9A319100CB999A /* FontAwesome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontAwesome.swift; sourceTree = "<group>"; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FAE1A949C7700807758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				708B20071A94A25600807758 /* UIImage+Cropping.swift */,
 				709738561A95C67B0073AEEB /* Alamofire.swift */,
 				708B1FF01A949D5200807758 /* SwiftyJSON.swift */,
+				704DE3961A9A319100CB999A /* FontAwesome.swift */,
+				704DE3941A9A318400CB999A /* FontAwesome.otf */,
 				708B1FAC1A949C7700807758 /* Supporting Files */,
 			);
 			path = zenphoto;
@@ -315,6 +321,7 @@
 			files = (
 				708B1FB71A949C7700807758 /* Main.storyboard in Resources */,
 				708B1FBC1A949C7700807758 /* LaunchScreen.xib in Resources */,
+				704DE3951A9A318400CB999A /* FontAwesome.otf in Resources */,
 				708B1FB91A949C7700807758 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +352,7 @@
 				708B1FF11A949D5200807758 /* SwiftyJSON.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
+				704DE3971A9A319100CB999A /* FontAwesome.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

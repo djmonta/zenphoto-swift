@@ -205,15 +205,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     // MARK
     
-    func controllerAvailable() -> Bool {
-        if let gotModernAlert: AnyClass = NSClassFromString("UIAlertController") {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
     func handleOS8() {
         let imageController = UIImagePickerController()
         imageController.editing = false
@@ -269,10 +260,10 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         println("Button Index : \(buttonIndex)")
         let imageController = UIImagePickerController()
         imageController.editing = false
-        imageController.delegate = self;
-        if( buttonIndex == 1){
+        imageController.delegate = self
+        if( buttonIndex == 1) {
             imageController.sourceType = .PhotoLibrary
-        } else if(buttonIndex == 2){
+        } else if(buttonIndex == 2) {
             imageController.sourceType = .Camera
         } else {
             

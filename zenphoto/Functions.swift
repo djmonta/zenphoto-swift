@@ -77,6 +77,15 @@ func checkConnection() -> Bool {
     return connection
 }
 
+func controllerAvailable() -> Bool {
+    if let gotModernAlert: AnyClass = NSClassFromString("UIAlertController") {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
 func JSONStringify(jsonObj: AnyObject) -> String {
     var e: NSError?
     let jsonData = NSJSONSerialization.dataWithJSONObject(

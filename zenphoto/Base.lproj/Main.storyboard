@@ -130,8 +130,14 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gof-g1-4qr">
                                             <rect key="frame" x="8" y="1" width="79" height="79"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-iN-es9">
+                                            <rect key="frame" x="95" y="47" width="472" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ0-QR-Tsg">
-                                            <rect key="frame" x="95" y="29" width="472" height="21"/>
+                                            <rect key="frame" x="95" y="13" width="472" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -139,6 +145,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="albumDesc" destination="0Dh-iN-es9" id="sra-s8-gBt"/>
                                     <outlet property="albumName" destination="gQ0-QR-Tsg" id="IfZ-BN-9SM"/>
                                     <outlet property="albumThumb" destination="gof-g1-4qr" id="aKR-Zg-ToV"/>
                                     <segue destination="gEc-Fq-t9H" kind="show" identifier="showImageList" id="m10-z5-3ao"/>
@@ -165,7 +172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nhi-aW-YYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="-250"/>
+            <point key="canvasLocation" x="305" y="-255"/>
         </scene>
         <!--Image List View Controller-->
         <scene sceneID="fBb-9e-eXg">

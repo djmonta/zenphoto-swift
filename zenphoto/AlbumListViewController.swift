@@ -13,7 +13,45 @@ class AlbumListViewController: UITableViewController {
     var albums: [JSON]? = []
     
     @IBAction func btnAdd(sender: AnyObject) {
-        println("Add")
+        
+        //1. Create the alert controller.
+        var alert = UIAlertController(title: "Create New Album", message: "Enter album name.", preferredStyle: .Alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = "newAlbum"
+        })
+        
+        //3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as UITextField
+            println("Text field: \(textField.text)")
+            
+            let method = "zenphoto.create.album"
+            var userData = userDatainit()
+            userData["folder"] = textField.text
+            userData["name"] = userData["folder"]
+            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var param = [method: p]
+            
+            println(param)
+            
+            Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+                println(json)
+                if json != nil {
+                    self.tableView.reloadData()
+                }
+            }
+
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { (alert) -> Void in
+            println("Cancel")
+        })
+        
+        // 4. Present the alert.
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
@@ -47,6 +85,7 @@ class AlbumListViewController: UITableViewController {
         var param = [method : d]
         
         Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+            println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
                 if let results = jsonObj.arrayValue as [JSON]? {
