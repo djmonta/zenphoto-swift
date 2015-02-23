@@ -10,7 +10,7 @@ import UIKit
 
 let reuseIdentifier = "Cell"
 
-class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate {
+class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, DKImagePickerControllerDelegate {
     
     var albumInfo: JSON?
     var images: [JSON]? = []
@@ -21,21 +21,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         if( controllerAvailable() ){
             handleOS8()
         }
-        
-        /* handleOS7 because its not supported
-        else {
-            var actionSheet:UIActionSheet
-            if(UIImagePickerController.isSourceTypeAvailable(.Camera)){
-                actionSheet = UIActionSheet(title: "Hello this is iOS7", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles:"Select photo from library", "Take a picture")
-            } else {
-                actionSheet = UIActionSheet(title: "Hello this is iOS7", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles:"Select photo from library")
-            }
-            actionSheet.delegate = self
-            actionSheet.showInView(self.view)
-            /* Implement the delegate for actionSheet */
-        }
-        */
-    
     }
     
     override func viewDidLoad() {
@@ -104,7 +89,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         //#warning Incomplete method implementation -- Return the number of sections
@@ -172,38 +157,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         }
     }
     
-    // MARK: UICollectionViewDelegate
     
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-    }
-    */
-    
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-    }
-    */
-    
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-    
-    // MARK
+    // MARK: - handleOS8()
     
     func handleOS8() {
         let imageController = UIImagePickerController()
@@ -212,11 +167,17 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         let alert = UIAlertController(title: "Lets get a picture", message: "Add photo to this album", preferredStyle: .ActionSheet)
         let libButton = UIAlertAction(title: "Select photo from library", style: .Default) { (alert) -> Void in
-            imageController.sourceType = .PhotoLibrary
-            self.presentViewController(imageController, animated: true, completion: nil)
+            // Custom Image Picker
+            let pickerController = DKImagePickerController()
+            pickerController.pickerDelegate = self
+            self.presentViewController(pickerController, animated: true) {}
+            
+            // Default Image Picker
+            //imageController.sourceType = .PhotoLibrary
+            //self.presentViewController(imageController, animated: true, completion: nil)
         }
-        if(UIImagePickerController.isSourceTypeAvailable(.Camera)){
-            let cameraButton = UIAlertAction(title: "Take a picture", style: UIAlertActionStyle.Default) { (alert) -> Void in
+        if( UIImagePickerController.isSourceTypeAvailable(.Camera) ) {
+            let cameraButton = UIAlertAction(title: "Take a picture", style: .Default) { (alert) -> Void in
                 println("Take Photo")
                 imageController.sourceType = .Camera
                 self.presentViewController(imageController, animated: true, completion: nil)
@@ -234,26 +195,64 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         alert.addAction(libButton)
         alert.addAction(cancelButton)
         
-        /* Code for UIAlert View Controller
-        let alert = UIAlertController(title: "This is an alert!", message: "Using UIAlertController", preferredStyle: UIAlertControllerStyle.Alert)
-        let okButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (okSelected) -> Void in
-        println("Ok Selected")
-        }
-        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (cancelSelected) -> Void in
-        println("Cancel Selected")
-        }
-        alert.addAction(okButton)
-        alert.addAction(cancelButton)
-        */
         self.presentViewController(alert, animated: true, completion: nil)
         
     }
     
+    
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         self.dismissViewControllerAnimated(true, nil)
+        
+        let method = "zenphoto.image.upload"
+        var id = self.albumInfo?["id"].string
+        var userData = userDatainit(id: id!)
+        userData["folder"] = self.albumInfo?["folder"].string
+        
+        println(image.debugDescription)
+        
+//        var imageData = UIImagePNGRepresentation(image) // require to switch to JPEG!!
+//        let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+//        println(base64String)
+//        
+//        userData["file"] = base64String
+//        userData["filename"] = "" // filename??
+//        
+//        var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+//        var param = [method: p]
+//        
+//        println(param)
+//        
+//        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+//            println(json)
+//            if json != nil {
+//                self.collectionView?.reloadData()
+//            }
+//        }
+
         //self.selectedImage.image = image
         
     }
+    
+    // MARK: - DKImagePickerControllerDelegate methods
+    
+    // When the callback cancel
+    func imagePickerControllerCancelled() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Select a picture and determine the callback after
+    func imagePickerControllerDidSelectedAssets(assets: [DKAsset]!) {
+        
+        for (index, asset) in enumerate(assets) {
+            println(index, asset)
+            // images prepare to upload
+            
+            
+        }
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         println("Title : \(actionSheet.buttonTitleAtIndex(buttonIndex))")

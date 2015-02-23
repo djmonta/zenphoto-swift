@@ -28,19 +28,30 @@ class AlbumListViewCell: UITableViewCell {
         var owner = self.albumInfo?["owner"].string
         var imagescount = self.albumInfo?["imagescount"].string
         
-        var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
-        var ext = webpath!.pathExtension.lowercaseString
-        var albumThumbNameWOExt = albumThumbFileName.stringByDeletingPathExtension
+        var imageURL: NSURL
         
-        var URL: String! = config.stringForKey("URL")
-        if !URL.hasSuffix("/") { URL = URL + "/" }
-        var cachePath = URL + "cache/"
-        
-        var albumThumbURL: String = String(format: cachePath + String(albumThumbNameWOExt) + "_300_cw300_ch300_thumb." + ext)
-        //println(albumThumbURL)
-        
-        var imageURL: NSURL = NSURL(string:albumThumbURL)!
-        
+        if webpath == "/albums/zp-core/images/imageDefault.png" {
+            var URL: String! = config.stringForKey("URL")
+            if !URL.hasSuffix("/") { URL = URL + "/" }
+            
+            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
+            var albumThumbURL = String(format: URL + albumThumbFileName)
+            
+            imageURL = NSURL(string: albumThumbURL)!
+        } else {
+            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
+            var ext = webpath!.pathExtension.lowercaseString
+            var albumThumbNameWOExt = albumThumbFileName.stringByDeletingPathExtension
+            
+            var URL: String! = config.stringForKey("URL")
+            if !URL.hasSuffix("/") { URL = URL + "/" }
+            var cachePath = URL + "cache/"
+            
+            var albumThumbURL: String = String(format: cachePath + String(albumThumbNameWOExt) + "_300_cw300_ch300_thumb." + ext)
+            //println(albumThumbURL)
+            
+            imageURL = NSURL(string:albumThumbURL)!
+        }
         self.albumName.text = albumFolder
         self.albumDesc.font = UIFont.fontAwesomeOfSize(12)
         self.albumDesc.text = String.fontAwesomeIconWithName("fa-picture-o") + " " + imagescount! + " images"

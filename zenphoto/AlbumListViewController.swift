@@ -27,7 +27,7 @@ class AlbumListViewController: UITableViewController {
             let textField = alert.textFields![0] as UITextField
             println("Text field: \(textField.text)")
             
-            let method = "zenphoto.create.album"
+            let method = "zenphoto.album.create"
             var userData = userDatainit()
             userData["folder"] = textField.text
             userData["name"] = userData["folder"]
@@ -85,7 +85,7 @@ class AlbumListViewController: UITableViewController {
         var param = [method : d]
         
         Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
-            println(json)
+            //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
                 if let results = jsonObj.arrayValue as [JSON]? {
