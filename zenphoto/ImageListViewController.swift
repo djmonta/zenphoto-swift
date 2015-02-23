@@ -120,20 +120,18 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var filename = imageInfo?["name"].string!
         var folder = imageInfo?["folder"].string!
         
-        //var imageThumbFileName = filename!.substringFromIndex(advance(filename!.startIndex, 8))
-        var ext = filename!.pathExtension.lowercaseString
-        var imageThumbNameWOExt = filename!.stringByDeletingPathExtension
-        
         var URL:String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
-        var cachePath = URL + "cache/" + folder!
+        var i = "zp-core/i.php?a=" + folder! + "&i="
+        var ext = filename!.pathExtension
+        var imageThumbNameWOExt = filename!.stringByDeletingPathExtension
+        var suffix = "&s=300&cw=300&ch=300"
         
-        var suffix = "_300_cw300_ch300_thumb."
-        var imageThumbURL: String = String(format: cachePath + "/" + String(imageThumbNameWOExt) + suffix + ext)
+        var imageThumbURL = URL + i + imageThumbNameWOExt + "." + ext + suffix
+        //println(imageThumbURL)
+        var imageURL = NSURL(string: imageThumbURL)
         
-        var imageURL: NSURL = NSURL(string:imageThumbURL)!
-        
-        imageView.hnk_setImageFromURL(imageURL)
+        imageView.hnk_setImageFromURL(imageURL!)
         
         return cell
     }

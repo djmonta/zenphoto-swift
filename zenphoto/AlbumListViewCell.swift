@@ -29,29 +29,30 @@ class AlbumListViewCell: UITableViewCell {
         var imagescount = self.albumInfo?["imagescount"].string
         
         var imageURL: NSURL
+        var URL: String! = config.stringForKey("URL")
+        if !URL.hasSuffix("/") { URL = URL + "/" }
         
         if webpath == "/albums/zp-core/images/imageDefault.png" {
-            var URL: String! = config.stringForKey("URL")
-            if !URL.hasSuffix("/") { URL = URL + "/" }
             
             var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
             var albumThumbURL = String(format: URL + albumThumbFileName)
             
             imageURL = NSURL(string: albumThumbURL)!
+
         } else {
-            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
-            var ext = webpath!.pathExtension.lowercaseString
+            var albumFolderLength = albumFolder?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+            var i = "zp-core/i.php?a=" + albumFolder! + "&i="
+            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8 + albumFolderLength! + 1))
+            var ext = webpath!.pathExtension
             var albumThumbNameWOExt = albumThumbFileName.stringByDeletingPathExtension
+            var suffix = "&s=300&cw=300&ch=300"
             
-            var URL: String! = config.stringForKey("URL")
-            if !URL.hasSuffix("/") { URL = URL + "/" }
-            var cachePath = URL + "cache/"
-            
-            var albumThumbURL: String = String(format: cachePath + String(albumThumbNameWOExt) + "_300_cw300_ch300_thumb." + ext)
+            var albumThumbURL = URL + i + albumThumbNameWOExt + "." + ext + suffix
             //println(albumThumbURL)
-            
-            imageURL = NSURL(string:albumThumbURL)!
+            imageURL = NSURL(string: albumThumbURL)!
+            //http://gallery.ampomtan.com/zp-core/i.php?a=newAlbum&i=image0.png&s=300&cw=300&ch=300
         }
+        
         self.albumName.text = albumFolder
         self.albumDesc.font = UIFont.fontAwesomeOfSize(12)
         self.albumDesc.text = String.fontAwesomeIconWithName("fa-picture-o") + " " + imagescount! + " images"
@@ -59,7 +60,7 @@ class AlbumListViewCell: UITableViewCell {
         let cache = Shared.imageCache
         
         let iconFormat = Format<UIImage>(name: "icons", diskCapacity: 3 * 1024 * 1024) { image in
-            let resizer = ImageResizer(size: CGSizeMake(150,150), scaleMode: .AspectFill)
+            let resizer = ImageResizer(size: CGSizeMake(300,300), scaleMode: .AspectFill)
             return resizer.resizeImage(image)
         }
         cache.addFormat(iconFormat)
