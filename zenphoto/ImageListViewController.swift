@@ -42,9 +42,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         var size: CGSize = CGSize(width: 80, height: 80) // default size
         let screenSize: CGRect = self.view.bounds
-        
         var width: CGFloat
-        
         if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
             if screenSize.size.height > screenSize.size.width {
                 width = (screenSize.size.width - 3) / 4
@@ -58,9 +56,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 width = (screenSize.size.width - 6) / 14
             }
         }
-        
         size = CGSizeMake(width, width)
-        
         return size
     }
     
@@ -181,12 +177,10 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 println("Take Photo")
                 imageController.sourceType = .Camera
                 self.presentViewController(imageController, animated: true, completion: nil)
-                
             }
             alert.addAction(cameraButton)
         } else {
             println("Camera not available")
-            
         }
         let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel) { (alert) -> Void in
             println("Cancel Pressed")
@@ -210,18 +204,21 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         println(image.debugDescription)
         
-//        var imageData = UIImagePNGRepresentation(image) // require to switch to JPEG!!
-//        let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
-//        println(base64String)
-//        
-//        userData["file"] = base64String
-//        userData["filename"] = "" // filename??
-//        
-//        var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-//        var param = [method: p]
-//        
-//        println(param)
-//        
+        var imageData = UIImageJPEGRepresentation(image, 100)
+        let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+        userData["file"] = base64String
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
+        var dt = dateFormatter.stringFromDate(NSDate())
+        println(dt)
+        
+        userData["filename"] = dt + ".jpg"
+        
+        var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var param = [method: p]
+
+//
 //        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
 //            println(json)
 //            if json != nil {
@@ -247,6 +244,31 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             println(index, asset)
             // images prepare to upload
             
+            let method = "zenphoto.image.upload"
+            var id = self.albumInfo?["id"].string
+            var userData = userDatainit(id: id!)
+            userData["folder"] = self.albumInfo?["folder"].string
+            
+            var imageData = UIImagePNGRepresentation(asset.fullResolutionImage) // require to switch JPEG!!
+            var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+            userData["file"] = base64String
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
+            var dt = dateFormatter.stringFromDate(NSDate())
+            println(dt)
+            
+            userData["filename"] = dt + "\(index).png"
+            
+            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var param = [method: p]
+            
+//            Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+//                println(json)
+//                if json != nil {
+//                    self.collectionView?.reloadData()
+//                }
+//            }
             
         }
         
