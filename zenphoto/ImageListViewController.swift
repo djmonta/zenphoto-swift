@@ -9,16 +9,18 @@
 import UIKit
 import AssetsLibrary
 import ImageIO
-//import MobileCoreServices
+import MobileCoreServices
+import CoreLocation
 
 let reuseIdentifier = "Cell"
 
-class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, DKImagePickerControllerDelegate {
+class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DKImagePickerControllerDelegate, CLLocationManagerDelegate {
     
     var albumInfo: JSON?
     var images: [JSON]? = []
     var thumbsize: CGSize!
-    
+    var locationManager: CLLocationManager?
+
     @IBAction func btnAdd(sender: AnyObject) {
         /* Supports UIAlert Controller */
         if( controllerAvailable() ){
@@ -34,6 +36,12 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var albumId = self.albumInfo?["id"].string as String!
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+            self.locationManager = CLLocationManager()
+            self.locationManager?.delegate = self
+            self.locationManager!.startUpdatingLocation()
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -95,23 +103,18 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         //#warning Incomplete method implementation -- Return the number of sections
         return 1
     }
-    
-    
+
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
         return self.images?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
         return thumbsize
-        
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
-        
-        // Configure the cell
         
         var imageView:UIImageView = cell.viewWithTag(1) as UIImageView
         
@@ -195,60 +198,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
     }
     
-    func dataFromImage(image:UIImage, metadata:NSDictionary) {
-        
-        // Set your compression quuality (0.0 to 1.0).
-        var mutableMetadata = metadata.mutableCopy() as NSMutableDictionary
-        mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
-        
-        var library = ALAssetsLibrary()
-        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mutableMetadata, completionBlock: { ( url, error ) in
-            println(url)
-            library.assetForURL(url, resultBlock: self.result, failureBlock: nil)
-        
-        })
-
-    }
-
-    func result(asset:ALAsset!) {
-        let representation = asset.defaultRepresentation()
-        var bufferSize = UInt(Int(representation.size()))
-        var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
-        var buffered = representation.getBytes(buffer, fromOffset: 0, length: Int(representation.size()), error: nil)
-        var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
-        
-        let method = "zenphoto.image.upload"
-        var id = self.albumInfo?["id"].string
-        var userData = userDatainit(id: id!)
-        userData["folder"] = self.albumInfo?["folder"].string
-        
-        //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
-        let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
-        userData["file"] = base64String
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
-        var dt = dateFormatter.stringFromDate(NSDate())
-        
-        userData["filename"] = dt + ".jpg"
-        
-        var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method: p]
-        
-        Alamofire.manager.request(.POST, URLinit(), parameters: param)
-            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                dispatch_async(dispatch_get_main_queue()) {
-                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-                }
-            }
-            .responseJSON { request, response, json, error in
-                println(json)
-                if json != nil {
-                    self.collectionView?.reloadData()
-                }
-        }
-
-    }
 
     // MARK: - UIImagePickerControllerDelegate methods
     
@@ -257,10 +206,71 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         self.dismissViewControllerAnimated(true, nil)
         
         var image = info.objectForKey(UIImagePickerControllerOriginalImage) as UIImage
-        var metadata = info.objectForKey(UIImagePickerControllerMediaMetadata) as NSDictionary
-        //println(metadata)
+        var metadata = info.objectForKey(UIImagePickerControllerMediaMetadata) as NSDictionary?
+        var mutableMetadata = metadata?.mutableCopy() as NSMutableDictionary?
         
-        dataFromImage(image, metadata: metadata)
+        var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as NSDictionary
+        
+        if ((self.locationManager) != nil) {
+            mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = self.GPSDictionaryForLocation(self.locationManager!.location)
+        }
+        
+        var imageData = self.createImageDataFromImage(image, metadata:mutableMetadata!)
+        
+        //var fileName = self.fileNameByExif(exif)
+        //self.storeFileAtDocumentDirectoryForData(imageData, fileName:fileName)
+        
+        //println(mutableMetadata)
+        
+        // Set your compression quuality (0.0 to 1.0).
+        mutableMetadata?.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
+        
+        var library = ALAssetsLibrary()
+        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mutableMetadata, completionBlock: { ( url, error ) in
+            //println(url)
+            library.assetForURL(url, resultBlock: { ( asset ) in
+//                let representation = asset.defaultRepresentation()
+//                var bufferSize = UInt(Int(representation.size()))
+//                var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
+//                var buffered = representation.getBytes(buffer, fromOffset: 0, length: Int(representation.size()), error: nil)
+//                var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
+                
+                let method = "zenphoto.image.upload"
+                var id = self.albumInfo?["id"].string
+                var userData = userDatainit(id: id!)
+                userData["folder"] = self.albumInfo?["folder"].string
+                
+                //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
+                let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+                userData["file"] = base64String
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyyMMddHHmmss"
+                var dt = dateFormatter.stringFromDate(NSDate())
+                
+                userData["filename"] = dt + ".jpg"
+                
+                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                var param = [method: p]
+                
+                Alamofire.manager.request(.POST, URLinit(), parameters: param)
+                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+                        }
+                    }
+                    .responseJSON { request, response, json, error in
+                        println(json)
+                        if json != nil {
+                            self.collectionView?.reloadData()
+                        }
+                }
+
+                
+            }, failureBlock: nil)
+            
+        })
+
     }
     
     // MARK: - DKImagePickerControllerDelegate methods
@@ -282,16 +292,29 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var userData = userDatainit(id: id!)
             userData["folder"] = self.albumInfo?["folder"].string
             
-            var imageData = UIImagePNGRepresentation(asset.fullResolutionImage) // require switch option to JPEG!! and EXIF are gone?!
+            var image = asset.fullResolutionImage
+            var metadata = asset.metadata
+            
+            // Set your compression quuality (0.0 to 1.0).
+            var mutableMetadata = metadata!.mutableCopy() as NSMutableDictionary
+            mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
+
+            //var imageData = getDataFromALAsset(asset)
+            var imageData = createImageDataFromImage(image!, metadata: mutableMetadata)
+            
+            //var imageData = UIImagePNGRepresentation(asset.fullResolutionImage)
             var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
             userData["file"] = base64String
             
             let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
             var dt = dateFormatter.stringFromDate(NSDate())
             //println(dt)
             
-            userData["filename"] = dt + "\(index).png"
+            var type = contentTypeForImageData(imageData)
+            
+            userData["filename"] = dt + "-\(index)." + type! // require switch option to JPEG!!
+            println(userData["filename"])
             
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
@@ -314,43 +337,151 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        println("Title : \(actionSheet.buttonTitleAtIndex(buttonIndex))")
-        println("Button Index : \(buttonIndex)")
-        let imageController = UIImagePickerController()
-        imageController.editing = false
-        imageController.delegate = self
-        if( buttonIndex == 1) {
-            imageController.sourceType = .PhotoLibrary
-        } else if(buttonIndex == 2) {
-            imageController.sourceType = .Camera
-        } else {
-            
-        }
-        self.presentViewController(imageController, animated: true, completion: nil)
+    // MARK: - Handle Image
+    
+    func getDataFromALAsset(asset: DKAsset) -> NSData {
+        var representation = asset.defaultRepresentation
+        var bufferSize = UInt(Int(representation!.size()))
+        var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
+        var buffered = representation!.getBytes(buffer, fromOffset: 0, length: Int(representation!.size()), error: nil)
+        var assetData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
+        return assetData
     }
-    
+
     func contentTypeForImageData(data:NSData) -> NSString? {
         var c = UInt8()
         data.getBytes(&c, length:1)
         
         switch (c) {
         case 0xFF:
-            return "image/jpeg"
+            return "jpg"
         case 0x89:
-            return "image/png"
+            return "png"
         case 0x47:
-            return "image/gif"
+            return "gif"
         case 0x49:
-            return "image/tiff"
+            return "tiff"
         case 0x4D:
-            return "image/tiff"
+            return "tiff"
         default:
             return nil
         }
     }
     
+    // MARK: - Handle Image with Exif
+    
+    func createImageDataFromImage(image:UIImage, metadata:NSDictionary) -> NSData {
+        var imageData = NSMutableData()
+        var dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil);
+        CGImageDestinationAddImage(dest, image.CGImage, metadata);
+        CGImageDestinationFinalize(dest);
+        
+        return imageData
+    }
+    
+    func fileNameByExif(exif:NSDictionary) -> NSString {
+        var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as NSString
+        var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString)
+        
+        var fileName = FormatterUtil().fileNameDateFormatter.stringFromDate(date!).stringByAppendingPathExtension("jpg")
+        
+        return fileName!
+    }
+    
+    func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
+        var gps = NSMutableDictionary()
+        
+        println("Getting GPS")
+        
+        // 日付
+        gps[kCGImagePropertyGPSDateStamp as NSString] = FormatterUtil().GPSDateFormatter.stringFromDate(location.timestamp)
+        // タイムスタンプ
+        gps[kCGImagePropertyGPSTimeStamp as NSString] = FormatterUtil().GPSTimeFormatter.stringFromDate(location.timestamp)
+        
+        // 緯度
+        var latitude = CGFloat(location.coordinate.latitude)
+        var gpsLatitudeRef: NSString?
+        if (latitude < 0) {
+            latitude = -latitude
+            gpsLatitudeRef = "S"
+        } else {
+            gpsLatitudeRef = "N";
+        }
+        gps[kCGImagePropertyGPSLatitudeRef as NSString] = gpsLatitudeRef
+        gps[kCGImagePropertyGPSLatitude as NSString] = latitude
+        
+        // 経度
+        var longitude = CGFloat(location.coordinate.longitude)
+        var gpsLongitudeRef: NSString?
+        if (longitude < 0) {
+            longitude = -longitude
+            gpsLongitudeRef = "W"
+        } else {
+            gpsLongitudeRef = "E"
+        }
+        gps[kCGImagePropertyGPSLongitudeRef as NSString] = gpsLongitudeRef
+        gps[kCGImagePropertyGPSLongitude as NSString] = longitude
+        
+        // 標高
+        var altitude = CGFloat(location.altitude)
+        if (!isnan(altitude)){
+            var gpsAltitudeRef:NSString?
+            if (altitude < 0) {
+                altitude = -altitude
+                gpsAltitudeRef = "1"
+            } else {
+                gpsAltitudeRef = "0"
+            }
+            gps[kCGImagePropertyGPSAltitudeRef as NSString] = gpsAltitudeRef
+            gps[kCGImagePropertyGPSAltitude as NSString] = altitude
+        }
+    
+        return gps
+    }
+
+    // MARK: - CLLocationManagerDelegate Methods
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations:[AnyObject]) {
+        //NSLog("didUpdatesLocations")
+        //println("locations = \(locations)")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        //NSLog("didFailWithError: \(error)")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .NotDetermined:
+            if locationManager!.respondsToSelector("requestWhenInUseAuthorization") { locationManager!.requestWhenInUseAuthorization() }
+        case .Restricted, .Denied:
+            self.alertLocationServicesDisabled()
+        case .Authorized, .AuthorizedWhenInUse:
+            break
+        default:
+            break
+        }
+    }
+    
+    func alertLocationServicesDisabled() {
+        let title = "Location Services Disabled"
+        let message = "You must enable Location Services to track your run."
+        
+        if (NSClassFromString("UIAlertController") != nil) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            
+            alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { action in
+                let url = NSURL(string: UIApplicationOpenSettingsURLString)
+                UIApplication.sharedApplication().openURL(url!)
+            }))
+            alert.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
+            
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Close").show()
+        }
+    }
+
     
 }

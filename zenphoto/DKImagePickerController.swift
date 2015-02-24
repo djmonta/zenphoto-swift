@@ -46,6 +46,13 @@ class DKAsset: NSObject {
     lazy var fullResolutionImage: UIImage? = {
         return UIImage(CGImage: self.originalAsset.defaultRepresentation().fullResolutionImage().takeUnretainedValue())
     }()
+    lazy var metadata: NSDictionary? = {
+        return self.originalAsset.defaultRepresentation().metadata()
+    }()
+    lazy var defaultRepresentation: ALAssetRepresentation? = {
+        return self.originalAsset.defaultRepresentation()
+    }()
+    
     var url: NSURL?
     
     private var originalAsset: ALAsset!
