@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AssetsLibrary
+import ImageIO
+//import MobileCoreServices
 
 let reuseIdentifier = "Cell"
 
@@ -21,13 +24,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         if( controllerAvailable() ){
             handleOS8()
         }
+        self.collectionView?.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.title = self.albumInfo?["name"].string!
-        var albumId: String = self.albumInfo?["id"].string as String!
+        var albumId = self.albumInfo?["id"].string as String!
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
         
@@ -191,41 +195,72 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
     }
     
-    
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        self.dismissViewControllerAnimated(true, nil)
+    func dataFromImage(image:UIImage, metadata:NSDictionary) {
+        
+        // Set your compression quuality (0.0 to 1.0).
+        var mutableMetadata = metadata.mutableCopy() as NSMutableDictionary
+        mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
+        
+        var library = ALAssetsLibrary()
+        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mutableMetadata, completionBlock: { ( url, error ) in
+            println(url)
+            library.assetForURL(url, resultBlock: self.result, failureBlock: nil)
+        
+        })
+
+    }
+
+    func result(asset:ALAsset!) {
+        let representation = asset.defaultRepresentation()
+        var bufferSize = UInt(Int(representation.size()))
+        var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
+        var buffered = representation.getBytes(buffer, fromOffset: 0, length: Int(representation.size()), error: nil)
+        var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
         
         let method = "zenphoto.image.upload"
         var id = self.albumInfo?["id"].string
         var userData = userDatainit(id: id!)
         userData["folder"] = self.albumInfo?["folder"].string
         
-        println(image.debugDescription)
-        
-        var imageData = UIImageJPEGRepresentation(image, 100)
+        //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
         let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
         userData["file"] = base64String
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
         var dt = dateFormatter.stringFromDate(NSDate())
-        println(dt)
         
         userData["filename"] = dt + ".jpg"
         
         var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method: p]
-
-//
-//        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
-//            println(json)
-//            if json != nil {
-//                self.collectionView?.reloadData()
-//            }
-//        }
-
-        //self.selectedImage.image = image
         
+        Alamofire.manager.request(.POST, URLinit(), parameters: param)
+            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+                }
+            }
+            .responseJSON { request, response, json, error in
+                println(json)
+                if json != nil {
+                    self.collectionView?.reloadData()
+                }
+        }
+
+    }
+
+    // MARK: - UIImagePickerControllerDelegate methods
+    
+    //func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: NSDictionary) {
+        self.dismissViewControllerAnimated(true, nil)
+        
+        var image = info.objectForKey(UIImagePickerControllerOriginalImage) as UIImage
+        var metadata = info.objectForKey(UIImagePickerControllerMediaMetadata) as NSDictionary
+        //println(metadata)
+        
+        dataFromImage(image, metadata: metadata)
     }
     
     // MARK: - DKImagePickerControllerDelegate methods
@@ -239,7 +274,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func imagePickerControllerDidSelectedAssets(assets: [DKAsset]!) {
         
         for (index, asset) in enumerate(assets) {
-            println(index, asset)
+            //println(index, asset)
             // images prepare to upload
             
             let method = "zenphoto.image.upload"
@@ -247,21 +282,28 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var userData = userDatainit(id: id!)
             userData["folder"] = self.albumInfo?["folder"].string
             
-            var imageData = UIImagePNGRepresentation(asset.fullResolutionImage) // require to switch JPEG!!
+            var imageData = UIImagePNGRepresentation(asset.fullResolutionImage) // require switch option to JPEG!! and EXIF are gone?!
             var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
             userData["file"] = base64String
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd-HHmmss"
             var dt = dateFormatter.stringFromDate(NSDate())
-            println(dt)
+            //println(dt)
             
             userData["filename"] = dt + "\(index).png"
             
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-//            Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+//            Alamofire.manager.request(.POST, URLinit(), parameters: param)
+//                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+//                    }
+//                }
+//                
+//                .responseJSON { request, response, json, error in
 //                println(json)
 //                if json != nil {
 //                    self.collectionView?.reloadData()
@@ -288,6 +330,26 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             
         }
         self.presentViewController(imageController, animated: true, completion: nil)
+    }
+    
+    func contentTypeForImageData(data:NSData) -> NSString? {
+        var c = UInt8()
+        data.getBytes(&c, length:1)
+        
+        switch (c) {
+        case 0xFF:
+            return "image/jpeg"
+        case 0x89:
+            return "image/png"
+        case 0x47:
+            return "image/gif"
+        case 0x49:
+            return "image/tiff"
+        case 0x4D:
+            return "image/tiff"
+        default:
+            return nil
+        }
     }
     
     
