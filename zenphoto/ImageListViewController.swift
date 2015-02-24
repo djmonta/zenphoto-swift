@@ -201,7 +201,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 
     // MARK: - UIImagePickerControllerDelegate methods
     
-    //func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: NSDictionary) {
         self.dismissViewControllerAnimated(true, nil)
         
@@ -220,7 +219,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         //var fileName = self.fileNameByExif(exif)
         //self.storeFileAtDocumentDirectoryForData(imageData, fileName:fileName)
         
-        //println(mutableMetadata)
+        println(mutableMetadata)
         
         // Set your compression quuality (0.0 to 1.0).
         mutableMetadata?.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
@@ -270,7 +269,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             }, failureBlock: nil)
             
         })
-
+        
     }
     
     // MARK: - DKImagePickerControllerDelegate methods
@@ -282,7 +281,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     // Select a picture and determine the callback after
     func imagePickerControllerDidSelectedAssets(assets: [DKAsset]!) {
-        
+        self.dismissViewControllerAnimated(true, completion: nil)
+
         for (index, asset) in enumerate(assets) {
             //println(index, asset)
             // images prepare to upload
@@ -319,23 +319,30 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-//            Alamofire.manager.request(.POST, URLinit(), parameters: param)
-//                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-//                    }
-//                }
-//                
-//                .responseJSON { request, response, json, error in
-//                println(json)
-//                if json != nil {
-//                    self.collectionView?.reloadData()
-//                }
-//            }
+            let progressIndicatorView = UIProgressView(frame: CGRect(x: 0.0, y: 80.0, width: self.view.bounds.width, height: 10.0))
+            //progressIndicatorView.tintColor = UIColor.blueColor()
+            self.view.addSubview(progressIndicatorView)
+            
+            Alamofire.manager.request(.POST, URLinit(), parameters: param)
+                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+                    progressIndicatorView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                    
+                    // 7
+                    if totalBytesRead == totalBytesExpectedToRead {
+                        progressIndicatorView.removeFromSuperview()
+                    }
+                }
+                
+                .responseJSON { request, response, json, error in
+                println(json)
+                if json != nil {
+                    self.collectionView?.reloadData()
+                }
+            }
             
         }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Handle Image
@@ -391,8 +398,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
         var gps = NSMutableDictionary()
-        
-        println("Getting GPS")
         
         // 日付
         gps[kCGImagePropertyGPSDateStamp as NSString] = FormatterUtil().GPSDateFormatter.stringFromDate(location.timestamp)
