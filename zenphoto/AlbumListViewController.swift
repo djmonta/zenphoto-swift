@@ -57,6 +57,8 @@ class AlbumListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.customView()
+        
         if (!checkConnection()) {
             if (!config.boolForKey("firstRun")) {
                 config.setBool(true, forKey: "firstRun")
@@ -75,6 +77,11 @@ class AlbumListViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func customView() {
+        self.navigationItem.leftBarButtonItem?.title = String.fontAwesomeIconWithName("fa-cog")
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
     }
     
     func getAlbumList() {
