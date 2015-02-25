@@ -79,7 +79,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var param = [method: d]
         
         Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
-            
+            //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
                 if let results = jsonObj.arrayValue as [JSON]? {
@@ -115,7 +115,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
-        
+
         var imageView:UIImageView = cell.viewWithTag(1) as UIImageView
         
         imageView.clipsToBounds = true
@@ -126,18 +126,30 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         var filename = imageInfo?["name"].string!
         var folder = imageInfo?["folder"].string!
+        var thumbnail = imageInfo?["thumbnail"].string!
         
         var URL:String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
-        var i = "zp-core/i.php?a=" + folder! + "&i="
-        var ext = filename!.pathExtension
-        var imageThumbNameWOExt = filename!.stringByDeletingPathExtension
-        var suffix = "&s=300&cw=300&ch=300"
         
-        var imageThumbURL = URL + i + imageThumbNameWOExt + "." + ext + suffix
+        var pattern = "(zp-core.*\\..*)"
+        var regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: nil)
+        var range = thumbnail!.rangeOfString(pattern, options: .RegularExpressionSearch)
+        
+        var imageThumbURL: String?
+        
+        if (range != nil) {
+            var result = thumbnail?.substringWithRange(range!)
+            imageThumbURL = URL + result!
+        } else {
+            var i = "zp-core/i.php?a=" + folder! + "&i="
+            var imageThumbNameWOExt = filename!.stringByDeletingPathExtension
+            var suffix = "&s=300&cw=300&ch=300"
+            var ext = filename!.pathExtension
+            imageThumbURL = URL + i + imageThumbNameWOExt + "." + ext + suffix
+        }
+        
         //println(imageThumbURL)
-        var imageURL = NSURL(string: imageThumbURL)
-        
+        var imageURL = NSURL(string: imageThumbURL!)
         imageView.hnk_setImageFromURL(imageURL!)
         
         return cell
