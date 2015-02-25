@@ -19,7 +19,7 @@ class AlbumListViewController: UITableViewController {
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-            textField.text = "newAlbum"
+            textField.text = ""
         })
         
         //3. Grab the value from the text field, and print it when the user clicks OK.

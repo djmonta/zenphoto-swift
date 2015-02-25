@@ -40,16 +40,17 @@ class AlbumListViewCell: UITableViewCell {
             imageURL = NSURL(string: albumThumbURL)!
 
         } else {
-            var albumFolderLength = albumFolder?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+            var albumFolderLength = countElements(albumFolder!)
             var i = "zp-core/i.php?a=" + albumFolder! + "&i="
-            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8 + albumFolderLength! + 1))
+            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8 + albumFolderLength + 1))
             var ext = webpath!.pathExtension
             var albumThumbNameWOExt = albumThumbFileName.stringByDeletingPathExtension
             var suffix = "&s=300&cw=300&ch=300"
             
             var albumThumbURL = URL + i + albumThumbNameWOExt + "." + ext + suffix
-            //println(albumThumbURL)
-            imageURL = NSURL(string: albumThumbURL)!
+            var encodedURL = albumThumbURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            println(encodedURL)
+            imageURL = NSURL(string: encodedURL!)!
             //http://gallery.ampomtan.com/zp-core/i.php?a=newAlbum&i=image0.png&s=300&cw=300&ch=300
         }
         

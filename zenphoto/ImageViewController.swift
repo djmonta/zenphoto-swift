@@ -35,8 +35,11 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         let filename = self.image?["name"].string!
         var URL: String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
-        let imageURL: NSURL = NSURL(string: URL + "albums/" + folder! + "/" + filename!)!
-        
+        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+
+        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        println(encodedURL)
+        var imageURL = NSURL(string: encodedURL!)!
         self.navigationItem.title = filename
 
         self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)

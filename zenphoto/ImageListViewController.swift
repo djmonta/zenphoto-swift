@@ -149,8 +149,11 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         }
         
         //println(imageThumbURL)
-        var imageURL = NSURL(string: imageThumbURL!)
-        imageView.hnk_setImageFromURL(imageURL!)
+        //var imageURL = NSURL(string: imageThumbURL!)
+        var encodedURL = imageThumbURL!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        println(encodedURL)
+        var imageURL = NSURL(string: encodedURL!)!
+        imageView.hnk_setImageFromURL(imageURL)
         
         return cell
     }
