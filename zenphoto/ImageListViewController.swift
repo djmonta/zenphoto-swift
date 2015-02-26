@@ -8,9 +8,9 @@
 
 import UIKit
 import AssetsLibrary
+import CoreLocation
 import ImageIO
 import MobileCoreServices
-import CoreLocation
 
 let reuseIdentifier = "Cell"
 
@@ -151,7 +151,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         //println(imageThumbURL)
         //var imageURL = NSURL(string: imageThumbURL!)
         var encodedURL = imageThumbURL!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        println(encodedURL)
         var imageURL = NSURL(string: encodedURL!)!
         imageView.hnk_setImageFromURL(imageURL)
         
@@ -226,15 +225,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as NSDictionary
         
         if ((self.locationManager) != nil) {
-            mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = self.GPSDictionaryForLocation(self.locationManager!.location)
+            mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = GPSDictionaryForLocation(self.locationManager!.location)
         }
         
-        var imageData = self.createImageDataFromImage(image, metadata:mutableMetadata!)
+        var imageData = createImageDataFromImage(image, mutableMetadata!)
         
         //var fileName = self.fileNameByExif(exif)
         //self.storeFileAtDocumentDirectoryForData(imageData, fileName:fileName)
-        
-        println(mutableMetadata)
         
         // Set your compression quuality (0.0 to 1.0).
         mutableMetadata?.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
@@ -252,7 +249,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 let method = "zenphoto.image.upload"
                 var id = self.albumInfo?["id"].string
                 var userData = userDatainit(id: id!)
-                userData["folder"] = self.albumInfo?["folder"].string
+                userData["folder"] = self.albumInfo?["folder"].string?
                 
                 //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
                 let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
@@ -305,7 +302,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             let method = "zenphoto.image.upload"
             var id = self.albumInfo?["id"].string
             var userData = userDatainit(id: id!)
-            userData["folder"] = self.albumInfo?["folder"].string
+            userData["folder"] = self.albumInfo?["folder"].string?
             
             var image = asset.fullResolutionImage
             var metadata = asset.metadata
@@ -314,39 +311,25 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var mutableMetadata = metadata!.mutableCopy() as NSMutableDictionary
             mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
 
-            //var imageData = getDataFromALAsset(asset)
-            var imageData = createImageDataFromImage(image!, metadata: mutableMetadata)
+            var imageData = createImageDataFromImage(image!, mutableMetadata)
             
-            //var imageData = UIImagePNGRepresentation(asset.fullResolutionImage)
             var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
             userData["file"] = base64String
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             var dt = dateFormatter.stringFromDate(NSDate())
-            //println(dt)
             
             var type = contentTypeForImageData(imageData)
             
-            userData["filename"] = dt + "-\(index)." + type! // require switch option to JPEG!!
-            println(userData["filename"])
+            userData["filename"] = dt + "-\(index)." + type!
             
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-            let progressIndicatorView = UIProgressView(frame: CGRect(x: 0.0, y: 80.0, width: self.view.bounds.width, height: 10.0))
-            //progressIndicatorView.tintColor = UIColor.blueColor()
-            self.view.addSubview(progressIndicatorView)
-            
             Alamofire.manager.request(.POST, URLinit(), parameters: param)
                 .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                     println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-                    progressIndicatorView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                    
-                    // 7
-                    if totalBytesRead == totalBytesExpectedToRead {
-                        progressIndicatorView.removeFromSuperview()
-                    }
                 }
                 
                 .responseJSON { request, response, json, error in
@@ -360,106 +343,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
     }
     
-    // MARK: - Handle Image
-    
-    func getDataFromALAsset(asset: DKAsset) -> NSData {
-        var representation = asset.defaultRepresentation
-        var bufferSize = UInt(Int(representation!.size()))
-        var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
-        var buffered = representation!.getBytes(buffer, fromOffset: 0, length: Int(representation!.size()), error: nil)
-        var assetData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
-        return assetData
-    }
-
-    func contentTypeForImageData(data:NSData) -> NSString? {
-        var c = UInt8()
-        data.getBytes(&c, length:1)
-        
-        switch (c) {
-        case 0xFF:
-            return "jpg"
-        case 0x89:
-            return "png"
-        case 0x47:
-            return "gif"
-        case 0x49:
-            return "tiff"
-        case 0x4D:
-            return "tiff"
-        default:
-            return nil
-        }
-    }
-    
-    // MARK: - Handle Image with Exif
-    
-    func createImageDataFromImage(image:UIImage, metadata:NSDictionary) -> NSData {
-        var imageData = NSMutableData()
-        var dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil);
-        CGImageDestinationAddImage(dest, image.CGImage, metadata);
-        CGImageDestinationFinalize(dest);
-        
-        return imageData
-    }
-    
-    func fileNameByExif(exif:NSDictionary) -> NSString {
-        var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as NSString
-        var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString)
-        
-        var fileName = FormatterUtil().fileNameDateFormatter.stringFromDate(date!).stringByAppendingPathExtension("jpg")
-        
-        return fileName!
-    }
-    
-    func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
-        var gps = NSMutableDictionary()
-        
-        // 日付
-        gps[kCGImagePropertyGPSDateStamp as NSString] = FormatterUtil().GPSDateFormatter.stringFromDate(location.timestamp)
-        // タイムスタンプ
-        gps[kCGImagePropertyGPSTimeStamp as NSString] = FormatterUtil().GPSTimeFormatter.stringFromDate(location.timestamp)
-        
-        // 緯度
-        var latitude = CGFloat(location.coordinate.latitude)
-        var gpsLatitudeRef: NSString?
-        if (latitude < 0) {
-            latitude = -latitude
-            gpsLatitudeRef = "S"
-        } else {
-            gpsLatitudeRef = "N";
-        }
-        gps[kCGImagePropertyGPSLatitudeRef as NSString] = gpsLatitudeRef
-        gps[kCGImagePropertyGPSLatitude as NSString] = latitude
-        
-        // 経度
-        var longitude = CGFloat(location.coordinate.longitude)
-        var gpsLongitudeRef: NSString?
-        if (longitude < 0) {
-            longitude = -longitude
-            gpsLongitudeRef = "W"
-        } else {
-            gpsLongitudeRef = "E"
-        }
-        gps[kCGImagePropertyGPSLongitudeRef as NSString] = gpsLongitudeRef
-        gps[kCGImagePropertyGPSLongitude as NSString] = longitude
-        
-        // 標高
-        var altitude = CGFloat(location.altitude)
-        if (!isnan(altitude)){
-            var gpsAltitudeRef:NSString?
-            if (altitude < 0) {
-                altitude = -altitude
-                gpsAltitudeRef = "1"
-            } else {
-                gpsAltitudeRef = "0"
-            }
-            gps[kCGImagePropertyGPSAltitudeRef as NSString] = gpsAltitudeRef
-            gps[kCGImagePropertyGPSAltitude as NSString] = altitude
-        }
-    
-        return gps
-    }
-
     // MARK: - CLLocationManagerDelegate Methods
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations:[AnyObject]) {

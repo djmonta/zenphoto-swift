@@ -11,7 +11,7 @@ import Haneke
 
 class ImageView: UIViewController, UIScrollViewDelegate {
     
-    var pageIndex : Int = 0
+    var pageIndex : Int?
     var image : JSON?
     
     let scrollView = UIScrollView()
@@ -38,7 +38,6 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         var imageURLstr = URL + "albums/" + folder! + "/" + filename!
 
         var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        println(encodedURL)
         var imageURL = NSURL(string: encodedURL!)!
         self.navigationItem.title = filename
 

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
+import ImageIO
+import MobileCoreServices
 
 let config = NSUserDefaults.standardUserDefaults()
 let alertView: UIAlertView = UIAlertView()
@@ -86,6 +89,8 @@ func controllerAvailable() -> Bool {
     }
 }
 
+// MARK: - JSON
+
 func JSONStringify(jsonObj: AnyObject) -> String {
     var e: NSError?
     let jsonData = NSJSONSerialization.dataWithJSONObject(
@@ -126,4 +131,104 @@ func JSONParseDict(jsonString:String) -> Dictionary<String, AnyObject> {
     } else {
         return jsonObj
     }
+}
+
+// MARK: - Handle Image
+
+func getDataFromALAsset(asset: DKAsset) -> NSData {
+    var representation = asset.defaultRepresentation
+    var bufferSize = UInt(Int(representation!.size()))
+    var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
+    var buffered = representation!.getBytes(buffer, fromOffset: 0, length: Int(representation!.size()), error: nil)
+    var assetData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
+    return assetData
+}
+
+func contentTypeForImageData(data:NSData) -> NSString? {
+    var c = UInt8()
+    data.getBytes(&c, length:1)
+    
+    switch (c) {
+    case 0xFF:
+        return "jpg"
+    case 0x89:
+        return "png"
+    case 0x47:
+        return "gif"
+    case 0x49:
+        return "tiff"
+    case 0x4D:
+        return "tiff"
+    default:
+        return nil
+    }
+}
+
+// MARK: - Handle Image with Exif
+
+func createImageDataFromImage(image:UIImage, metadata:NSDictionary) -> NSData {
+    var imageData = NSMutableData()
+    var dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil);
+    CGImageDestinationAddImage(dest, image.CGImage, metadata);
+    CGImageDestinationFinalize(dest);
+    
+    return imageData
+}
+
+func fileNameByExif(exif:NSDictionary) -> NSString {
+    var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as NSString
+    var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString)
+    
+    var fileName = FormatterUtil().fileNameDateFormatter.stringFromDate(date!).stringByAppendingPathExtension("jpg")
+    
+    return fileName!
+}
+
+func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
+    var gps = NSMutableDictionary()
+    
+    // 日付
+    gps[kCGImagePropertyGPSDateStamp as NSString] = FormatterUtil().GPSDateFormatter.stringFromDate(location.timestamp)
+    // タイムスタンプ
+    gps[kCGImagePropertyGPSTimeStamp as NSString] = FormatterUtil().GPSTimeFormatter.stringFromDate(location.timestamp)
+    
+    // 緯度
+    var latitude = CGFloat(location.coordinate.latitude)
+    var gpsLatitudeRef: NSString?
+    if (latitude < 0) {
+        latitude = -latitude
+        gpsLatitudeRef = "S"
+    } else {
+        gpsLatitudeRef = "N";
+    }
+    gps[kCGImagePropertyGPSLatitudeRef as NSString] = gpsLatitudeRef
+    gps[kCGImagePropertyGPSLatitude as NSString] = latitude
+    
+    // 経度
+    var longitude = CGFloat(location.coordinate.longitude)
+    var gpsLongitudeRef: NSString?
+    if (longitude < 0) {
+        longitude = -longitude
+        gpsLongitudeRef = "W"
+    } else {
+        gpsLongitudeRef = "E"
+    }
+    gps[kCGImagePropertyGPSLongitudeRef as NSString] = gpsLongitudeRef
+    gps[kCGImagePropertyGPSLongitude as NSString] = longitude
+    
+    // 標高
+    var altitude = CGFloat(location.altitude)
+    if (!isnan(altitude)){
+        var gpsAltitudeRef:NSString?
+        if (altitude < 0) {
+            altitude = -altitude
+            gpsAltitudeRef = "1"
+        } else {
+            gpsAltitudeRef = "0"
+        }
+        gps[kCGImagePropertyGPSAltitudeRef as NSString] = gpsAltitudeRef
+        gps[kCGImagePropertyGPSAltitude as NSString] = altitude
+    }
+    
+    return gps
 }

@@ -8,17 +8,17 @@
 
 import UIKit
 
-class ImagePageViewController: UIViewController, UIPageViewControllerDataSource {
+class ImagePageViewController: UIViewController, UIPageViewControllerDataSource { //, UIPageViewControllerDelegate {
     
     var pageViewController : UIPageViewController?
     var images: [JSON]?
     var imageInfo: JSON?
     var indexPath: Int?
     
-    var currentIndex : Int = 0
+    var currentIndex : Int?
     
     @IBAction func btnExport(sender: AnyObject) {
-        println("Export")
+        println("Export \(currentIndex)")
     }
     
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         self.navigationController?.hidesBarsOnTap = true
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController!.dataSource = self
+        //pageViewController!.delegate = self
         
         setupView()
         
@@ -40,6 +41,8 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
     
     func setupView() {
         let startingViewController: ImageView = viewControllerAtIndex(indexPath!)!
+        self.currentPage(indexPath)
+        
         let viewControllers: NSArray = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
         pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
@@ -50,10 +53,29 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         
     }
     
-    // MARK: UIPageViewDataSource
+    func viewControllerAtIndex(index: Int) -> ImageView? {
+        if self.images?.count == 0 || index >= self.images?.count {
+            return nil
+        }
+        
+        // Create a new view controller and pass suitable data.
+        let pageContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as ImageView
+        
+        pageContentViewController.image = images?[index]
+        pageContentViewController.pageIndex = index
+        
+        return pageContentViewController
+    }
+    
+    func currentPage(index: Int?) {
+        currentIndex = index
+    }
+    
+    // MARK: - UIPageViewControllerDataSource
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as ImageView).pageIndex
+        var index = (viewController as ImageView).pageIndex!
+        currentPage(index)
         
         if (index == 0) || (index == NSNotFound) {
             return nil
@@ -65,7 +87,8 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as ImageView).pageIndex
+        var index = (viewController as ImageView).pageIndex!
+        currentPage(index)
         
         if index == NSNotFound {
             return nil
@@ -80,21 +103,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         return viewControllerAtIndex(index)
     }
     
-    func viewControllerAtIndex(index: Int) -> ImageView? {
-        if self.images?.count == 0 || index >= self.images?.count {
-            return nil
-        }
-        
-        // Create a new view controller and pass suitable data.
-        let pageContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as ImageView
-        //let pageContentViewController = ImageView()
-        
-        pageContentViewController.image = images?[index]
-        pageContentViewController.pageIndex = index
-        currentIndex = index
-        
-        return pageContentViewController
-    }
+    // For Page Dots
     
     //    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
     //        return self.images?.count ?? 0

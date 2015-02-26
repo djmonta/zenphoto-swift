@@ -49,7 +49,6 @@ class AlbumListViewCell: UITableViewCell {
             
             var albumThumbURL = URL + i + albumThumbNameWOExt + "." + ext + suffix
             var encodedURL = albumThumbURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            println(encodedURL)
             imageURL = NSURL(string: encodedURL!)!
             //http://gallery.ampomtan.com/zp-core/i.php?a=newAlbum&i=image0.png&s=300&cw=300&ch=300
         }
