@@ -226,6 +226,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 708B1FCB1A949C7800807758 /* Build configuration list for PBXNativeTarget "zenphoto" */;
 			buildPhases = (
+				70F9A5211A9FC496001083F7 /* ShellScript */,
 				708B1FA51A949C7700807758 /* Sources */,
 				708B1FA61A949C7700807758 /* Frameworks */,
 				708B1FA71A949C7700807758 /* Resources */,
@@ -347,6 +348,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		70F9A5211A9FC496001083F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		708B1FA51A949C7700807758 /* Sources */ = {
@@ -502,6 +519,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = zenphoto/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -516,6 +534,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
 				INFOPLIST_FILE = zenphoto/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c4989017-f45e-406a-ae3d-22f3470ebb50";

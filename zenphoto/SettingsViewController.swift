@@ -21,6 +21,8 @@ class SettingsViewController: UIViewController {
     @IBAction func didEndOnExit(sender: AnyObject) {
         save(sender)
     }
+
+    @IBOutlet weak var versionLabel: UILabel!
     
     let config = NSUserDefaults.standardUserDefaults()
     
@@ -38,6 +40,9 @@ class SettingsViewController: UIViewController {
         if config.stringForKey("loginPassword") != nil {
             Password.text = config.stringForKey("loginPassword")
         }
+        
+        var appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as String
+        versionLabel.text = appVersion
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,5 +75,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    
+
     
 }

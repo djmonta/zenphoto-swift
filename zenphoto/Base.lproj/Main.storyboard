@@ -84,6 +84,12 @@
                                     <action selector="editingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="mFt-Hk-Rma"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFe-WT-25R">
+                                <rect key="frame" x="279" y="559" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,6 +104,8 @@
                             <constraint firstItem="lM7-3z-SyX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="YNm-i1-uBZ"/>
                             <constraint firstAttribute="centerX" secondItem="gzt-kQ-Uzl" secondAttribute="centerX" id="Yom-Of-wty"/>
                             <constraint firstItem="vQF-dT-h3b" firstAttribute="top" secondItem="gzt-kQ-Uzl" secondAttribute="bottom" constant="8" id="aD4-LT-gQ2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kFe-WT-25R" secondAttribute="bottom" constant="20" id="cUE-kL-5gg"/>
+                            <constraint firstAttribute="centerX" secondItem="kFe-WT-25R" secondAttribute="centerX" id="gv8-X4-Nh2"/>
                             <constraint firstAttribute="centerX" secondItem="7Hu-41-pjw" secondAttribute="centerX" id="tsJ-hf-PJa"/>
                             <constraint firstAttribute="centerX" secondItem="lM7-3z-SyX" secondAttribute="centerX" id="vZu-tO-HN8"/>
                             <constraint firstAttribute="centerX" secondItem="vQF-dT-h3b" secondAttribute="centerX" id="wXj-DM-2Cv"/>
@@ -107,6 +115,7 @@
                         <outlet property="Password" destination="ycG-wI-pjv" id="Bpu-Rk-uAr"/>
                         <outlet property="SiteURL" destination="gzt-kQ-Uzl" id="MPa-9i-bop"/>
                         <outlet property="Username" destination="meV-Y9-bFv" id="rwA-h4-emC"/>
+                        <outlet property="versionLabel" destination="kFe-WT-25R" id="OyD-bL-mMB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -236,13 +245,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YRI-aL-jwa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Y1h-Ve-Ufg">
-                            <connections>
-                                <action selector="btnExport:" destination="CKo-2D-hwz" id="tyo-PZ-y45"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="YRI-aL-jwa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
