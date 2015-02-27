@@ -28,7 +28,9 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.customView()
+
         if config.stringForKey("URL") != nil {
             SiteURL.text = config.stringForKey("URL")
         }
@@ -41,8 +43,13 @@ class SettingsViewController: UIViewController {
             Password.text = config.stringForKey("loginPassword")
         }
         
-        var appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as String
-        versionLabel.text = appVersion
+    }
+    
+    func customView() {
+        self.navigationItem.title = "Settings"
+        
+        self.navigationItem.rightBarButtonItem?.title = String.fontAwesomeIconWithName("fa-info-circle")
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
     }
     
     override func didReceiveMemoryWarning() {

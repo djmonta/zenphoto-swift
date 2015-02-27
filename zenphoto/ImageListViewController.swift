@@ -78,7 +78,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var d = encode64(userDatainit(id: id))!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method: d]
         
-        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+        Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
             //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
@@ -264,7 +264,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 var param = [method: p]
                 
-                Alamofire.manager.request(.POST, URLinit(), parameters: param)
+                Alamofire.manager.request(.POST, URLinit()!, parameters: param)
                     .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                         dispatch_async(dispatch_get_main_queue()) {
                             println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
@@ -327,7 +327,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-            Alamofire.manager.request(.POST, URLinit(), parameters: param)
+            Alamofire.manager.request(.POST, URLinit()!, parameters: param)
                 .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                     println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
                 }

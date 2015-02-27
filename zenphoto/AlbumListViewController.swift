@@ -36,7 +36,7 @@ class AlbumListViewController: UITableViewController {
             
             println(param)
             
-            Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+            Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                 println(json)
                 if json != nil {
                     self.tableView.reloadData()
@@ -91,7 +91,7 @@ class AlbumListViewController: UITableViewController {
         var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method : d]
         
-        Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+        Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
             //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)

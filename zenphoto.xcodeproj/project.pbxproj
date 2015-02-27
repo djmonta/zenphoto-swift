@@ -31,6 +31,7 @@
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
 		709738571A95C67B0073AEEB /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709738561A95C67B0073AEEB /* Alamofire.swift */; };
 		7097385B1A95C6A00073AEEB /* Haneke.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 708B1FEB1A949D4600807758 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		708B20051A94A22700807758 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		708B20071A94A25600807758 /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
 		709738561A95C67B0073AEEB /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		70CB7C571AA07976005A9B5E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				708B1FFF1A94A11C00807758 /* ImagePageViewController.swift */,
 				708B20011A94A19700807758 /* ImageViewController.swift */,
 				708B20031A94A1E900807758 /* SettingsViewController.swift */,
+				70CB7C571AA07976005A9B5E /* InfoViewController.swift */,
 				708B1FB51A949C7700807758 /* Main.storyboard */,
 				708B1FB81A949C7700807758 /* Images.xcassets */,
 				708B1FBA1A949C7700807758 /* LaunchScreen.xib */,
@@ -361,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nfi";
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nelse\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -374,6 +377,7 @@
 				708B1FB41A949C7700807758 /* ViewController.swift in Sources */,
 				708B20021A94A19700807758 /* ImageViewController.swift in Sources */,
 				708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */,
+				70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */,
 				709738571A95C67B0073AEEB /* Alamofire.swift in Sources */,
 				708B20041A94A1E900807758 /* SettingsViewController.swift in Sources */,
 				708B20061A94A22700807758 /* Functions.swift in Sources */,

@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="SettingsViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
@@ -84,12 +84,6 @@
                                     <action selector="editingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="mFt-Hk-Rma"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFe-WT-25R">
-                                <rect key="frame" x="279" y="559" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -104,18 +98,22 @@
                             <constraint firstItem="lM7-3z-SyX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="YNm-i1-uBZ"/>
                             <constraint firstAttribute="centerX" secondItem="gzt-kQ-Uzl" secondAttribute="centerX" id="Yom-Of-wty"/>
                             <constraint firstItem="vQF-dT-h3b" firstAttribute="top" secondItem="gzt-kQ-Uzl" secondAttribute="bottom" constant="8" id="aD4-LT-gQ2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kFe-WT-25R" secondAttribute="bottom" constant="20" id="cUE-kL-5gg"/>
-                            <constraint firstAttribute="centerX" secondItem="kFe-WT-25R" secondAttribute="centerX" id="gv8-X4-Nh2"/>
                             <constraint firstAttribute="centerX" secondItem="7Hu-41-pjw" secondAttribute="centerX" id="tsJ-hf-PJa"/>
                             <constraint firstAttribute="centerX" secondItem="lM7-3z-SyX" secondAttribute="centerX" id="vZu-tO-HN8"/>
                             <constraint firstAttribute="centerX" secondItem="vQF-dT-h3b" secondAttribute="centerX" id="wXj-DM-2Cv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="pCh-i0-kcu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="ky3-nJ-TUZ">
+                            <connections>
+                                <segue destination="lMq-dF-yPM" kind="show" identifier="showInfo" id="Bk1-hy-2Sg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="Password" destination="ycG-wI-pjv" id="Bpu-Rk-uAr"/>
                         <outlet property="SiteURL" destination="gzt-kQ-Uzl" id="MPa-9i-bop"/>
                         <outlet property="Username" destination="meV-Y9-bFv" id="rwA-h4-emC"/>
-                        <outlet property="versionLabel" destination="kFe-WT-25R" id="OyD-bL-mMB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -250,6 +248,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1596" y="-247"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="DbQ-5T-JIk">
+            <objects>
+                <viewController id="lMq-dF-yPM" customClass="InfoViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EHa-fB-rlL"/>
+                        <viewControllerLayoutGuide type="bottom" id="kzO-CN-3ab"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zQy-9E-ZRL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="kWz-kT-8Wt">
+                                <rect key="frame" x="191" y="190" width="219" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-sp-zAw">
+                                <rect key="frame" x="234" y="108" width="132" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Update Server File"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czh-xP-Cl1">
+                                <rect key="frame" x="273" y="224" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pW2-ht-RJi">
+                                <rect key="frame" x="191" y="253" width="219" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="219" id="ja1-jx-fVe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGe-zD-4au">
+                                <rect key="frame" x="272" y="161" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="pW2-ht-RJi" secondAttribute="centerX" id="1kt-yW-jNV"/>
+                            <constraint firstAttribute="centerX" secondItem="SwX-sp-zAw" secondAttribute="centerX" id="K8G-yk-YmT"/>
+                            <constraint firstAttribute="centerX" secondItem="Czh-xP-Cl1" secondAttribute="centerX" id="REI-sQ-yIm"/>
+                            <constraint firstItem="pW2-ht-RJi" firstAttribute="top" secondItem="Czh-xP-Cl1" secondAttribute="bottom" constant="8" id="U2n-PC-qEG"/>
+                            <constraint firstItem="kzO-CN-3ab" firstAttribute="top" secondItem="pW2-ht-RJi" secondAttribute="bottom" constant="219" id="Vgl-uN-AHS"/>
+                            <constraint firstAttribute="centerX" secondItem="uGe-zD-4au" secondAttribute="centerX" id="WSu-RQ-tRL"/>
+                            <constraint firstItem="pW2-ht-RJi" firstAttribute="leading" secondItem="kWz-kT-8Wt" secondAttribute="leading" id="ZTN-vJ-mQU"/>
+                            <constraint firstAttribute="centerX" secondItem="kWz-kT-8Wt" secondAttribute="centerX" id="kK6-HP-lkI"/>
+                            <constraint firstItem="SwX-sp-zAw" firstAttribute="top" secondItem="EHa-fB-rlL" secondAttribute="bottom" constant="44" id="saH-TO-7Jb"/>
+                            <constraint firstItem="uGe-zD-4au" firstAttribute="top" secondItem="SwX-sp-zAw" secondAttribute="bottom" constant="23" id="uV7-Wa-qts"/>
+                            <constraint firstItem="Czh-xP-Cl1" firstAttribute="top" secondItem="kWz-kT-8Wt" secondAttribute="bottom" constant="13" id="usR-FP-aoo"/>
+                            <constraint firstItem="kWz-kT-8Wt" firstAttribute="top" secondItem="uGe-zD-4au" secondAttribute="bottom" constant="8" id="xg0-YD-VAZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnUpdate" destination="SwX-sp-zAw" id="amW-Kh-rC8"/>
+                        <outlet property="versionLabel" destination="kWz-kT-8Wt" id="g0z-Zq-v3f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b8D-I0-mva" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="953" y="439"/>
         </scene>
         <!--Image View-->
         <scene sceneID="fyK-fp-s5n">

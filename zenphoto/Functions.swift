@@ -36,10 +36,14 @@ func encode64(userData: Dictionary<String, AnyObject>) -> String? {
     return base64Encoded
 }
 
-func URLinit() -> NSURL {
-    var URL: String! = config.stringForKey("URL")
-    if !URL.hasSuffix("/") { URL = URL + "/" }
-    let ZenRPC_URL: NSURL = NSURL(string: URL + "plugins/iphone/ZenRPC.php")!
+func URLinit() -> NSURL? {
+    var URL = config.stringForKey("URL")
+    if URL == nil {
+        return nil
+    } else if !(URL!.hasSuffix("/")) {
+        URL = URL! + "/"
+    }
+    let ZenRPC_URL = NSURL(string: URL! + "plugins/iOS/ZenRPC.php")!
     //println(ZenRPC_URL)
     
     return ZenRPC_URL
@@ -57,7 +61,7 @@ func checkConnection() -> Bool {
     var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     var param = [method: d]
     
-    Alamofire.manager.request(.POST, URLinit(), parameters: param).responseJSON { request, response, json, error in
+    Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
         if json != nil {
             var jsonObj = JSON(json!)
             if let results = jsonObj["code"].stringValue as String? {
