@@ -13,6 +13,7 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var versionLabel: UILabel!
     
     @IBOutlet weak var btnUpdate: UIButton!
+    @IBOutlet weak var btnLink: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,8 @@ class InfoViewController: UIViewController {
             self.btnUpdate.enabled = false
         }
         
+        self.btnLink.addTarget(self, action: "instruction:", forControlEvents: .TouchUpInside)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,12 +77,16 @@ class InfoViewController: UIViewController {
         
         Alamofire.manager.request(.POST, updateURL!, parameters: param).responseJSON { request, response, json, error in
             if response?.statusCode >= 400 {
-                println("Error !")
+                println("Error")
             } else {
                 println("Succeeded")
             }
         }
         
+    }
+    
+    func instruction(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://zenphoto-app.tumblr.com/post/111671915556/zenphoto-for-ios-instruction")!)
     }
 
     /*

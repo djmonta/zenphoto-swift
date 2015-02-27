@@ -261,8 +261,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="kWz-kT-8Wt">
-                                <rect key="frame" x="191" y="190" width="219" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kWz-kT-8Wt">
+                                <rect key="frame" x="279" y="229" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -272,45 +272,53 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Update Server File"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czh-xP-Cl1">
-                                <rect key="frame" x="273" y="224" width="55" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Credits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czh-xP-Cl1">
+                                <rect key="frame" x="273" y="266" width="55" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pW2-ht-RJi">
-                                <rect key="frame" x="191" y="253" width="219" height="128"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGe-zD-4au">
+                                <rect key="frame" x="272" y="200" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qgp-Y1-Dgr">
+                                <rect key="frame" x="241" y="154" width="119" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Read Instruction"/>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pW2-ht-RJi">
+                                <rect key="frame" x="190" y="295" width="220" height="65"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="219" id="ja1-jx-fVe"/>
+                                    <constraint firstAttribute="width" constant="220" id="gyH-rn-WG4"/>
+                                    <constraint firstAttribute="height" constant="65" id="sPM-GJ-bfv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGe-zD-4au">
-                                <rect key="frame" x="272" y="161" width="57" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="pW2-ht-RJi" secondAttribute="centerX" id="1kt-yW-jNV"/>
+                            <constraint firstAttribute="centerX" secondItem="uGe-zD-4au" secondAttribute="centerX" id="30A-ug-dUs"/>
+                            <constraint firstItem="kWz-kT-8Wt" firstAttribute="top" secondItem="uGe-zD-4au" secondAttribute="bottom" constant="8" id="63c-vP-zBZ"/>
+                            <constraint firstAttribute="centerX" secondItem="Czh-xP-Cl1" secondAttribute="centerX" id="CVc-Jo-jQ8"/>
                             <constraint firstAttribute="centerX" secondItem="SwX-sp-zAw" secondAttribute="centerX" id="K8G-yk-YmT"/>
-                            <constraint firstAttribute="centerX" secondItem="Czh-xP-Cl1" secondAttribute="centerX" id="REI-sQ-yIm"/>
-                            <constraint firstItem="pW2-ht-RJi" firstAttribute="top" secondItem="Czh-xP-Cl1" secondAttribute="bottom" constant="8" id="U2n-PC-qEG"/>
-                            <constraint firstItem="kzO-CN-3ab" firstAttribute="top" secondItem="pW2-ht-RJi" secondAttribute="bottom" constant="219" id="Vgl-uN-AHS"/>
-                            <constraint firstAttribute="centerX" secondItem="uGe-zD-4au" secondAttribute="centerX" id="WSu-RQ-tRL"/>
-                            <constraint firstItem="pW2-ht-RJi" firstAttribute="leading" secondItem="kWz-kT-8Wt" secondAttribute="leading" id="ZTN-vJ-mQU"/>
-                            <constraint firstAttribute="centerX" secondItem="kWz-kT-8Wt" secondAttribute="centerX" id="kK6-HP-lkI"/>
+                            <constraint firstItem="uGe-zD-4au" firstAttribute="top" secondItem="Qgp-Y1-Dgr" secondAttribute="bottom" constant="16" id="U5U-W8-rqW"/>
+                            <constraint firstAttribute="centerX" secondItem="kWz-kT-8Wt" secondAttribute="centerX" id="VN4-g0-7xQ"/>
+                            <constraint firstItem="Qgp-Y1-Dgr" firstAttribute="top" secondItem="SwX-sp-zAw" secondAttribute="bottom" constant="16" id="gtj-XX-NAk"/>
+                            <constraint firstAttribute="centerX" secondItem="Qgp-Y1-Dgr" secondAttribute="centerX" id="ide-Ss-tMC"/>
+                            <constraint firstAttribute="centerX" secondItem="SwX-sp-zAw" secondAttribute="centerX" id="kpF-lb-kBM"/>
+                            <constraint firstAttribute="centerX" secondItem="pW2-ht-RJi" secondAttribute="centerX" id="lhI-ph-nhx"/>
+                            <constraint firstItem="Czh-xP-Cl1" firstAttribute="top" secondItem="kWz-kT-8Wt" secondAttribute="bottom" constant="16" id="o3u-Ai-b4b"/>
+                            <constraint firstItem="pW2-ht-RJi" firstAttribute="top" secondItem="Czh-xP-Cl1" secondAttribute="bottom" constant="8" id="r8c-3x-t3g"/>
                             <constraint firstItem="SwX-sp-zAw" firstAttribute="top" secondItem="EHa-fB-rlL" secondAttribute="bottom" constant="44" id="saH-TO-7Jb"/>
-                            <constraint firstItem="uGe-zD-4au" firstAttribute="top" secondItem="SwX-sp-zAw" secondAttribute="bottom" constant="23" id="uV7-Wa-qts"/>
-                            <constraint firstItem="Czh-xP-Cl1" firstAttribute="top" secondItem="kWz-kT-8Wt" secondAttribute="bottom" constant="13" id="usR-FP-aoo"/>
-                            <constraint firstItem="kWz-kT-8Wt" firstAttribute="top" secondItem="uGe-zD-4au" secondAttribute="bottom" constant="8" id="xg0-YD-VAZ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnLink" destination="Qgp-Y1-Dgr" id="Bcs-yp-ETW"/>
                         <outlet property="btnUpdate" destination="SwX-sp-zAw" id="amW-Kh-rC8"/>
                         <outlet property="versionLabel" destination="kWz-kT-8Wt" id="g0z-Zq-v3f"/>
                     </connections>
@@ -335,7 +343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpI-ve-3yV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596" y="424"/>
+            <point key="canvasLocation" x="1596" y="439"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Shb-8N-1Vi">
