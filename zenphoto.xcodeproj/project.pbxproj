@@ -32,7 +32,7 @@
 		709738571A95C67B0073AEEB /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709738561A95C67B0073AEEB /* Alamofire.swift */; };
 		7097385B1A95C6A00073AEEB /* Haneke.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 708B1FEB1A949D4600807758 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
-		70E36F8A1AA0B49C0078C2FB /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 70E36F891AA0B49B0078C2FB /* README.md */; };
+		70E36F8E1AA0B7080078C2FB /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 70E36F8D1AA0B7080078C2FB /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,7 +117,7 @@
 		708B20071A94A25600807758 /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
 		709738561A95C67B0073AEEB /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		70CB7C571AA07976005A9B5E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		70E36F891AA0B49B0078C2FB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		70E36F8D1AA0B7080078C2FB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +142,7 @@
 		708B1FA01A949C7700807758 = {
 			isa = PBXGroup;
 			children = (
+				70E36F8D1AA0B7080078C2FB /* README.md */,
 				704DE39A1A9ADA2A00CB999A /* AssetsLibrary.framework */,
 				708B1FAB1A949C7700807758 /* zenphoto */,
 				708B1FC41A949C7800807758 /* zenphotoTests */,
@@ -162,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				708B1FE31A949D4600807758 /* Haneke.xcodeproj */,
-				70E36F891AA0B49B0078C2FB /* README.md */,
 				708B1FAE1A949C7700807758 /* AppDelegate.swift */,
 				708B1FB31A949C7700807758 /* ViewController.swift */,
 				708B1FF91A949F3F00807758 /* AlbumListViewController.swift */,
@@ -378,6 +378,7 @@
 			files = (
 				705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */,
 				708B1FB41A949C7700807758 /* ViewController.swift in Sources */,
+				70E36F8E1AA0B7080078C2FB /* README.md in Sources */,
 				708B20021A94A19700807758 /* ImageViewController.swift in Sources */,
 				708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */,
 				70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */,
@@ -389,7 +390,6 @@
 				708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */,
 				708B1FF11A949D5200807758 /* SwiftyJSON.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
-				70E36F8A1AA0B49C0078C2FB /* README.md in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				704DE3971A9A319100CB999A /* FontAwesome.swift in Sources */,
