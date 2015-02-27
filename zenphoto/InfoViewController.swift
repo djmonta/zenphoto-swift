@@ -33,16 +33,13 @@ class InfoViewController: UIViewController {
         if var URL = URLinit() {
             
             Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                println(json)
                 if json != nil {
                     var jsonObj = JSON(json!)
                     if let results = jsonObj.stringValue as String? {
                         if (results == "true") {
-                            println("true")
                             self.btnUpdate.addTarget(self, action: "update:", forControlEvents:.TouchUpInside)
                             
                         } else {
-                            println("false")
                             self.btnUpdate.enabled = false
                             
                         }
@@ -77,9 +74,15 @@ class InfoViewController: UIViewController {
         
         Alamofire.manager.request(.POST, updateURL!, parameters: param).responseJSON { request, response, json, error in
             if response?.statusCode >= 400 {
-                println("Error")
+                alertView.title = "Error!"
+                alertView.message = "Error on your zenphoto server."
+                alertView.addButtonWithTitle("close")
+                alertView.show()
             } else {
-                println("Succeeded")
+                alertView.title = "Success!"
+                alertView.message = "Update Server File succeded."
+                alertView.addButtonWithTitle("close")
+                alertView.show()
             }
         }
         
