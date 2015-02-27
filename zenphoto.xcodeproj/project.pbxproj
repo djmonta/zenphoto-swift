@@ -367,7 +367,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nelse\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\nfi";
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
