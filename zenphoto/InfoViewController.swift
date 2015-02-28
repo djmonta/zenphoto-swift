@@ -59,20 +59,20 @@ class InfoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var default_branch: String?
-    func githubAPI() -> String {
-        
-        Alamofire.manager.request(.GET, "https://api.github.com/repos/djmonta/zenphoto-iOS-plugin").responseJSON { request, response, json, error in
-            println(json)
-            if json != nil {
-                var jsonObj = JSON(json!)
-                self.default_branch = jsonObj["default_branch"].string!
-            } else {
-                self.default_branch = "master"
-            }
-        }
-        return default_branch!
-    }
+//    var default_branch: String?
+//    func githubAPI() -> String {
+//        
+//        Alamofire.manager.request(.GET, "https://api.github.com/repos/djmonta/zenphoto-iOS-plugin").responseJSON { request, response, json, error in
+//            println(json)
+//            if json != nil {
+//                var jsonObj = JSON(json!)
+//                self.default_branch = jsonObj["default_branch"].string!
+//            } else {
+//                self.default_branch = "master"
+//            }
+//        }
+//        return default_branch!
+//    }
     
     func update(sender: UIButton) {
         var URL = config.stringForKey("URL")
