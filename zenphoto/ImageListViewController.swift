@@ -37,12 +37,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
         
-        if (CLLocationManager.locationServicesEnabled()) {
-            self.locationManager = CLLocationManager()
-            self.locationManager?.delegate = self
-            self.locationManager!.startUpdatingLocation()
-        }
-        
         // Do any additional setup after loading the view.
     }
     
@@ -223,6 +217,12 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var mutableMetadata = metadata?.mutableCopy() as NSMutableDictionary?
         
         var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as NSDictionary
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+            self.locationManager = CLLocationManager()
+            self.locationManager?.delegate = self
+            self.locationManager!.startUpdatingLocation()
+        }
         
         if ((self.locationManager) != nil) {
             mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = GPSDictionaryForLocation(self.locationManager!.location)
