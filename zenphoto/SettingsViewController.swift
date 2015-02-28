@@ -69,7 +69,8 @@ class SettingsViewController: UIViewController {
             
             if checkConnection() {
                 config.synchronize()
-                //var albumListView:AlbumListViewController = self.storyboard.instantiateViewControllerWithIdentifier("AlbumList")
+                //var albumListView = self.storyboard!.instantiateViewControllerWithIdentifier("AlbumList") as AlbumListViewController
+                //albumListView.viewDidLoad()
                 self.navigationController?.popToRootViewControllerAnimated(true)
             }
             

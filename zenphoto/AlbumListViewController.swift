@@ -68,6 +68,11 @@ class AlbumListViewController: UITableViewController {
             self.getAlbumList()
         }
         
+        self.refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "引っ張って更新")
+        refreshControl?.addTarget(self, action: "getAlbumList", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -101,7 +106,7 @@ class AlbumListViewController: UITableViewController {
                 }
             }
         }
-        
+        self.refreshControl?.endRefreshing()
     }
     
     // MARK: - Table view data source
