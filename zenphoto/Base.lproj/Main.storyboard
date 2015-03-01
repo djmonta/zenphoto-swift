@@ -123,7 +123,7 @@
         <!--Album List View Controller-->
         <scene sceneID="FMQ-wS-o5c">
             <objects>
-                <tableViewController id="TAo-Es-JVy" customClass="AlbumListViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AlbumList" id="TAo-Es-JVy" customClass="AlbumListViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="app-YS-g99">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

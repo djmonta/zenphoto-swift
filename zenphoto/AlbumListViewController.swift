@@ -69,7 +69,7 @@ class AlbumListViewController: UITableViewController {
         }
         
         self.refreshControl = UIRefreshControl()
-        refreshControl?.attributedTitle = NSAttributedString(string: "引っ張って更新")
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to Refresh")
         refreshControl?.addTarget(self, action: "getAlbumList", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
         
