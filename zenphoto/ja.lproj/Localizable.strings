@@ -12,4 +12,12 @@
 "createAlbumAlertTitle"="新規アルバム";
 "createAlbumAlertMessage"="アルバム名を入力してください";
 "createAlbumAlertOKBtn"="作成";
+"pullToRefresh"="引っ張って更新";
 "loginErrorAlertMessage"="ユーザー名かパスワードが間違っています";
+"imagePickerAlertTitle"="写真を追加";
+"imagePickerAlertMessage"="このアルバムに写真を追加する";
+"libButtonTitle"="ライブラリから写真を選択";
+"cameraButtonTitle"="写真を撮る";
+"Settings"="設定";
+"locationServiceDisabled"="位置情報サービスが無効です";
+"locationServiceDisabledMessage"="位置情報サービスを有効にして下さい";

@@ -174,8 +174,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         imageController.editing = false
         imageController.delegate = self
         
-        let alert = UIAlertController(title: "Lets get a picture", message: "Add photo to this album", preferredStyle: .ActionSheet)
-        let libButton = UIAlertAction(title: "Select photo from library", style: .Default) { (alert) -> Void in
+        let alert = UIAlertController(title: NSLocalizedString("imagePickerAlertTitle", comment: "imagePickerAlertTitle"), message: NSLocalizedString("imagePickerAlertMessage", comment: "imagePickerAlertMessage"), preferredStyle: .ActionSheet)
+        let libButton = UIAlertAction(title: NSLocalizedString("libButtonTitle", comment: "libButtonTitle"), style: .Default) { (alert) -> Void in
             // Custom Image Picker
             let pickerController = DKImagePickerController()
             pickerController.pickerDelegate = self
@@ -186,7 +186,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             //self.presentViewController(imageController, animated: true, completion: nil)
         }
         if( UIImagePickerController.isSourceTypeAvailable(.Camera) ) {
-            let cameraButton = UIAlertAction(title: "Take a picture", style: .Default) { (alert) -> Void in
+            let cameraButton = UIAlertAction(title: NSLocalizedString("cameraButtonTitle", comment: "cameraButtonTitle"), style: .Default) { (alert) -> Void in
                 println("Take Photo")
                 imageController.sourceType = .Camera
                 self.presentViewController(imageController, animated: true, completion: nil)
@@ -195,7 +195,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         } else {
             println("Camera not available")
         }
-        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel) { (alert) -> Void in
+        let cancelButton = UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
             println("Cancel Pressed")
         }
         
@@ -368,21 +368,21 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     }
     
     func alertLocationServicesDisabled() {
-        let title = "Location Services Disabled"
-        let message = "You must enable Location Services to track your run."
+        let title = NSLocalizedString("locationServiceDisabled", comment: "locationServiceDisabled")
+        let message = NSLocalizedString("locationServiceDisabledMessage", comment: "locationServiceDisabledMessage")
         
         if (NSClassFromString("UIAlertController") != nil) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
             
-            alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Settings"), style: .Default, handler: { action in
                 let url = NSURL(string: UIApplicationOpenSettingsURLString)
                 UIApplication.sharedApplication().openURL(url!)
             }))
-            alert.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: "close"), style: .Cancel, handler: nil))
             
             presentViewController(alert, animated: true, completion: nil)
         } else {
-            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Close").show()
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: NSLocalizedString("close", comment: "close")).show()
         }
     }
 

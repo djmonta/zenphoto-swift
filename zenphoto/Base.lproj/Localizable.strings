@@ -12,4 +12,12 @@
 "createAlbumAlertTitle"="Create new Album";
 "createAlbumAlertMessage"="Enter album Name.";
 "createAlbumAlertOKBtn"="Create";
+"pullToRefresh"="Pull to Refresh";
 "loginErrorAlertMessage"="Incorrect Username or Password";
+"imagePickerAlertTitle"="Let's get a picture";
+"imagePickerAlertMessage"="Add photo to this album";
+"libButtonTitle"="Select photo from library";
+"cameraButtonTitle"="Take a picture";
+"Settings"="Settings";
+"locationServiceDisabled"="Location Services Disabled";
+"locationServiceDisabledMessage"="You must enable Location Services.";

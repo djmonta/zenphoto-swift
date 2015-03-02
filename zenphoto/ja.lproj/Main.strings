@@ -3,13 +3,13 @@
 "0Dh-iN-es9.text" = "Label";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Save"; ObjectID = "21k-sq-HSl"; */
-"21k-sq-HSl.accessibilityLabel" = "Save";
+"21k-sq-HSl.accessibilityLabel" = "保存";
 
 /* Class = "IBUIButton"; normalTitle = "Save"; ObjectID = "21k-sq-HSl"; */
-"21k-sq-HSl.normalTitle" = "Save";
+"21k-sq-HSl.normalTitle" = "保存";
 
 /* Class = "IBUILabel"; text = "Password"; ObjectID = "7Hu-41-pjw"; */
-"7Hu-41-pjw.text" = "Password";
+"7Hu-41-pjw.text" = "パスワード";
 
 /* Class = "IBUILabel"; text = "Credits"; ObjectID = "Czh-xP-Cl1"; */
 "Czh-xP-Cl1.text" = "Credits";
@@ -39,10 +39,10 @@
 "lM7-3z-SyX.text" = "Zenphoto Site URL";
 
 /* Class = "IBUITextField"; accessibilityLabel = "Username"; ObjectID = "meV-Y9-bFv"; */
-"meV-Y9-bFv.accessibilityLabel" = "Username";
+"meV-Y9-bFv.accessibilityLabel" = "ユーザー名";
 
 /* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "pCh-i0-kcu"; */
-"pCh-i0-kcu.title" = "Settings";
+"pCh-i0-kcu.title" = "設定";
 
 /* Class = "IBUITextView"; text = "Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file."; ObjectID = "pW2-ht-RJi"; */
 "pW2-ht-RJi.text" = "Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file.";
@@ -51,10 +51,10 @@
 "uGe-zD-4au.text" = "Version";
 
 /* Class = "IBUILabel"; text = "Username"; ObjectID = "vQF-dT-h3b"; */
-"vQF-dT-h3b.text" = "Username";
+"vQF-dT-h3b.text" = "ユーザー名";
 
 /* Class = "IBUIBarButtonItem"; title = "Settings"; ObjectID = "x3u-Ou-iTP"; */
-"x3u-Ou-iTP.title" = "Settings";
+"x3u-Ou-iTP.title" = "設定";
 
 /* Class = "IBUITextField"; accessibilityLabel = "Password"; ObjectID = "ycG-wI-pjv"; */
-"ycG-wI-pjv.accessibilityLabel" = "Password";
+"ycG-wI-pjv.accessibilityLabel" = "パスワード";

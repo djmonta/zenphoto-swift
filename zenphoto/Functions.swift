@@ -66,10 +66,10 @@ func checkConnection() -> Bool {
             var jsonObj = JSON(json!)
             if let results = jsonObj["code"].stringValue as String? {
                 if (results != "-1") {
-                    alertView.title = "Success!"
-                    alertView.message = "Login as " + String(config.stringForKey("loginUsername")!)
-                    alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
-                    alertView.show()
+//                    alertView.title = "Success!"
+//                    alertView.message = "Login as " + String(config.stringForKey("loginUsername")!)
+//                    alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+//                    alertView.show()
                     connection = true
                 } else {
                     alertView.title = NSLocalizedString("errorAlertTitle", comment: "errorAlertTitle")
