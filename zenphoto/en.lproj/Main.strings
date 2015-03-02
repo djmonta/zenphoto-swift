@@ -1,0 +1,60 @@
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "0Dh-iN-es9"; */
+"0Dh-iN-es9.text" = "Label";
+
+/* Class = "IBUIButton"; accessibilityLabel = "Save"; ObjectID = "21k-sq-HSl"; */
+"21k-sq-HSl.accessibilityLabel" = "Save";
+
+/* Class = "IBUIButton"; normalTitle = "Save"; ObjectID = "21k-sq-HSl"; */
+"21k-sq-HSl.normalTitle" = "Save";
+
+/* Class = "IBUILabel"; text = "Password"; ObjectID = "7Hu-41-pjw"; */
+"7Hu-41-pjw.text" = "Password";
+
+/* Class = "IBUILabel"; text = "Credits"; ObjectID = "Czh-xP-Cl1"; */
+"Czh-xP-Cl1.text" = "Credits";
+
+/* Class = "IBUIButton"; normalTitle = "Read Instruction"; ObjectID = "Qgp-Y1-Dgr"; */
+"Qgp-Y1-Dgr.normalTitle" = "Read Instruction";
+
+/* Class = "IBUIButton"; normalTitle = "Update Server File"; ObjectID = "SwX-sp-zAw"; */
+"SwX-sp-zAw.normalTitle" = "Update Server File";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "gQ0-QR-Tsg"; */
+"gQ0-QR-Tsg.text" = "Label";
+
+/* Class = "IBUITextField"; accessibilityLabel = "Zenphoto Site URL"; ObjectID = "gzt-kQ-Uzl"; */
+"gzt-kQ-Uzl.accessibilityLabel" = "Zenphoto Site URL";
+
+/* Class = "IBUITextField"; placeholder = "http://YOUR_URL/zenphoto/"; ObjectID = "gzt-kQ-Uzl"; */
+"gzt-kQ-Uzl.placeholder" = "http://YOUR_URL/zenphoto/";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "kWz-kT-8Wt"; */
+"kWz-kT-8Wt.text" = "Label";
+
+/* Class = "IBUIBarButtonItem"; title = "Item"; ObjectID = "ky3-nJ-TUZ"; */
+"ky3-nJ-TUZ.title" = "Item";
+
+/* Class = "IBUILabel"; text = "Zenphoto Site URL"; ObjectID = "lM7-3z-SyX"; */
+"lM7-3z-SyX.text" = "Zenphoto Site URL";
+
+/* Class = "IBUITextField"; accessibilityLabel = "Username"; ObjectID = "meV-Y9-bFv"; */
+"meV-Y9-bFv.accessibilityLabel" = "Username";
+
+/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "pCh-i0-kcu"; */
+"pCh-i0-kcu.title" = "Settings";
+
+/* Class = "IBUITextView"; text = "Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file."; ObjectID = "pW2-ht-RJi"; */
+"pW2-ht-RJi.text" = "Joseph Philbert (philbertphotos) made the 'ZenRPC.php' file.";
+
+/* Class = "IBUILabel"; text = "Version"; ObjectID = "uGe-zD-4au"; */
+"uGe-zD-4au.text" = "Version";
+
+/* Class = "IBUILabel"; text = "Username"; ObjectID = "vQF-dT-h3b"; */
+"vQF-dT-h3b.text" = "Username";
+
+/* Class = "IBUIBarButtonItem"; title = "Settings"; ObjectID = "x3u-Ou-iTP"; */
+"x3u-Ou-iTP.title" = "Settings";
+
+/* Class = "IBUITextField"; accessibilityLabel = "Password"; ObjectID = "ycG-wI-pjv"; */
+"ycG-wI-pjv.accessibilityLabel" = "Password";

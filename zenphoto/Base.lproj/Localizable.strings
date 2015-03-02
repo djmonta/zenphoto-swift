@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  zenphoto
+
+  Created by 宮本幸子 on 2015/03/02.
+  Copyright (c) 2015年 宮本幸子. All rights reserved.
+*/
+
+"alertCancelBtn"="Cancel";
+"close"="Close";
+"errorAlertTitle"="Error";
+"createAlbumAlertTitle"="Create new Album";
+"createAlbumAlertMessage"="Enter album Name.";
+"createAlbumAlertOKBtn"="Create";
+"loginErrorAlertMessage"="Incorrect Username or Password";

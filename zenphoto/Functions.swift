@@ -68,13 +68,13 @@ func checkConnection() -> Bool {
                 if (results != "-1") {
                     alertView.title = "Success!"
                     alertView.message = "Login as " + String(config.stringForKey("loginUsername")!)
-                    alertView.addButtonWithTitle("close")
+                    alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
                     alertView.show()
                     connection = true
                 } else {
-                    alertView.title = "Error!"
-                    alertView.message = "Incorrect Username or Password!"
-                    alertView.addButtonWithTitle("close")
+                    alertView.title = NSLocalizedString("errorAlertTitle", comment: "errorAlertTitle")
+                    alertView.message = NSLocalizedString("loginErrorAlertMessage", comment: "loginErrorAlertMessage")
+                    alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
                     alertView.show()
                     connection = false
                 }
