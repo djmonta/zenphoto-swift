@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImagePageViewController: UIViewController, UIPageViewControllerDataSource { //, UIPageViewControllerDelegate {
+class ImagePageViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var pageViewController : UIPageViewController?
     var images: [JSON]?
@@ -28,7 +28,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         self.navigationController?.hidesBarsOnTap = true
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController!.dataSource = self
-        //pageViewController!.delegate = self
+        pageViewController!.delegate = self
         
         setupView()
         
@@ -46,6 +46,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         let viewControllers: NSArray = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
         pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+        self.navigationItem.title = startingViewController.navigationItem.title
         
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
@@ -63,7 +64,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
         
         pageContentViewController.image = images?[index]
         pageContentViewController.pageIndex = index
-        
+        pageContentViewController.navigationItem.title = images?[index]["name"].string
         return pageContentViewController
     }
     
@@ -112,6 +113,16 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource 
     //    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
     //        return 0
     //    }
+    
+    
+    // MARK: - UIPageViewControllerDelegate
+    
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+        
+        var viewController = self.pageViewController?.viewControllers.first as UIViewController
+        self.navigationItem.title = viewController.navigationItem.title
+        
+    }
     
     /*
     // MARK: - Navigation
