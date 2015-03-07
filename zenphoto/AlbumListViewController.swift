@@ -43,7 +43,7 @@ class AlbumListViewController: UITableViewController {
             Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                 println(json)
                 if json != nil {
-                    self.tableView.reloadData()
+                    self.getAlbumList()
                 }
             }
 
