@@ -545,7 +545,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0f2f466e-c989-4bfc-964e-dcfd1740783c";
+				PROVISIONING_PROFILE = "e5e9db57-f99c-4ef4-b58a-af6909b24907";
 			};
 			name = Debug;
 		};
@@ -560,7 +560,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e5581121-7f58-42e3-beb8-7a2716ac11c1";
+				PROVISIONING_PROFILE = "8c832312-f40e-4677-96c4-e589bc6f5019";
 			};
 			name = Release;
 		};
