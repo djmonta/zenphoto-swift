@@ -360,7 +360,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             if locationManager!.respondsToSelector("requestWhenInUseAuthorization") { locationManager!.requestWhenInUseAuthorization() }
         case .Restricted, .Denied:
             self.alertLocationServicesDisabled()
-        case .Authorized, .AuthorizedWhenInUse:
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
             break
         default:
             break
