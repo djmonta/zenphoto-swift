@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var SiteURL: UITextField!
@@ -31,6 +31,10 @@ class SettingsViewController: UIViewController {
 
         self.customView()
 
+        self.SiteURL.delegate = self
+        self.Username.delegate = self
+        self.Password.delegate = self
+        
         if config.stringForKey("URL") != nil {
             SiteURL.text = config.stringForKey("URL")
         }
@@ -83,7 +87,24 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    // MARK: - UITextFieldDelegate
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField === SiteURL {
+            // 次のフィールドに移動
+            Username?.becomeFirstResponder()
+        } else if textField === Username {
+            // 次のフィールドに移動
+            Password?.becomeFirstResponder()
+        } else if textField === Password {
+            // ログイン処理を実行
+            save(textField)
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
 
     
 }
