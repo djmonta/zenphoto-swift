@@ -15,7 +15,6 @@
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
-		708B1FB41A949C7700807758 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB31A949C7700807758 /* ViewController.swift */; };
 		708B1FB71A949C7700807758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FB51A949C7700807758 /* Main.storyboard */; };
 		708B1FB91A949C7700807758 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FB81A949C7700807758 /* Images.xcassets */; };
 		708B1FBC1A949C7700807758 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FBA1A949C7700807758 /* LaunchScreen.xib */; };
@@ -98,7 +97,6 @@
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FAE1A949C7700807758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		708B1FB11A949C7700807758 /* zenphoto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = zenphoto.xcdatamodel; sourceTree = "<group>"; };
-		708B1FB31A949C7700807758 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		708B1FB61A949C7700807758 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		708B1FB81A949C7700807758 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		708B1FBB1A949C7700807758 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 			children = (
 				708B1FE31A949D4600807758 /* Haneke.xcodeproj */,
 				708B1FAE1A949C7700807758 /* AppDelegate.swift */,
-				708B1FB31A949C7700807758 /* ViewController.swift */,
 				708B1FF91A949F3F00807758 /* AlbumListViewController.swift */,
 				708B1FFB1A949FA100807758 /* AlbumListViewCell.swift */,
 				708B1FFD1A94A07400807758 /* ImageListViewController.swift */,
@@ -382,7 +379,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */,
-				708B1FB41A949C7700807758 /* ViewController.swift in Sources */,
 				708B20021A94A19700807758 /* ImageViewController.swift in Sources */,
 				708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */,
 				70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */,
