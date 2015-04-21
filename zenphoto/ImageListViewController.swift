@@ -176,7 +176,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         imageController.editing = false
         imageController.delegate = self
         
+        
         let alert = UIAlertController(title: NSLocalizedString("imagePickerAlertTitle", comment: "imagePickerAlertTitle"), message: NSLocalizedString("imagePickerAlertMessage", comment: "imagePickerAlertMessage"), preferredStyle: .ActionSheet)
+
+        // for iPad Support
+        alert.popoverPresentationController!.sourceView = self.view
+        alert.popoverPresentationController!.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)        
+
         let libButton = UIAlertAction(title: NSLocalizedString("libButtonTitle", comment: "libButtonTitle"), style: .Default) { (alert) -> Void in
             // Custom Image Picker
             let pickerController = DKImagePickerController()
