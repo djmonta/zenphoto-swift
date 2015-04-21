@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class ImagePageViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
@@ -44,7 +45,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
         self.currentPage(indexPath)
         
         let viewControllers: NSArray = [startingViewController]
-        pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
+        pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: false, completion: nil)
         pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.navigationItem.title = startingViewController.navigationItem.title
         
@@ -60,7 +61,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
         }
         
         // Create a new view controller and pass suitable data.
-        let pageContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as ImageView
+        let pageContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as! ImageView
         
         pageContentViewController.image = images?[index]
         pageContentViewController.pageIndex = index
@@ -75,7 +76,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     // MARK: - UIPageViewControllerDataSource
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as ImageView).pageIndex!
+        var index = (viewController as! ImageView).pageIndex!
         currentPage(index)
         
         if (index == 0) || (index == NSNotFound) {
@@ -88,7 +89,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as ImageView).pageIndex!
+        var index = (viewController as! ImageView).pageIndex!
         currentPage(index)
         
         if index == NSNotFound {
@@ -119,7 +120,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
         
-        var viewController = self.pageViewController?.viewControllers.first as UIViewController
+        var viewController = self.pageViewController?.viewControllers.first as! UIViewController
         self.navigationItem.title = viewController.navigationItem.title
         
     }

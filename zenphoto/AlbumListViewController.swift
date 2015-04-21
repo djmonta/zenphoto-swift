@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import Haneke
 
 class AlbumListViewController: UITableViewController {
     
@@ -28,7 +30,7 @@ class AlbumListViewController: UITableViewController {
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: NSLocalizedString("createAlbumAlertOKBtn", comment: "createAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
-            let textField = alert.textFields![0] as UITextField
+            let textField = alert.textFields![0] as! UITextField
             println("Text field: \(textField.text)")
             
             let method = "zenphoto.album.create"
@@ -40,7 +42,7 @@ class AlbumListViewController: UITableViewController {
             
             println(param)
             
-            Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                 println(json)
                 if json != nil {
                     self.getAlbumList()
@@ -96,7 +98,7 @@ class AlbumListViewController: UITableViewController {
         var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method : d]
         
-        Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
             //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
@@ -119,7 +121,7 @@ class AlbumListViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as AlbumListViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as! AlbumListViewCell
         
         cell.albumInfo = self.albums?[indexPath.row]
         return cell
@@ -130,7 +132,7 @@ class AlbumListViewController: UITableViewController {
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if segue.identifier == "showImageList" {
             var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
-            let imageListViewController = segue.destinationViewController as ImageListViewController
+            let imageListViewController = segue.destinationViewController as! ImageListViewController
             let albumInfo = self.albums?[indexPath.row]
             imageListViewController.albumInfo = albumInfo
         }

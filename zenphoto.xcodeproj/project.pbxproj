@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		700F4A251AE665E500F85AEA /* DKImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F4A241AE665E500F85AEA /* DKImagePickerController.swift */; };
 		704DE3951A9A318400CB999A /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 704DE3941A9A318400CB999A /* FontAwesome.otf */; };
 		704DE3971A9A319100CB999A /* FontAwesome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704DE3961A9A319100CB999A /* FontAwesome.swift */; };
-		704DE3991A9AD9D800CB999A /* DKImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704DE3981A9AD9D800CB999A /* DKImagePickerController.swift */; };
 		704DE39B1A9ADA2A00CB999A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704DE39A1A9ADA2A00CB999A /* AssetsLibrary.framework */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
+		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
+		7087AD641AE63F9B002619CD /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7087AD631AE63F9B002619CD /* Haneke.framework */; };
+		7087AD671AE64100002619CD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7087AD651AE64100002619CD /* Alamofire.framework */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
 		708B1FB71A949C7700807758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FB51A949C7700807758 /* Main.storyboard */; };
 		708B1FB91A949C7700807758 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FB81A949C7700807758 /* Images.xcassets */; };
 		708B1FBC1A949C7700807758 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FBA1A949C7700807758 /* LaunchScreen.xib */; };
 		708B1FC81A949C7800807758 /* zenphotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FC71A949C7800807758 /* zenphotoTests.swift */; };
-		708B1FF11A949D5200807758 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FF01A949D5200807758 /* SwiftyJSON.swift */; };
 		708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FF91A949F3F00807758 /* AlbumListViewController.swift */; };
 		708B1FFC1A949FA100807758 /* AlbumListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FFB1A949FA100807758 /* AlbumListViewCell.swift */; };
 		708B1FFE1A94A07400807758 /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FFD1A94A07400807758 /* ImageListViewController.swift */; };
@@ -28,8 +30,6 @@
 		708B20041A94A1E900807758 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20031A94A1E900807758 /* SettingsViewController.swift */; };
 		708B20061A94A22700807758 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20051A94A22700807758 /* Functions.swift */; };
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
-		709738571A95C67B0073AEEB /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709738561A95C67B0073AEEB /* Alamofire.swift */; };
-		7097385B1A95C6A00073AEEB /* Haneke.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 708B1FEB1A949D4600807758 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70A942F71AA485F400370B7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70A942F91AA485F400370B7C /* Localizable.strings */; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,34 +42,6 @@
 			remoteGlobalIDString = 708B1FA81A949C7700807758;
 			remoteInfo = zenphoto;
 		};
-		708B1FEA1A949D4600807758 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 708B1FE31A949D4600807758 /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A095C9561980418C00CD0F4C;
-			remoteInfo = Haneke;
-		};
-		708B1FEC1A949D4600807758 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 708B1FE31A949D4600807758 /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A095C9611980418C00CD0F4C;
-			remoteInfo = HanekeTests;
-		};
-		708B1FEE1A949D4600807758 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 708B1FE31A949D4600807758 /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A0026E9A19C9BFBC004DE0C6;
-			remoteInfo = HanekeDemo;
-		};
-		709738581A95C68D0073AEEB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 708B1FE31A949D4600807758 /* Haneke.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A095C9551980418C00CD0F4C;
-			remoteInfo = Haneke;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,7 +51,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7097385B1A95C6A00073AEEB /* Haneke.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,12 +58,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		700F4A241AE665E500F85AEA /* DKImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImagePickerController.swift; sourceTree = "<group>"; };
 		704DE3941A9A318400CB999A /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		704DE3961A9A319100CB999A /* FontAwesome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontAwesome.swift; sourceTree = "<group>"; };
-		704DE3981A9AD9D800CB999A /* DKImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImagePickerController.swift; sourceTree = "<group>"; };
 		704DE39A1A9ADA2A00CB999A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
+		707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		7087AD631AE63F9B002619CD /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
+		7087AD651AE64100002619CD /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FAE1A949C7700807758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,8 +77,6 @@
 		708B1FC11A949C7800807758 /* zenphotoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zenphotoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FC61A949C7800807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FC71A949C7800807758 /* zenphotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zenphotoTests.swift; sourceTree = "<group>"; };
-		708B1FE31A949D4600807758 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = SOURCE_ROOT; };
-		708B1FF01A949D5200807758 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		708B1FF91A949F3F00807758 /* AlbumListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		708B1FFB1A949FA100807758 /* AlbumListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListViewCell.swift; sourceTree = "<group>"; };
 		708B1FFD1A94A07400807758 /* ImageListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +85,6 @@
 		708B20031A94A1E900807758 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		708B20051A94A22700807758 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		708B20071A94A25600807758 /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
-		709738561A95C67B0073AEEB /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		70A942EF1AA484A700370B7C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		70A942F01AA484A700370B7C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		70A942F81AA485F400370B7C /* Base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -127,6 +98,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				704DE39B1A9ADA2A00CB999A /* AssetsLibrary.framework in Frameworks */,
+				7087AD641AE63F9B002619CD /* Haneke.framework in Frameworks */,
+				7087AD671AE64100002619CD /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +116,8 @@
 		708B1FA01A949C7700807758 = {
 			isa = PBXGroup;
 			children = (
+				7087AD651AE64100002619CD /* Alamofire.framework */,
+				7087AD631AE63F9B002619CD /* Haneke.framework */,
 				704DE39A1A9ADA2A00CB999A /* AssetsLibrary.framework */,
 				708B1FAB1A949C7700807758 /* zenphoto */,
 				708B1FC41A949C7800807758 /* zenphotoTests */,
@@ -162,7 +137,6 @@
 		708B1FAB1A949C7700807758 /* zenphoto */ = {
 			isa = PBXGroup;
 			children = (
-				708B1FE31A949D4600807758 /* Haneke.xcodeproj */,
 				708B1FAE1A949C7700807758 /* AppDelegate.swift */,
 				708B1FF91A949F3F00807758 /* AlbumListViewController.swift */,
 				708B1FFB1A949FA100807758 /* AlbumListViewCell.swift */,
@@ -178,10 +152,9 @@
 				708B20051A94A22700807758 /* Functions.swift */,
 				708B20071A94A25600807758 /* UIImage+Cropping.swift */,
 				705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */,
-				704DE3981A9AD9D800CB999A /* DKImagePickerController.swift */,
+				707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */,
+				700F4A241AE665E500F85AEA /* DKImagePickerController.swift */,
 				705FE5F81A9C855C00198D7D /* FormatterUtil.swift */,
-				709738561A95C67B0073AEEB /* Alamofire.swift */,
-				708B1FF01A949D5200807758 /* SwiftyJSON.swift */,
 				704DE3961A9A319100CB999A /* FontAwesome.swift */,
 				704DE3941A9A318400CB999A /* FontAwesome.otf */,
 				708B1FAC1A949C7700807758 /* Supporting Files */,
@@ -215,16 +188,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		708B1FE41A949D4600807758 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				708B1FEB1A949D4600807758 /* Haneke.framework */,
-				708B1FED1A949D4600807758 /* HanekeTests.xctest */,
-				708B1FEF1A949D4600807758 /* HanekeDemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,7 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 708B1FCB1A949C7800807758 /* Build configuration list for PBXNativeTarget "zenphoto" */;
 			buildPhases = (
-				70F9A5211A9FC496001083F7 /* ShellScript */,
+				70F9A5211A9FC496001083F7 /* Run Script */,
 				708B1FA51A949C7700807758 /* Sources */,
 				708B1FA61A949C7700807758 /* Frameworks */,
 				708B1FA71A949C7700807758 /* Resources */,
@@ -241,7 +204,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				709738591A95C68D0073AEEB /* PBXTargetDependency */,
 			);
 			name = zenphoto;
 			productName = zenphoto;
@@ -297,12 +259,6 @@
 			mainGroup = 708B1FA01A949C7700807758;
 			productRefGroup = 708B1FAA1A949C7700807758 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 708B1FE41A949D4600807758 /* Products */;
-					ProjectRef = 708B1FE31A949D4600807758 /* Haneke.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				708B1FA81A949C7700807758 /* zenphoto */,
@@ -310,30 +266,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		708B1FEB1A949D4600807758 /* Haneke.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Haneke.framework;
-			remoteRef = 708B1FEA1A949D4600807758 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		708B1FED1A949D4600807758 /* HanekeTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = HanekeTests.xctest;
-			remoteRef = 708B1FEC1A949D4600807758 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		708B1FEF1A949D4600807758 /* HanekeDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = HanekeDemo.app;
-			remoteRef = 708B1FEE1A949D4600807758 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		708B1FA71A949C7700807758 /* Resources */ = {
@@ -358,18 +290,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		70F9A5211A9FC496001083F7 /* ShellScript */ = {
+		70F9A5211A9FC496001083F7 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nfi";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n\nif [ ${CONFIGURATION} = \"Debug\" ]; then\n\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFileSource=\"${SRCROOT}/${INFOPLIST_FILE}\"\ninfoPlistFileDestination=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncurrentVersion=$($plistBuddy -c \"Print CFBundleVersion\" $infoPlistFileSource)\n\nversionPrefix=\"dev-\"\nlastCommitDate=$(git log -1 --format='%ci')\nversionSuffix=\" ($lastCommitDate)\"\n\nversionString=$versionPrefix$currentVersion$versionSuffix\n\n$plistBuddy -c \"Set :CFBundleVersion $versionString\" $infoPlistFileDestination\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -382,18 +317,17 @@
 				708B20021A94A19700807758 /* ImageViewController.swift in Sources */,
 				708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */,
 				70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */,
-				709738571A95C67B0073AEEB /* Alamofire.swift in Sources */,
 				708B20041A94A1E900807758 /* SettingsViewController.swift in Sources */,
 				708B20061A94A22700807758 /* Functions.swift in Sources */,
 				708B1FFC1A949FA100807758 /* AlbumListViewCell.swift in Sources */,
 				708B1FFE1A94A07400807758 /* ImageListViewController.swift in Sources */,
 				708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */,
-				708B1FF11A949D5200807758 /* SwiftyJSON.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
+				707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */,
+				700F4A251AE665E500F85AEA /* DKImagePickerController.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				704DE3971A9A319100CB999A /* FontAwesome.swift in Sources */,
-				704DE3991A9AD9D800CB999A /* DKImagePickerController.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,11 +347,6 @@
 			isa = PBXTargetDependency;
 			target = 708B1FA81A949C7700807758 /* zenphoto */;
 			targetProxy = 708B1FC21A949C7800807758 /* PBXContainerItemProxy */;
-		};
-		709738591A95C68D0073AEEB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Haneke;
-			targetProxy = 709738581A95C68D0073AEEB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -537,6 +466,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = zenphoto/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -552,6 +485,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = zenphoto/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

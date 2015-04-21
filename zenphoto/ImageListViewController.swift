@@ -11,6 +11,8 @@ import AssetsLibrary
 import CoreLocation
 import ImageIO
 import MobileCoreServices
+import Alamofire
+import Haneke
 
 let reuseIdentifier = "Cell"
 
@@ -72,7 +74,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var d = encode64(userDatainit(id: id))!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         var param = [method: d]
         
-        Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
             //println(json)
             if json != nil {
                 var jsonObj = JSON(json!)
@@ -108,9 +110,9 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
 
-        var imageView:UIImageView = cell.viewWithTag(1) as UIImageView
+        var imageView:UIImageView = cell.viewWithTag(1) as! UIImageView
         
         imageView.clipsToBounds = true
         imageView.contentMode = .ScaleAspectFill
@@ -156,9 +158,9 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject!) {
         if segue.identifier == "showImage" {
-            var cell: UICollectionViewCell = sender as UICollectionViewCell
+            var cell: UICollectionViewCell = sender as! UICollectionViewCell
             var indexPath:NSIndexPath = self.collectionView!.indexPathForCell(cell)!
-            let imagesViewController = segue.destinationViewController as ImagePageViewController
+            let imagesViewController = segue.destinationViewController as! ImagePageViewController
             let imageInfo = self.images?[indexPath.row]
             imagesViewController.indexPath = indexPath.row as Int
             imagesViewController.images = images
@@ -209,14 +211,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 
     // MARK: - UIImagePickerControllerDelegate methods
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: NSDictionary) {
-        self.dismissViewControllerAnimated(true, nil)
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        self.dismissViewControllerAnimated(true, completion: nil)
         
-        var image = info.objectForKey(UIImagePickerControllerOriginalImage) as UIImage
-        var metadata = info.objectForKey(UIImagePickerControllerMediaMetadata) as NSDictionary?
-        var mutableMetadata = metadata?.mutableCopy() as NSMutableDictionary?
+        var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        var metadata = info[UIImagePickerControllerMediaMetadata] as! NSDictionary?
+        var mutableMetadata = metadata?.mutableCopy() as! NSMutableDictionary?
         
-        var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as NSDictionary
+        var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as! NSDictionary
         
         if (CLLocationManager.locationServicesEnabled()) {
             self.locationManager = CLLocationManager()
@@ -235,9 +237,10 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
         // Set your compression quuality (0.0 to 1.0).
         mutableMetadata?.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
+        var mdata: AnyObject? = mutableMetadata?.mutableCopy()
         
         var library = ALAssetsLibrary()
-        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mutableMetadata, completionBlock: { ( url, error ) in
+        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mdata! as! [NSObject : AnyObject], completionBlock: { ( url, error ) in
             //println(url)
             library.assetForURL(url, resultBlock: { ( asset ) in
 //                let representation = asset.defaultRepresentation()
@@ -249,7 +252,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 let method = "zenphoto.image.upload"
                 var id = self.albumInfo?["id"].string
                 var userData = userDatainit(id: id!)
-                userData["folder"] = self.albumInfo?["folder"].string?
+                userData["folder"] = self.albumInfo?["folder"].string
                 
                 //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
                 let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
@@ -264,7 +267,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 var param = [method: p]
                 
-                Alamofire.manager.request(.POST, URLinit()!, parameters: param)
+                Alamofire.request(.POST, URLinit()!, parameters: param)
                     .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                         dispatch_async(dispatch_get_main_queue()) {
                             println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
@@ -302,13 +305,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             let method = "zenphoto.image.upload"
             var id = self.albumInfo?["id"].string
             var userData = userDatainit(id: id!)
-            userData["folder"] = self.albumInfo?["folder"].string?
+            userData["folder"] = self.albumInfo?["folder"].string
             
             var image = asset.fullResolutionImage
             var metadata = asset.metadata
             
             // Set your compression quuality (0.0 to 1.0).
-            var mutableMetadata = metadata!.mutableCopy() as NSMutableDictionary
+            var mutableMetadata = metadata!.mutableCopy() as! NSMutableDictionary
             mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
 
             var imageData = createImageDataFromImage(image!, mutableMetadata)
@@ -322,12 +325,12 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             
             var type = contentTypeForImageData(imageData)
             
-            userData["filename"] = dt + "-\(index)." + type!
+            userData["filename"] = dt + "-\(index)." + (type! as String)
             
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-            Alamofire.manager.request(.POST, URLinit()!, parameters: param)
+            Alamofire.request(.POST, URLinit()!, parameters: param)
                 .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                     println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
                 }

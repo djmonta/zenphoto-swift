@@ -10,6 +10,8 @@ import UIKit
 import CoreLocation
 import ImageIO
 import MobileCoreServices
+import Alamofire
+import Haneke
 
 let config = NSUserDefaults.standardUserDefaults()
 let alertView: UIAlertView = UIAlertView()
@@ -61,7 +63,7 @@ func checkConnection() -> Bool {
     var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     var param = [method: d]
     
-    Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+    Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
         if json != nil {
             var jsonObj = JSON(json!)
             if let results = jsonObj["code"].stringValue as String? {
@@ -104,7 +106,7 @@ func JSONStringify(jsonObj: AnyObject) -> String {
     if (e != nil) {
         return ""
     } else {
-        return NSString(data: jsonData!, encoding: NSUTF8StringEncoding)!
+        return NSString(data: jsonData!, encoding: NSUTF8StringEncoding)! as String
     }
 }
 
@@ -114,7 +116,7 @@ func JSONParseArray(jsonString: String) -> Array<AnyObject> {
     var jsonObj = NSJSONSerialization.JSONObjectWithData(
         data,
         options: NSJSONReadingOptions(0),
-        error: &e) as Array<AnyObject>
+        error: &e) as! Array<AnyObject>
     if (e != nil) {
         return Array<AnyObject>()
     } else {
@@ -129,7 +131,7 @@ func JSONParseDict(jsonString:String) -> Dictionary<String, AnyObject> {
     var jsonObj = NSJSONSerialization.JSONObjectWithData(
         data,
         options: NSJSONReadingOptions(0),
-        error: &e) as Dictionary<String, AnyObject>
+        error: &e) as! Dictionary<String, AnyObject>
     if (e != nil) {
         return Dictionary<String, AnyObject>()
     } else {
@@ -139,14 +141,14 @@ func JSONParseDict(jsonString:String) -> Dictionary<String, AnyObject> {
 
 // MARK: - Handle Image
 
-func getDataFromALAsset(asset: DKAsset) -> NSData {
-    var representation = asset.defaultRepresentation
-    var bufferSize = UInt(Int(representation!.size()))
-    var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
-    var buffered = representation!.getBytes(buffer, fromOffset: 0, length: Int(representation!.size()), error: nil)
-    var assetData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
-    return assetData
-}
+//func getDataFromALAsset(asset: DKAsset) -> NSData {
+//    var representation = asset.defaultRepresentation
+//    var bufferSize = UInt(Int(representation!.size()))
+//    var buffer = UnsafeMutablePointer<UInt8>(malloc(bufferSize))
+//    var buffered = representation!.getBytes(buffer, fromOffset: 0, length: Int(representation!.size()), error: nil)
+//    var assetData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
+//    return assetData
+//}
 
 func contentTypeForImageData(data:NSData) -> NSString? {
     var c = UInt8()
@@ -180,8 +182,8 @@ func createImageDataFromImage(image:UIImage, metadata:NSDictionary) -> NSData {
 }
 
 func fileNameByExif(exif:NSDictionary) -> NSString {
-    var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as NSString
-    var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString)
+    var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as! NSString
+    var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString as String)
     
     var fileName = FormatterUtil().fileNameDateFormatter.stringFromDate(date!).stringByAppendingPathExtension("jpg")
     

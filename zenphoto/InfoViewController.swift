@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import Haneke
 
 class InfoViewController: UIViewController {
 
@@ -18,8 +20,8 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var appBundleVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as String
-        var appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as String
+        var appBundleVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+        var appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
         versionLabel.text = appVersion + " (\(appBundleVersion))"
         
         var data = Dictionary<String, AnyObject>()
@@ -32,7 +34,7 @@ class InfoViewController: UIViewController {
         var param = [method:d]
         if var URL = URLinit() {
             
-            Alamofire.manager.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                 if json != nil {
                     var jsonObj = JSON(json!)
                     if let results = jsonObj.stringValue as String? {
@@ -83,7 +85,7 @@ class InfoViewController: UIViewController {
         //var gitbranch = githubAPI()
         var param = ["updateRPC":"master"]
         
-        Alamofire.manager.request(.POST, updateURL!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, updateURL!, parameters: param).responseJSON { request, response, json, error in
             if response?.statusCode >= 400 {
                 alertView.title = "Error!"
                 alertView.message = "Error on your zenphoto server."

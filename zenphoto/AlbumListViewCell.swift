@@ -40,7 +40,7 @@ class AlbumListViewCell: UITableViewCell {
             imageURL = NSURL(string: albumThumbURL)!
 
         } else {
-            var albumFolderLength = countElements(albumFolder!)
+            var albumFolderLength = count(albumFolder!)
             var i = "zp-core/i.php?a=" + albumFolder! + "&i="
             var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8 + albumFolderLength + 1))
             var ext = webpath!.pathExtension
