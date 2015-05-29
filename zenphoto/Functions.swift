@@ -238,3 +238,4 @@ func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
     
     return gps
 }
+

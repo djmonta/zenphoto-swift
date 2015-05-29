@@ -22,7 +22,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     var images: [JSON]? = []
     var thumbsize: CGSize!
     var locationManager: CLLocationManager?
-
+    
     @IBAction func btnAdd(sender: AnyObject) {
         /* Supports UIAlert Controller */
         if( controllerAvailable() ){
@@ -274,15 +274,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 var param = [method: p]
                 
                 Alamofire.request(.POST, URLinit()!, parameters: param)
-                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                        dispatch_async(dispatch_get_main_queue()) {
-                            println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-                        }
-                    }
+//                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+//                    }
                     .responseJSON { request, response, json, error in
                         println(json)
                         if json != nil {
-                            self.collectionView?.reloadData()
+                            self.getImageList(id!)
                         }
                 }
 
@@ -337,14 +335,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var param = [method: p]
             
             Alamofire.request(.POST, URLinit()!, parameters: param)
-                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-                }
-                
+//                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
+//                }
+//                
                 .responseJSON { request, response, json, error in
-                println(json)
-                if json != nil {
-                    self.collectionView?.reloadData()
+                    println(json)
+                    if json != nil {
+                        self.getImageList(id!)
                 }
             }
             
