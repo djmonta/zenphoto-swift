@@ -52,7 +52,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func customView() {
         //self.navigationItem.title = "Settings"
         
-        self.navigationItem.rightBarButtonItem?.title = String.fontAwesomeIconWithName("fa-info-circle")
+        self.navigationItem.rightBarButtonItem?.title = String.fontAwesomeIconWithName(.InfoCircle)
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
     }
     

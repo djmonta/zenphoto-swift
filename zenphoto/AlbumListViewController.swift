@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Haneke
+import FontAwesome
 
 class AlbumListViewController: UITableViewController {
     
@@ -87,7 +88,7 @@ class AlbumListViewController: UITableViewController {
     }
     
     func customView() {
-        self.navigationItem.leftBarButtonItem?.title = String.fontAwesomeIconWithName("fa-cog")
+        self.navigationItem.leftBarButtonItem?.title = String.fontAwesomeIconWithName(.Cog)
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
     }
     

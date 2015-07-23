@@ -8,6 +8,7 @@
 
 import UIKit
 import Haneke
+import FontAwesome
 
 class AlbumListViewCell: UITableViewCell {
     
@@ -55,7 +56,7 @@ class AlbumListViewCell: UITableViewCell {
         
         self.albumName.text = albumFolder
         self.albumDesc.font = UIFont.fontAwesomeOfSize(12)
-        self.albumDesc.text = String.fontAwesomeIconWithName("fa-picture-o") + " " + imagescount! + " images"
+        self.albumDesc.text = String.fontAwesomeIconWithName(.PictureO) + " " + imagescount! + " images"
         
         let cache = Shared.imageCache
         
