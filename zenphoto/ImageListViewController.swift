@@ -281,8 +281,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 let data = encodedURLRequest.HTTPBody!
                 
-                let progressView = UIProgressView()
-
 //                Alamofire.request(.POST, URLinit()!, parameters: param)
 //                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
 //                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
@@ -294,17 +292,22 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //                        }
 //                }
 
-                Alamofire.upload(mutableURLRequest, data)
-                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                        println("ENTER .PROGRESSS")
-                        println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-                        progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                    }
-                    .responseJSON { request, response, json, error in
-                        println(json)
-                        if json != nil {
-                            self.getImageList(id!)
+                let qos = Int(QOS_CLASS_USER_INITIATED.value)
+                dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        Alamofire.upload(mutableURLRequest, data)
+                            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                                println("ENTER .PROGRESSS")
+                                println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+        //                        progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                            }
+                            .responseJSON { request, response, json, error in
+                                println(json)
+                                if json != nil {
+                                    self.getImageList(id!)
+                                }
                         }
+                    }
                 }
                 
                 
@@ -327,8 +330,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 
         for (index, asset) in enumerate(assets) {
             //println(index, asset)
-            // images prepare to upload
             
+            // images prepare to upload
             let method = "zenphoto.image.upload"
             var id = self.albumInfo?["id"].string
             var userData = userDatainit(id: id!)
@@ -365,7 +368,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             
             let data = encodedURLRequest.HTTPBody!
             
-            let progressView = UIProgressView()
             
 //            Alamofire.request(.POST, URLinit()!, parameters: param)
 //                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
@@ -379,19 +381,24 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //                }
 //            }
 
-            Alamofire.upload(mutableURLRequest, data)
-                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                    println("ENTER .PROGRESSS")
-                    println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-                    progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                }
-                .responseJSON { request, response, json, error in
-                    println(json)
-                    if json != nil {
-                        self.getImageList(id!)
+            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+                dispatch_async(dispatch_get_main_queue()) {
+                    Alamofire.upload(mutableURLRequest, data)
+                        .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                            println("ENTER .PROGRESSS")
+                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+//                            self.progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+//                            self.progressView.removeFromSuperview()
+                        }
+                        .responseJSON { request, response, json, error in
+                            println(json)
+                            if json != nil {
+                                self.getImageList(id!)
+                            }
                     }
+                }
             }
-
             
         }
         
