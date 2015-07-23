@@ -17,6 +17,8 @@
 		707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707B61401B611CE300289C51 /* FontAwesome.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61391B611A9900289C51 /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707B61411B611CE300289C51 /* Haneke.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
+		707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
@@ -53,6 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */,
 				707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */,
 				707B61401B611CE300289C51 /* FontAwesome.framework in Copy Files */,
 				707B61411B611CE300289C51 /* Haneke.framework in Copy Files */,
@@ -80,6 +83,7 @@
 		707B61381B611A9900289C51 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		707B61391B611A9900289C51 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
 		707B613A1B611A9900289C51 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
+		707B61421B6140A600289C51 /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePicker.framework; path = Carthage/Build/iOS/QBImagePicker.framework; sourceTree = "<group>"; };
 		707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */,
 				707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */,
 				704DE39B1A9ADA2A00CB999A /* AssetsLibrary.framework in Frameworks */,
 				707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */,
@@ -132,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				707B61381B611A9900289C51 /* Alamofire.framework */,
+				707B61421B6140A600289C51 /* QBImagePicker.framework */,
 				707B61391B611A9900289C51 /* FontAwesome.framework */,
 				707B613A1B611A9900289C51 /* Haneke.framework */,
 				704DE39A1A9ADA2A00CB999A /* AssetsLibrary.framework */,
