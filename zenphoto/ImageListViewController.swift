@@ -21,7 +21,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     var albumInfo: JSON?
     var images: [JSON]? = []
     var thumbsize: CGSize!
-    var locationManager: CLLocationManager?
+    var locationManager: CLLocationManager!
     
     @IBAction func btnAdd(sender: AnyObject) {
         /* Supports UIAlert Controller */
@@ -38,6 +38,12 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var albumId = self.albumInfo?["id"].string as String!
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+            self.locationManager = CLLocationManager()
+            self.locationManager?.delegate = self
+            self.locationManager?.startUpdatingLocation()
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -220,23 +226,17 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
-        var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        var image = info[UIImagePickerControllerOriginalImage] as! UIImage?
         var metadata = info[UIImagePickerControllerMediaMetadata] as! NSDictionary?
         var mutableMetadata = metadata?.mutableCopy() as! NSMutableDictionary?
         
         var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as! NSDictionary
         
-        if (CLLocationManager.locationServicesEnabled()) {
-            self.locationManager = CLLocationManager()
-            self.locationManager?.delegate = self
-            self.locationManager!.startUpdatingLocation()
-        }
-        
         if ((self.locationManager) != nil) {
             mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = GPSDictionaryForLocation(self.locationManager!.location)
         }
         
-        var imageData = createImageDataFromImage(image, mutableMetadata!)
+        var imageData = createImageDataFromImage(image!, mutableMetadata!)
         
         //var fileName = self.fileNameByExif(exif)
         //self.storeFileAtDocumentDirectoryForData(imageData, fileName:fileName)
@@ -246,7 +246,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         var mdata: AnyObject? = mutableMetadata?.mutableCopy()
         
         var library = ALAssetsLibrary()
-        library.writeImageToSavedPhotosAlbum(image.CGImage, metadata: mdata! as! [NSObject : AnyObject], completionBlock: { ( url, error ) in
+        library.writeImageToSavedPhotosAlbum(image!.CGImage, metadata: mdata! as! [NSObject : AnyObject], completionBlock: { ( url, error ) in
             //println(url)
             library.assetForURL(url, resultBlock: { ( asset ) in
 //                let representation = asset.defaultRepresentation()
