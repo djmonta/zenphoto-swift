@@ -273,17 +273,40 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 var param = [method: p]
                 
-                Alamofire.request(.POST, URLinit()!, parameters: param)
+                let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
+                mutableURLRequest.HTTPMethod = Method.POST.rawValue
+
+                let encodedURLRequest = ParameterEncoding.URL.encode(mutableURLRequest, parameters: param).0
+                //println(encodedURLRequest)
+                
+                let data = encodedURLRequest.HTTPBody!
+                
+                let progressView = UIProgressView()
+
+//                Alamofire.request(.POST, URLinit()!, parameters: param)
 //                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
 //                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
 //                    }
+//                    .responseJSON { request, response, json, error in
+//                        println(json)
+//                        if json != nil {
+//                            self.getImageList(id!)
+//                        }
+//                }
+
+                Alamofire.upload(mutableURLRequest, data)
+                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        println("ENTER .PROGRESSS")
+                        println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                        progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                    }
                     .responseJSON { request, response, json, error in
                         println(json)
                         if json != nil {
                             self.getImageList(id!)
                         }
                 }
-
+                
                 
             }, failureBlock: nil)
             
@@ -334,17 +357,41 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
-            Alamofire.request(.POST, URLinit()!, parameters: param)
+            let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
+            mutableURLRequest.HTTPMethod = Method.POST.rawValue
+            
+            let encodedURLRequest = ParameterEncoding.URL.encode(mutableURLRequest, parameters: param).0
+            //println(encodedURLRequest)
+            
+            let data = encodedURLRequest.HTTPBody!
+            
+            let progressView = UIProgressView()
+            
+//            Alamofire.request(.POST, URLinit()!, parameters: param)
 //                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
 //                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
 //                }
 //                
+//                .responseJSON { request, response, json, error in
+//                    println(json)
+//                    if json != nil {
+//                        self.getImageList(id!)
+//                }
+//            }
+
+            Alamofire.upload(mutableURLRequest, data)
+                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                    println("ENTER .PROGRESSS")
+                    println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                    progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                }
                 .responseJSON { request, response, json, error in
                     println(json)
                     if json != nil {
                         self.getImageList(id!)
-                }
+                    }
             }
+
             
         }
         
