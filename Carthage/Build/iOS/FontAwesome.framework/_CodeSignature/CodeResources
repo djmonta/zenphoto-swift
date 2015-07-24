@@ -4,68 +4,76 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/Alamofire-Swift.h</key>
+		<key>FontAwesome.otf</key>
 		<data>
-		HiQtSuDBMB+nsgQg1fOFtUYxpE0=
+		zenrksijuiPWSPduo5MVEfMIE/Q=
 		</data>
-		<key>Headers/Alamofire.h</key>
+		<key>Headers/FontAwesome-Swift.h</key>
 		<data>
-		wyYe0HQCA0Vux7J1SUB1vFFWZ0o=
+		rUgZUafofHhuT3ZX96D1pFwTUKI=
+		</data>
+		<key>Headers/FontAwesome.h</key>
+		<data>
+		/jav6Y8EhHOVIcRilKvDmhElMiA=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		9yl5MrkIESHUlLSwgpMAZm0akRk=
+		D7WbCmYBVJb5aZbzBeeCRznKU2Y=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm.swiftdoc</key>
+		<key>Modules/FontAwesome.swiftmodule/arm.swiftdoc</key>
 		<data>
-		gFBLshJFHHXkqbXIgGX2A83sieY=
+		DiTLWKmlY6XSEXcv/MENKb7Bp2Q=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/FontAwesome.swiftmodule/arm.swiftmodule</key>
 		<data>
-		+xwStH6Hl50VZpZShbZ7NDNBI1k=
+		dctYpFAIv0xe4vOTwCzLu7dpX2I=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/FontAwesome.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		r/CEEsly320MTkzvW2gm5WqwPdA=
+		+z3R4iil2sVu0NiiFdwU7lYKPRk=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/FontAwesome.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		fdtks+fLQFmuJeW+BzFUULPNgFY=
+		WJ4oOFtFVYQ9SuX5xMpl+3uWaIs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		oUms7QxpPFGK02DLqqScqq/7uwc=
+		tF1XzT5nS4BCMWj7oZdAneeid0w=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/Alamofire-Swift.h</key>
+		<key>FontAwesome.otf</key>
 		<data>
-		HiQtSuDBMB+nsgQg1fOFtUYxpE0=
+		zenrksijuiPWSPduo5MVEfMIE/Q=
 		</data>
-		<key>Headers/Alamofire.h</key>
+		<key>Headers/FontAwesome-Swift.h</key>
 		<data>
-		wyYe0HQCA0Vux7J1SUB1vFFWZ0o=
+		rUgZUafofHhuT3ZX96D1pFwTUKI=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm.swiftdoc</key>
+		<key>Headers/FontAwesome.h</key>
 		<data>
-		gFBLshJFHHXkqbXIgGX2A83sieY=
+		/jav6Y8EhHOVIcRilKvDmhElMiA=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/FontAwesome.swiftmodule/arm.swiftdoc</key>
 		<data>
-		+xwStH6Hl50VZpZShbZ7NDNBI1k=
+		DiTLWKmlY6XSEXcv/MENKb7Bp2Q=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/FontAwesome.swiftmodule/arm.swiftmodule</key>
 		<data>
-		r/CEEsly320MTkzvW2gm5WqwPdA=
+		dctYpFAIv0xe4vOTwCzLu7dpX2I=
 		</data>
-		<key>Modules/Alamofire.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/FontAwesome.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		fdtks+fLQFmuJeW+BzFUULPNgFY=
+		+z3R4iil2sVu0NiiFdwU7lYKPRk=
+		</data>
+		<key>Modules/FontAwesome.swiftmodule/arm64.swiftmodule</key>
+		<data>
+		WJ4oOFtFVYQ9SuX5xMpl+3uWaIs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		oUms7QxpPFGK02DLqqScqq/7uwc=
+		tF1XzT5nS4BCMWj7oZdAneeid0w=
 		</data>
 	</dict>
 	<key>rules</key>

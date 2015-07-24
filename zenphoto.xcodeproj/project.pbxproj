@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		700F4A251AE665E500F85AEA /* DKImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F4A241AE665E500F85AEA /* DKImagePickerController.swift */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
-		707B613C1B611A9900289C51 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61391B611A9900289C51 /* FontAwesome.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
 		707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		707B61401B611CE300289C51 /* FontAwesome.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61391B611A9900289C51 /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707B61411B611CE300289C51 /* Haneke.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
 		707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -34,6 +31,8 @@
 		708B20061A94A22700807758 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20051A94A22700807758 /* Functions.swift */; };
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
 		70A942F71AA485F400370B7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70A942F91AA485F400370B7C /* Localizable.strings */; };
+		70BB33BA1B61EB6E00A4EA3D /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
+		70BB33BB1B61EBA000A4EA3D /* FontAwesome.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,32 +53,20 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				70BB33BB1B61EBA000A4EA3D /* FontAwesome.framework in Copy Files */,
 				707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */,
 				707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */,
-				707B61401B611CE300289C51 /* FontAwesome.framework in Copy Files */,
 				707B61411B611CE300289C51 /* Haneke.framework in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7097385A1A95C6910073AEEB /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		700F4A241AE665E500F85AEA /* DKImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImagePickerController.swift; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
 		707B61381B611A9900289C51 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		707B61391B611A9900289C51 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
 		707B613A1B611A9900289C51 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
 		707B61421B6140A600289C51 /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePicker.framework; path = Carthage/Build/iOS/QBImagePicker.framework; sourceTree = "<group>"; };
 		707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zenphoto-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -106,6 +93,7 @@
 		70A942F01AA484A700370B7C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		70A942F81AA485F400370B7C /* Base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		70A942FA1AA485F700370B7C /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
 		70CB7C571AA07976005A9B5E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,9 +103,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */,
+				70BB33BA1B61EB6E00A4EA3D /* FontAwesome.framework in Frameworks */,
 				707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */,
 				707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */,
-				707B613C1B611A9900289C51 /* FontAwesome.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,9 +122,9 @@
 		708B1FA01A949C7700807758 = {
 			isa = PBXGroup;
 			children = (
+				70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */,
 				707B61381B611A9900289C51 /* Alamofire.framework */,
 				707B61421B6140A600289C51 /* QBImagePicker.framework */,
-				707B61391B611A9900289C51 /* FontAwesome.framework */,
 				707B613A1B611A9900289C51 /* Haneke.framework */,
 				708B1FAB1A949C7700807758 /* zenphoto */,
 				708B1FC41A949C7800807758 /* zenphotoTests */,
@@ -172,7 +160,6 @@
 				708B20071A94A25600807758 /* UIImage+Cropping.swift */,
 				705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */,
 				707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */,
-				700F4A241AE665E500F85AEA /* DKImagePickerController.swift */,
 				705FE5F81A9C855C00198D7D /* FormatterUtil.swift */,
 				708B1FAC1A949C7700807758 /* Supporting Files */,
 				707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */,
@@ -217,7 +204,6 @@
 				708B1FA51A949C7700807758 /* Sources */,
 				708B1FA61A949C7700807758 /* Frameworks */,
 				708B1FA71A949C7700807758 /* Resources */,
-				7097385A1A95C6910073AEEB /* Copy Frameworks */,
 				707B613E1B611CD300289C51 /* Copy Files */,
 			);
 			buildRules = (
@@ -343,7 +329,6 @@
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
 				707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */,
-				700F4A251AE665E500F85AEA /* DKImagePickerController.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
 			);
