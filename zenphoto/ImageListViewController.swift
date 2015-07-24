@@ -16,7 +16,7 @@ import Haneke
 
 let reuseIdentifier = "Cell"
 
-class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DKImagePickerControllerDelegate, CLLocationManagerDelegate {
+class ImageListViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate, QBImagePickerControllerDelegate {
     
     var albumInfo: JSON?
     var images: [JSON]? = []
@@ -190,10 +190,16 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         alert.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
 
         let libButton = UIAlertAction(title: NSLocalizedString("libButtonTitle", comment: "libButtonTitle"), style: .Default) { (alert) -> Void in
-            // Custom Image Picker
-            let pickerController = DKImagePickerController()
-            pickerController.pickerDelegate = self
-            self.presentViewController(pickerController, animated: true) {}
+            // QBImagePicker
+            let pickerController = QBImagePickerController()
+            pickerController.delegate = self
+            pickerController.allowsMultipleSelection = true
+            self.presentViewController(pickerController, animated: true, completion: nil)
+            
+            // DKImagePicker
+            //let pickerController = DKImagePickerController()
+            //pickerController.pickerDelegate = self
+            //self.presentViewController(pickerController, animated: true) {}
             
             // Default Image Picker
             //imageController.sourceType = .PhotoLibrary
@@ -317,19 +323,17 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         
     }
     
-    // MARK: - DKImagePickerControllerDelegate methods
+    // MARK: - QBImagePickerControllerDelegate methods
     
-    // When the callback cancel
-    func imagePickerControllerCancelled() {
+    func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // Select a picture and determine the callback after
-    func imagePickerControllerDidSelectedAssets(assets: [DKAsset]!) {
+    func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
         for (index, asset) in enumerate(assets) {
-            //println(index, asset)
+            println(index, asset)
             
             // images prepare to upload
             let method = "zenphoto.image.upload"
@@ -337,70 +341,58 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var userData = userDatainit(id: id!)
             userData["folder"] = self.albumInfo?["folder"].string
             
-            var image = asset.fullResolutionImage
-            var metadata = asset.metadata
+            var imageManager = PHImageManager()
+            imageManager.requestImageDataForAsset(asset as! PHAsset, options: nil) {
+                (imageData: NSData!, dataUTI: String!, orientation: UIImageOrientation, info: [NSObject : AnyObject]!) -> Void in
+                println("Yay!")
             
-            // Set your compression quuality (0.0 to 1.0).
-            var mutableMetadata = metadata!.mutableCopy() as! NSMutableDictionary
-            mutableMetadata.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
-
-            var imageData = createImageDataFromImage(image!, mutableMetadata)
-            
-            var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
-            userData["file"] = base64String
-            
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyyMMddHHmmss"
-            var dt = dateFormatter.stringFromDate(NSDate())
-            
-            var type = contentTypeForImageData(imageData)
-            
-            userData["filename"] = dt + "-\(index)." + (type! as String)
-            
-            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var param = [method: p]
-            
-            let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
-            mutableURLRequest.HTTPMethod = Method.POST.rawValue
-            
-            let encodedURLRequest = ParameterEncoding.URL.encode(mutableURLRequest, parameters: param).0
-            //println(encodedURLRequest)
-            
-            let data = encodedURLRequest.HTTPBody!
-            
-            
-//            Alamofire.request(.POST, URLinit()!, parameters: param)
-//                .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-//                    println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-//                }
-//                
-//                .responseJSON { request, response, json, error in
-//                    println(json)
-//                    if json != nil {
-//                        self.getImageList(id!)
-//                }
-//            }
-
-            let qos = Int(QOS_CLASS_USER_INITIATED.value)
-            dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
-                dispatch_async(dispatch_get_main_queue()) {
-                    Alamofire.upload(mutableURLRequest, data)
-                        .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                            println("ENTER .PROGRESSS")
-                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-//                            self.progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-//                            self.progressView.removeFromSuperview()
-                        }
-                        .responseJSON { request, response, json, error in
-                            println(json)
-                            if json != nil {
-                                self.getImageList(id!)
+                var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+                userData["file"] = base64String
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyyMMddHHmmss"
+                var dt = dateFormatter.stringFromDate(NSDate())
+                
+                var type = contentTypeForImageData(imageData)
+                
+                userData["filename"] = dt + "-\(index)." + (type! as String)
+                
+                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                var param = [method: p]
+                
+                let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
+                mutableURLRequest.HTTPMethod = Method.POST.rawValue
+                
+                let encodedURLRequest = ParameterEncoding.URL.encode(mutableURLRequest, parameters: param).0
+                //println(encodedURLRequest)
+                
+                let data = encodedURLRequest.HTTPBody!
+                
+                let progressView = UIProgressView()
+                
+                let qos = Int(QOS_CLASS_USER_INITIATED.value)
+                dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        Alamofire.upload(mutableURLRequest, data)
+                            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                                println("ENTER .PROGRESSS")
+                                println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                                progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                                progressView.removeFromSuperview()
                             }
+                            .responseJSON { request, response, json, error in
+                                println(json)
+                                if json != nil {
+                                    self.getImageList(id!)
+                                }
+                        }
                     }
                 }
+                
             }
             
         }
+
         
     }
     
