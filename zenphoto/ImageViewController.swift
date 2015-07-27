@@ -9,7 +9,9 @@
 import UIKit
 import Haneke
 import Alamofire
-import AssetsLibrary
+import Photos
+import ImageIO
+import MobileCoreServices
 
 class ImageView: UIViewController, UIScrollViewDelegate {
     
@@ -23,8 +25,52 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func btnExport(sender: AnyObject) {
-        println(image)
-        UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil)        
+        //println(image)
+        //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil) // EXIF are gone!!
+        
+        let folder = self.image?["folder"].string!
+        let filename = self.image?["name"].string!
+        var URL: String! = config.stringForKey("URL")
+        if !URL.hasSuffix("/") { URL = URL + "/" }
+        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+        
+        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        var imageURL = NSURL(string: encodedURL!)!
+        println(imageURL)
+        
+        var fileName: String?
+        var finalPath: NSURL?
+        
+        Alamofire.download(.GET, imageURL, { (temporaryURL, response) in
+            
+            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+                
+                fileName = response.suggestedFilename!
+                finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
+                return finalPath!
+            }
+            
+            return temporaryURL
+        })
+            .response { (request, response, data, error) in
+                
+                if error != nil {
+                    println("REQUEST: \(request)")
+                    println("RESPONSE: \(response)")
+                } 
+                
+                if finalPath != nil {
+                    //doSomethingWithTheFile(finalPath!, fileName: fileName!)
+                    PHPhotoLibrary.sharedPhotoLibrary().performChanges ({
+                        //let temporaryPath = path // a path in the App's documents or cache directory
+                        let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath)
+                        }, completionHandler: { (success, error) in
+                            // to-do: delete the temporary file
+                            println ("completion \(success) \(error)")
+                    })
+                }
+        }
+        
     }
     
     override func viewDidLoad() {
