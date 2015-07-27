@@ -172,7 +172,7 @@ func contentTypeForImageData(data:NSData) -> NSString? {
 
 // MARK: - Handle Image with Exif
 
-func createImageDataFromImage(image:UIImage, metadata:NSDictionary) -> NSData {
+func createImageDataFromImage(image:UIImage, metadata:NSDictionary?) -> NSData {
     var imageData = NSMutableData()
     var dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil);
     CGImageDestinationAddImage(dest, image.CGImage, metadata);

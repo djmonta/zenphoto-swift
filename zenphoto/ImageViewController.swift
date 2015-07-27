@@ -8,28 +8,38 @@
 
 import UIKit
 import Haneke
+import Alamofire
+import AssetsLibrary
 
 class ImageView: UIViewController, UIScrollViewDelegate {
     
     var pageIndex : Int?
     var image : JSON?
     
-    let scrollView = UIScrollView()
-    let imageView = UIImageView()
+    //let scrollView = UIScrollView()
+    //let imageView = UIImageView()
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBAction func btnExport(sender: AnyObject) {
+        println(image)
+        UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil)        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.scrollView.delegate = self
         self.scrollView.backgroundColor = UIColor.clearColor()
-        self.scrollView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+        //self.scrollView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.scrollView.minimumZoomScale = 1
         self.scrollView.maximumZoomScale = 8
         self.scrollView.scrollEnabled = true
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
 
-        self.view.addSubview(scrollView)
+        //self.view.addSubview(scrollView)
         
         let folder = self.image?["folder"].string!
         let filename = self.image?["name"].string!
@@ -41,7 +51,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         var imageURL = NSURL(string: encodedURL!)!
         self.navigationItem.title = filename
 
-        self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+        //self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.imageView.contentMode = .ScaleAspectFit
         self.imageView.hnk_setImageFromURL(imageURL)
         
@@ -50,7 +60,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
         
-        self.scrollView.addSubview(imageView)
+        //self.scrollView.addSubview(imageView)
     }
     
     override func didReceiveMemoryWarning() {

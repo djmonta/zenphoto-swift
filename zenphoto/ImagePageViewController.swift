@@ -18,10 +18,6 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     
     var currentIndex : Int?
     
-    @IBAction func btnExport(sender: AnyObject) {
-        println("Export \(currentIndex)")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

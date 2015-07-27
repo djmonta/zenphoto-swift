@@ -227,6 +227,7 @@
         <!--Image Page View Controller-->
         <scene sceneID="XWG-dN-2Kd">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="CKo-2D-hwz" customClass="ImagePageViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1qM-2X-aIl"/>
@@ -235,11 +236,10 @@
                     <view key="view" contentMode="scaleToFill" id="BQg-P2-ve7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="YRI-aL-jwa"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1596" y="-247"/>
         </scene>
@@ -332,8 +332,49 @@
                     <view key="view" contentMode="scaleToFill" id="oNy-YT-yzH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="8" translatesAutoresizingMaskIntoConstraints="NO" id="hTN-LY-4er">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d9B-xH-zeV">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="d9B-xH-zeV" firstAttribute="top" secondItem="hTN-LY-4er" secondAttribute="top" id="ABj-z5-ZQX"/>
+                                    <constraint firstItem="d9B-xH-zeV" firstAttribute="leading" secondItem="hTN-LY-4er" secondAttribute="leading" id="c6i-KW-R1k"/>
+                                    <constraint firstItem="d9B-xH-zeV" firstAttribute="centerX" secondItem="hTN-LY-4er" secondAttribute="centerX" id="irz-aU-lhZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="d9B-xH-zeV" secondAttribute="bottom" id="mOb-l5-egc"/>
+                                    <constraint firstItem="d9B-xH-zeV" firstAttribute="centerY" secondItem="hTN-LY-4er" secondAttribute="centerY" id="nWQ-nw-QjB"/>
+                                    <constraint firstAttribute="trailing" secondItem="d9B-xH-zeV" secondAttribute="trailing" id="oTC-3S-KuA"/>
+                                </constraints>
+                            </scrollView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-4c-rkI">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="ckM-nA-BjH">
+                                        <connections>
+                                            <action selector="btnExport:" destination="Dxl-U7-H4i" id="RKO-my-IYa"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hTN-LY-4er" firstAttribute="bottom" secondItem="bUW-j8-uPQ" secondAttribute="top" id="3Fs-Uj-4EH"/>
+                            <constraint firstItem="hTN-LY-4er" firstAttribute="top" secondItem="oNy-YT-yzH" secondAttribute="top" id="43J-Lu-45n"/>
+                            <constraint firstItem="0f5-4c-rkI" firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Agn-vf-EVx"/>
+                            <constraint firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Cae-Xd-jM3"/>
+                            <constraint firstItem="0f5-4c-rkI" firstAttribute="bottom" secondItem="bUW-j8-uPQ" secondAttribute="top" id="D3G-HB-0xk"/>
+                            <constraint firstItem="0f5-4c-rkI" firstAttribute="leading" secondItem="hTN-LY-4er" secondAttribute="leading" id="f6l-UM-mNi"/>
+                            <constraint firstItem="hTN-LY-4er" firstAttribute="leading" secondItem="oNy-YT-yzH" secondAttribute="leading" id="hPe-4n-0fX"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="d9B-xH-zeV" id="arU-aw-U58"/>
+                        <outlet property="scrollView" destination="hTN-LY-4er" id="Ad3-Fl-wGN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpI-ve-3yV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
