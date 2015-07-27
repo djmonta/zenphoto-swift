@@ -14,7 +14,7 @@ import Alamofire
 import Haneke
 
 let config = NSUserDefaults.standardUserDefaults()
-let alertView: UIAlertView = UIAlertView()
+let alertView = UIAlertView()
 
 func userDatainit(id: String = "1") -> Dictionary<String, AnyObject> {
     var userData = Dictionary<String, AnyObject>()

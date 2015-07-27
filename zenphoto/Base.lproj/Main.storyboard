@@ -352,7 +352,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-4c-rkI">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="ckM-nA-BjH">
+                                    <barButtonItem systemItem="organize" id="ckM-nA-BjH">
                                         <connections>
                                             <action selector="btnExport:" destination="Dxl-U7-H4i" id="RKO-my-IYa"/>
                                         </connections>

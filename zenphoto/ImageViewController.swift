@@ -25,52 +25,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func btnExport(sender: AnyObject) {
-        //println(image)
-        //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil) // EXIF are gone!!
-        
-        let folder = self.image?["folder"].string!
-        let filename = self.image?["name"].string!
-        var URL: String! = config.stringForKey("URL")
-        if !URL.hasSuffix("/") { URL = URL + "/" }
-        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
-        
-        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        var imageURL = NSURL(string: encodedURL!)!
-        println(imageURL)
-        
-        var fileName: String?
-        var finalPath: NSURL?
-        
-        Alamofire.download(.GET, imageURL, { (temporaryURL, response) in
-            
-            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
-                
-                fileName = response.suggestedFilename!
-                finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
-                return finalPath!
-            }
-            
-            return temporaryURL
-        })
-            .response { (request, response, data, error) in
-                
-                if error != nil {
-                    println("REQUEST: \(request)")
-                    println("RESPONSE: \(response)")
-                } 
-                
-                if finalPath != nil {
-                    //doSomethingWithTheFile(finalPath!, fileName: fileName!)
-                    PHPhotoLibrary.sharedPhotoLibrary().performChanges ({
-                        //let temporaryPath = path // a path in the App's documents or cache directory
-                        let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath)
-                        }, completionHandler: { (success, error) in
-                            // to-do: delete the temporary file
-                            println ("completion \(success) \(error)")
-                    })
-                }
-        }
-        
+        moreButton()
     }
     
     override func viewDidLoad() {
@@ -115,7 +70,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     }
     
     
-    // MARK: Gestures
+    // MARK: - Gestures
     
     // ピンチイン・ピンチアウト
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -155,5 +110,111 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Delete/Download Image (More Button)
+    
+    func moreButton() {
+        let alert = UIAlertController(title: NSLocalizedString("moreButtonAlertTitle", comment: "moreButtonAlertTitle"), message: NSLocalizedString("moreButtonAlertMessage", comment: "moreButtonAlertMessage"), preferredStyle: .ActionSheet)
+        
+        // for iPad Support
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        let downloadButton = UIAlertAction(title: NSLocalizedString("downloadButtonTitle", comment: "downloadButtonTitle"), style: .Default) { (alert) -> Void in
+            
+            //println(image)
+            //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil) // EXIF are gone!!
+            
+            let folder = self.image?["folder"].string!
+            let filename = self.image?["name"].string!
+            var URL: String! = config.stringForKey("URL")
+            if !URL.hasSuffix("/") { URL = URL + "/" }
+            var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+            
+            var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            var imageURL = NSURL(string: encodedURL!)!
+            //println(imageURL)
+            
+            var fileName: String?
+            var finalPath: NSURL?
+            
+            Alamofire.download(.GET, imageURL, { (temporaryURL, response) in
+                
+                if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+                    
+                    fileName = response.suggestedFilename!
+                    finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
+                    return finalPath!
+                }
+                
+                return temporaryURL
+            })
+                .response { (request, response, data, error) in
+                    
+                    if error != nil {
+                        println("REQUEST: \(request)")
+                        println("RESPONSE: \(response)")
+                    }
+                    
+                    if finalPath != nil {
+                        PHPhotoLibrary.sharedPhotoLibrary().performChanges ({
+                            let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath)
+                            }, completionHandler: { (success, error) in
+                                // to-do: delete the temporary file
+                                println ("completion \(success) \(error)")
+                                // to-do: alert!
+                        })
+                    }
+            }
+
+        }
+        
+        let deleteButton = UIAlertAction(title: NSLocalizedString("deleteButton", comment: "deleteButton"), style: .Destructive) { (alert) -> Void in
+            
+            var confirmAlert = UIAlertController(title: NSLocalizedString("areYouSure", comment: "Are you sure?"), message: NSLocalizedString("deleteCantBeUndone", comment: "Delete can't be undone!"), preferredStyle: UIAlertControllerStyle.Alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: "delete"), style: .Destructive, handler: { (action: UIAlertAction!) in
+                
+                println("Handle Ok logic here")
+                
+                let method = "zenphoto.image.delete"
+                var id = self.image?["id"].string!
+                var userData = userDatainit(id: id!)
+                
+                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                var param = [method: p]
+                
+                println(param)
+                
+                Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+                    println(json)
+                    if json != nil {
+                        //self.getAlbumList()
+                        println("deleted")
+                    }
+                }
+
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "Cancel"), style: .Cancel, handler: { (action: UIAlertAction!) in
+                println("Handle Cancel Logic here")
+            }))
+            
+            self.presentViewController(confirmAlert, animated: true, completion: nil)
+                
+        }
+        
+        let cancelButton = UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+            println("Cancel Pressed")
+        }
+
+        alert.addAction(downloadButton)
+        alert.addAction(deleteButton)
+        alert.addAction(cancelButton)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+
+        
+    }
     
 }

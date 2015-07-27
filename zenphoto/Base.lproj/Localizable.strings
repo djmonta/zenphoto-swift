@@ -18,6 +18,13 @@
 "imagePickerAlertMessage"="Add photo to this album";
 "libButtonTitle"="Select photo from library";
 "cameraButtonTitle"="Take a picture";
+"moreButtonAlertTitle"="Organize";
+"moreButtonAlertMessage"="Save or Delete this photo";
+"downloadButtonTitle"="Save Photo to Cameraroll";
+"deleteButton"="Delete Photo";
 "Settings"="Settings";
 "locationServiceDisabled"="Location Services Disabled";
 "locationServiceDisabledMessage"="You must enable Location Services.";
+"areYouSure"="Are you sure?";
+"deleteCantBeUndone"="Delete can't be undone!";
+"delete"="Delete";
