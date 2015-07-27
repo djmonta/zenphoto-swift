@@ -227,6 +227,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        activityIndicator.startAnimating()
+        self.view.addSubview(activityIndicator)
+        
         var image = info[UIImagePickerControllerOriginalImage] as! UIImage?
         var metadata = info[UIImagePickerControllerMediaMetadata] as! NSDictionary?
         var mutableMetadata = metadata?.mutableCopy() as! NSMutableDictionary?
@@ -256,14 +264,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //                var buffered = representation.getBytes(buffer, fromOffset: 0, length: Int(representation.size()), error: nil)
 //                var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
                 
-                let activityIndicator = UIActivityIndicatorView()
-                activityIndicator.frame = CGRectMake(0, 0, 50, 50)
-                activityIndicator.center = self.view.center
-                activityIndicator.hidesWhenStopped = true
-                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-                activityIndicator.startAnimating()
-                self.view.addSubview(activityIndicator)
-                
                 let method = "zenphoto.image.upload"
                 var id = self.albumInfo?["id"].string
                 var userData = userDatainit(id: id!)
@@ -292,11 +292,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 Alamofire.upload(mutableURLRequest, data)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                        println("ENTER .PROGRESSS")
-                        println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-                        //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                        if totalBytesRead == totalBytesExpectedToRead {
-                            activityIndicator.stopAnimating()
+                        dispatch_async(dispatch_get_main_queue()) {
+                            println("ENTER .PROGRESSS")
+                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                            //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                            if totalBytesRead == totalBytesExpectedToRead {
+                                activityIndicator.stopAnimating()
+                            }
                         }
                     }
                     .responseJSON { request, response, json, error in
@@ -324,6 +326,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         for (index, asset) in enumerate(assets) {
             //println(index, asset)
             
+            let activityIndicator = UIActivityIndicatorView()
+            activityIndicator.frame = CGRectMake(0, 0, 50, 50)
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+            activityIndicator.startAnimating()
+            self.view.addSubview(activityIndicator)
+            
             // images prepare to upload
             let method = "zenphoto.image.upload"
             var id = self.albumInfo?["id"].string
@@ -334,14 +344,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             imageManager.requestImageDataForAsset(asset as! PHAsset, options: nil) {
                 (imageData: NSData!, dataUTI: String!, orientation: UIImageOrientation, info: [NSObject : AnyObject]!) -> Void in
                 println("Data process start")
-                
-                let activityIndicator = UIActivityIndicatorView()
-                activityIndicator.frame = CGRectMake(0, 0, 50, 50)
-                activityIndicator.center = self.view.center
-                activityIndicator.hidesWhenStopped = true
-                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-                activityIndicator.startAnimating()
-                self.view.addSubview(activityIndicator)
                 
                 //let progressView = UIProgressView(frame: CGRect(x: 0.0, y: 200.0, width: self.view.bounds.width, height: 10.0))
                 //progressView.tintColor = UIColor.blueColor()
