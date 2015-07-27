@@ -11,10 +11,7 @@
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
 		707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
-		707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		707B61411B611CE300289C51 /* Haneke.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
-		707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
@@ -32,7 +29,6 @@
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
 		70A942F71AA485F400370B7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70A942F91AA485F400370B7C /* Localizable.strings */; };
 		70BB33BA1B61EB6E00A4EA3D /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
-		70BB33BB1B61EBA000A4EA3D /* FontAwesome.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,23 +41,6 @@
 			remoteInfo = zenphoto;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		707B613E1B611CD300289C51 /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				70BB33BB1B61EBA000A4EA3D /* FontAwesome.framework in Copy Files */,
-				707B61441B6140BD00289C51 /* QBImagePicker.framework in Copy Files */,
-				707B613F1B611CE300289C51 /* Alamofire.framework in Copy Files */,
-				707B61411B611CE300289C51 /* Haneke.framework in Copy Files */,
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
@@ -204,7 +183,6 @@
 				708B1FA51A949C7700807758 /* Sources */,
 				708B1FA61A949C7700807758 /* Frameworks */,
 				708B1FA71A949C7700807758 /* Resources */,
-				707B613E1B611CD300289C51 /* Copy Files */,
 			);
 			buildRules = (
 			);

@@ -196,11 +196,6 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             pickerController.allowsMultipleSelection = true
             self.presentViewController(pickerController, animated: true, completion: nil)
             
-            // DKImagePicker
-            //let pickerController = DKImagePickerController()
-            //pickerController.pickerDelegate = self
-            //self.presentViewController(pickerController, animated: true) {}
-            
             // Default Image Picker
             //imageController.sourceType = .PhotoLibrary
             //self.presentViewController(imageController, animated: true, completion: nil)
@@ -261,6 +256,14 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //                var buffered = representation.getBytes(buffer, fromOffset: 0, length: Int(representation.size()), error: nil)
 //                var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
                 
+                let activityIndicator = UIActivityIndicatorView()
+                activityIndicator.frame = CGRectMake(0, 0, 50, 50)
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                activityIndicator.startAnimating()
+                self.view.addSubview(activityIndicator)
+                
                 let method = "zenphoto.image.upload"
                 var id = self.albumInfo?["id"].string
                 var userData = userDatainit(id: id!)
@@ -287,35 +290,21 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 let data = encodedURLRequest.HTTPBody!
                 
-//                Alamofire.request(.POST, URLinit()!, parameters: param)
-//                    .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-//                        println("bytes:\(bytesRead), totalBytesRead:\(totalBytesRead), totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
-//                    }
-//                    .responseJSON { request, response, json, error in
-//                        println(json)
-//                        if json != nil {
-//                            self.getImageList(id!)
-//                        }
-//                }
-
-                let qos = Int(QOS_CLASS_USER_INITIATED.value)
-                dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        Alamofire.upload(mutableURLRequest, data)
-                            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                                println("ENTER .PROGRESSS")
-                                println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-        //                        progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                            }
-                            .responseJSON { request, response, json, error in
-                                println(json)
-                                if json != nil {
-                                    self.getImageList(id!)
-                                }
+                Alamofire.upload(mutableURLRequest, data)
+                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        println("ENTER .PROGRESSS")
+                        println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                        //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                        if totalBytesRead == totalBytesExpectedToRead {
+                            activityIndicator.stopAnimating()
                         }
                     }
-                }
-                
+                    .responseJSON { request, response, json, error in
+                        println(json)
+                        if json != nil {
+                            self.getImageList(id!)
+                        }
+                    }
                 
             }, failureBlock: nil)
             
@@ -333,7 +322,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         self.dismissViewControllerAnimated(true, completion: nil)
 
         for (index, asset) in enumerate(assets) {
-            println(index, asset)
+            //println(index, asset)
             
             // images prepare to upload
             let method = "zenphoto.image.upload"
@@ -344,8 +333,20 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             var imageManager = PHImageManager()
             imageManager.requestImageDataForAsset(asset as! PHAsset, options: nil) {
                 (imageData: NSData!, dataUTI: String!, orientation: UIImageOrientation, info: [NSObject : AnyObject]!) -> Void in
-                println("Yay!")
-            
+                println("Data process start")
+                
+                let activityIndicator = UIActivityIndicatorView()
+                activityIndicator.frame = CGRectMake(0, 0, 50, 50)
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                activityIndicator.startAnimating()
+                self.view.addSubview(activityIndicator)
+                
+                //let progressView = UIProgressView(frame: CGRect(x: 0.0, y: 200.0, width: self.view.bounds.width, height: 10.0))
+                //progressView.tintColor = UIColor.blueColor()
+                //self.view.addSubview(progressView)
+                
                 var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
                 userData["file"] = base64String
                 
@@ -368,26 +369,27 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 let data = encodedURLRequest.HTTPBody!
                 
-                let progressView = UIProgressView()
+                println("Data process end, Upload start")
                 
-                let qos = Int(QOS_CLASS_USER_INITIATED.value)
-                dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        Alamofire.upload(mutableURLRequest, data)
-                            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                                println("ENTER .PROGRESSS")
-                                println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
-                                progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                                progressView.removeFromSuperview()
+                Alamofire.upload(mutableURLRequest, data)
+                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            println("ENTER .PROGRESSS")
+                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                            //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                            if totalBytesRead == totalBytesExpectedToRead {
+                                //progressView.removeFromSuperview()
+                                activityIndicator.stopAnimating()
                             }
-                            .responseJSON { request, response, json, error in
-                                println(json)
-                                if json != nil {
-                                    self.getImageList(id!)
-                                }
                         }
                     }
+                    .responseJSON { request, response, json, error in
+                        println(json)
+                        if json != nil {
+                            self.getImageList(id!)
+                        }
                 }
+
                 
             }
             
