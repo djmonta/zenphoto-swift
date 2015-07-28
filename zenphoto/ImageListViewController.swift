@@ -392,12 +392,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                             self.getImageList(id!)
                         }
                 }
-
-                
             }
-            
         }
-
         
     }
     

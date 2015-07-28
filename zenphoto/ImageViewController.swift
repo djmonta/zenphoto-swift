@@ -9,6 +9,7 @@
 import UIKit
 import Haneke
 import Alamofire
+import FontAwesome
 import Photos
 import ImageIO
 import MobileCoreServices
@@ -24,13 +25,14 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
-    
-    @IBAction func btnExport(sender: AnyObject) {
-        moreButton()
-    }
+    @IBOutlet weak var commentView: UIView!
+    @IBOutlet weak var toolBar: UIToolbar!
     
     @IBAction func btnAction(sender: UIBarButtonItem) {
         actionButton()
+    }
+    @IBAction func btnExport(sender: UIBarButtonItem) {
+        moreButton()
     }
     
     override func viewDidLoad() {
@@ -65,6 +67,11 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
+        
+        let btnComment = UIBarButtonItem()
+        btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
+        btnComment.title = String.fontAwesomeIconWithName(.CommentO)
+        self.toolBar.items?[3] = btnComment
         
         //self.scrollView.addSubview(imageView)
     }
@@ -221,7 +228,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
 
     }
     
-    //MARK: - UIActivityViewController
+    // MARK: - UIActivityViewController
     
     func actionButton() {
         // 共有する項目
@@ -232,16 +239,17 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         var imageURLstr = URL + "albums/" + folder! + "/" + filename!
         
         let shareText = filename!
-        //let shareImage = self.imageView.image! // EXIF are gone!
         
         var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
         let imageURL = NSURL(string: encodedURL!)
         //println(imageURL)
         
-        var fileName: String?
-        var finalPath: NSURL?
+       //let shareImage = self.imageView.image! // EXIF are gone!
         var shareImage: NSData?
 
+        var fileName: String?
+        var finalPath: NSURL?
+ 
         Alamofire.download(.GET, imageURL!, { (temporaryURL, response) in
             
             if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
@@ -279,11 +287,13 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                     
                     // UIActivityViewControllerを表示
                     self.presentViewController(activityViewController, animated: true, completion: nil)
-                    
-
-
+                
                 }
         }
         
     }
+    
+    // MARK: - Comment
+    
+    
 }

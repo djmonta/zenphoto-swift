@@ -222,7 +222,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DTP-dB-MBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="-247"/>
+            <point key="canvasLocation" x="953" y="-255"/>
         </scene>
         <!--Image Page View Controller-->
         <scene sceneID="XWG-dN-2Kd">
@@ -241,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596" y="-247"/>
+            <point key="canvasLocation" x="1596" y="-255"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="DbQ-5T-JIk">
@@ -339,30 +339,38 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d9B-xH-zeV">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcm-cZ-Asi">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="555"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="d9B-xH-zeV" firstAttribute="top" secondItem="hTN-LY-4er" secondAttribute="top" id="ABj-z5-ZQX"/>
+                                    <constraint firstItem="gcm-cZ-Asi" firstAttribute="trailing" secondItem="d9B-xH-zeV" secondAttribute="trailing" id="MbN-kU-cb5"/>
+                                    <constraint firstItem="gcm-cZ-Asi" firstAttribute="leading" secondItem="d9B-xH-zeV" secondAttribute="leading" id="WU5-bE-zoH"/>
+                                    <constraint firstAttribute="bottom" secondItem="gcm-cZ-Asi" secondAttribute="bottom" constant="45" id="YEO-dd-rdw"/>
                                     <constraint firstItem="d9B-xH-zeV" firstAttribute="leading" secondItem="hTN-LY-4er" secondAttribute="leading" id="c6i-KW-R1k"/>
                                     <constraint firstItem="d9B-xH-zeV" firstAttribute="centerX" secondItem="hTN-LY-4er" secondAttribute="centerX" id="irz-aU-lhZ"/>
                                     <constraint firstAttribute="bottom" secondItem="d9B-xH-zeV" secondAttribute="bottom" id="mOb-l5-egc"/>
                                     <constraint firstItem="d9B-xH-zeV" firstAttribute="centerY" secondItem="hTN-LY-4er" secondAttribute="centerY" id="nWQ-nw-QjB"/>
                                     <constraint firstAttribute="trailing" secondItem="d9B-xH-zeV" secondAttribute="trailing" id="oTC-3S-KuA"/>
+                                    <constraint firstItem="gcm-cZ-Asi" firstAttribute="top" secondItem="d9B-xH-zeV" secondAttribute="top" id="vZk-Sp-qUC"/>
                                 </constraints>
                             </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-4c-rkI">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="organize" id="ckM-nA-BjH">
-                                        <connections>
-                                            <action selector="btnExport:" destination="Dxl-U7-H4i" id="RKO-my-IYa"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wEs-yF-dVV"/>
                                     <barButtonItem systemItem="action" id="1Gi-EF-7wR">
                                         <connections>
-                                            <action selector="btnAction:" destination="Dxl-U7-H4i" id="hW2-dF-rPD"/>
+                                            <action selector="btnAction:" destination="Dxl-U7-H4i" id="GyK-nx-VXW"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ge8-8e-Ev3"/>
+                                    <barButtonItem systemItem="organize" id="ckM-nA-BjH">
+                                        <connections>
+                                            <action selector="btnExport:" destination="Dxl-U7-H4i" id="KGw-af-GQo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="R35-8i-OFU"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -378,8 +386,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentView" destination="gcm-cZ-Asi" id="4vu-Qb-0iP"/>
                         <outlet property="imageView" destination="d9B-xH-zeV" id="arU-aw-U58"/>
                         <outlet property="scrollView" destination="hTN-LY-4er" id="Ad3-Fl-wGN"/>
+                        <outlet property="toolBar" destination="0f5-4c-rkI" id="Jcu-0g-SxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpI-ve-3yV" userLabel="First Responder" sceneMemberID="firstResponder"/>
