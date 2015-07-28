@@ -189,7 +189,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                 Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                     println(json)
                     if json != nil {
-                        //self.getAlbumList()
+                        self.navigationController?.popViewControllerAnimated(true)
                         println("deleted")
                     }
                 }

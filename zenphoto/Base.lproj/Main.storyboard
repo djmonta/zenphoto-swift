@@ -227,7 +227,6 @@
         <!--Image Page View Controller-->
         <scene sceneID="XWG-dN-2Kd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="CKo-2D-hwz" customClass="ImagePageViewController" customModule="zenphoto" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1qM-2X-aIl"/>
@@ -240,6 +239,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="YRI-aL-jwa"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1596" y="-247"/>
         </scene>

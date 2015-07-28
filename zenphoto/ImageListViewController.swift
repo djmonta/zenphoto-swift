@@ -49,6 +49,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
         self.navigationController?.hidesBarsOnTap = false
     }
     
