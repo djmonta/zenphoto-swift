@@ -12,6 +12,7 @@ import Alamofire
 import Photos
 import ImageIO
 import MobileCoreServices
+import Social
 
 class ImageView: UIViewController, UIScrollViewDelegate {
     
@@ -26,6 +27,10 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     
     @IBAction func btnExport(sender: AnyObject) {
         moreButton()
+    }
+    
+    @IBAction func btnAction(sender: UIBarButtonItem) {
+        actionButton()
     }
     
     override func viewDidLoad() {
@@ -111,7 +116,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     }
     */
     
-    // MARK: - Delete/Download Image (More Button)
+    // MARK: - Save/Delete Image (More Button)
     
     func moreButton() {
         let alert = UIAlertController(title: NSLocalizedString("moreButtonAlertTitle", comment: "moreButtonAlertTitle"), message: NSLocalizedString("moreButtonAlertMessage", comment: "moreButtonAlertMessage"), preferredStyle: .ActionSheet)
@@ -160,9 +165,9 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                         PHPhotoLibrary.sharedPhotoLibrary().performChanges ({
                             let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath)
                             }, completionHandler: { (success, error) in
-                                // to-do: delete the temporary file
+                                // TODO: delete the temporary file
                                 println ("completion \(success) \(error)")
-                                // to-do: alert!
+                                // TODO: alert!
                         })
                     }
             }
@@ -214,7 +219,71 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         
         self.presentViewController(alert, animated: true, completion: nil)
 
-        
     }
     
+    //MARK: - UIActivityViewController
+    
+    func actionButton() {
+        // 共有する項目
+        let folder = self.image?["folder"].string!
+        let filename = self.image?["name"].string!
+        var URL = config.stringForKey("URL") as String!
+        if !URL.hasSuffix("/") { URL = URL + "/" }
+        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+        
+        let shareText = filename!
+        //let shareImage = self.imageView.image! // EXIF are gone!
+        
+        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let imageURL = NSURL(string: encodedURL!)
+        //println(imageURL)
+        
+        var fileName: String?
+        var finalPath: NSURL?
+        var shareImage: NSData?
+
+        Alamofire.download(.GET, imageURL!, { (temporaryURL, response) in
+            
+            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+                
+                fileName = response.suggestedFilename!
+                finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
+                return finalPath!
+            }
+            
+            return temporaryURL
+        })
+            .response { (request, response, data, error) in
+                
+                if error != nil {
+                    println("REQUEST: \(request)")
+                    println("RESPONSE: \(response)")
+                }
+                
+                if finalPath != nil {
+                    println("FINALPATH: \(finalPath)")
+                    shareImage = NSData(contentsOfURL:finalPath!, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil)
+                    
+                    let activityItems = [shareText, imageURL!, shareImage!] as Array
+                    
+                    // 初期化処理
+                    let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+                    
+                    // 使用しないアクティビティタイプ
+                    let excludedActivityTypes = [
+                        UIActivityTypePostToWeibo,
+                        UIActivityTypeSaveToCameraRoll
+                    ]
+                    
+                    activityViewController.excludedActivityTypes = excludedActivityTypes
+                    
+                    // UIActivityViewControllerを表示
+                    self.presentViewController(activityViewController, animated: true, completion: nil)
+                    
+
+
+                }
+        }
+        
+    }
 }

@@ -357,6 +357,12 @@
                                             <action selector="btnExport:" destination="Dxl-U7-H4i" id="RKO-my-IYa"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wEs-yF-dVV"/>
+                                    <barButtonItem systemItem="action" id="1Gi-EF-7wR">
+                                        <connections>
+                                            <action selector="btnAction:" destination="Dxl-U7-H4i" id="hW2-dF-rPD"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
