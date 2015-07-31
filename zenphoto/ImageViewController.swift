@@ -150,7 +150,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             var fileName: String?
             var finalPath: NSURL?
             
-            Alamofire.download(.GET, imageURL, { (temporaryURL, response) in
+            Alamofire.download(.GET, imageURL) { temporaryURL, response in
                 
                 if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
                     
@@ -160,7 +160,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                 }
                 
                 return temporaryURL
-            })
+            }
                 .response { (request, response, data, error) in
                     
                     if error != nil {
@@ -250,7 +250,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         var fileName: String?
         var finalPath: NSURL?
  
-        Alamofire.download(.GET, imageURL!, { (temporaryURL, response) in
+        Alamofire.download(.GET, imageURL!) { temporaryURL, response in
             
             if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
                 
@@ -260,7 +260,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             }
             
             return temporaryURL
-        })
+        }
             .response { (request, response, data, error) in
                 
                 if error != nil {

@@ -84,6 +84,7 @@ typedef struct _NSZone NSZone;
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import Foundation;
+@import Foundation.NSURLSession;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -106,6 +107,10 @@ typedef struct _NSZone NSZone;
 
 @interface NSURLRequest (SWIFT_EXTENSION(Alamofire))
 @property (nonatomic, readonly, copy) NSString * __nonnull URLString;
+@end
+
+
+@interface NSURLSession (SWIFT_EXTENSION(Alamofire))
 @end
 
 #pragma clang diagnostic pop

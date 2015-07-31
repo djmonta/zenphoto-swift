@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70176A671B6B0F620038F8DB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
+		70176A681B6B0F620038F8DB /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
+		70176A691B6B0F620038F8DB /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
+		70176A6A1B6B0F620038F8DB /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
-		707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
-		707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
-		707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
@@ -28,7 +29,6 @@
 		708B20061A94A22700807758 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20051A94A22700807758 /* Functions.swift */; };
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
 		70A942F71AA485F400370B7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70A942F91AA485F400370B7C /* Localizable.strings */; };
-		70BB33BA1B61EB6E00A4EA3D /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,10 +81,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				707B61431B6140A600289C51 /* QBImagePicker.framework in Frameworks */,
-				70BB33BA1B61EB6E00A4EA3D /* FontAwesome.framework in Frameworks */,
-				707B613D1B611A9900289C51 /* Haneke.framework in Frameworks */,
-				707B613B1B611A9900289C51 /* Alamofire.framework in Frameworks */,
+				70176A671B6B0F620038F8DB /* Alamofire.framework in Frameworks */,
+				70176A681B6B0F620038F8DB /* FontAwesome.framework in Frameworks */,
+				70176A691B6B0F620038F8DB /* Haneke.framework in Frameworks */,
+				70176A6A1B6B0F620038F8DB /* QBImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,13 +98,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70079AB41B67B92B00110202 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				707B613A1B611A9900289C51 /* Haneke.framework */,
+				707B61421B6140A600289C51 /* QBImagePicker.framework */,
+				707B61381B611A9900289C51 /* Alamofire.framework */,
+				70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		708B1FA01A949C7700807758 = {
 			isa = PBXGroup;
 			children = (
-				70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */,
-				707B61381B611A9900289C51 /* Alamofire.framework */,
-				707B61421B6140A600289C51 /* QBImagePicker.framework */,
-				707B613A1B611A9900289C51 /* Haneke.framework */,
+				70079AB41B67B92B00110202 /* Frameworks */,
 				708B1FAB1A949C7700807758 /* zenphoto */,
 				708B1FC41A949C7800807758 /* zenphotoTests */,
 				708B1FAA1A949C7700807758 /* Products */,

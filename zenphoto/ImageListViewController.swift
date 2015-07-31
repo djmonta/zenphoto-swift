@@ -291,7 +291,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 let data = encodedURLRequest.HTTPBody!
                 
-                Alamofire.upload(mutableURLRequest, data)
+                Alamofire.upload(mutableURLRequest, data: data)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                         dispatch_async(dispatch_get_main_queue()) {
                             println("ENTER .PROGRESSS")
@@ -374,7 +374,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 println("Data process end, Upload start")
                 
-                Alamofire.upload(mutableURLRequest, data)
+                Alamofire.upload(mutableURLRequest, data: data)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                         dispatch_async(dispatch_get_main_queue()) {
                             println("ENTER .PROGRESSS")
