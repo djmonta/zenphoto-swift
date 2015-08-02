@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		70176A671B6B0F620038F8DB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
-		70176A681B6B0F620038F8DB /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
-		70176A691B6B0F620038F8DB /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
-		70176A6A1B6B0F620038F8DB /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
+		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
+		703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
+		703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
+		703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
@@ -81,10 +81,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70176A671B6B0F620038F8DB /* Alamofire.framework in Frameworks */,
-				70176A681B6B0F620038F8DB /* FontAwesome.framework in Frameworks */,
-				70176A691B6B0F620038F8DB /* Haneke.framework in Frameworks */,
-				70176A6A1B6B0F620038F8DB /* QBImagePicker.framework in Frameworks */,
+				703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */,
+				703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */,
+				703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */,
+				703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +288,8 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QBImagePicker.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FontAwesome.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
