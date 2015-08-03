@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		702CC5C71B6FA80400DA218F /* ImageCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */; };
+		702CC5C91B6FC7F600DA218F /* SlackTextViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */; };
 		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
 		703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
 		703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCommentViewCell.swift; sourceTree = "<group>"; };
+		702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
 		707B61381B611A9900289C51 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */,
 				703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */,
 				703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */,
+				702CC5C91B6FC7F600DA218F /* SlackTextViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +106,7 @@
 		70079AB41B67B92B00110202 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */,
 				707B613A1B611A9900289C51 /* Haneke.framework */,
 				707B61421B6140A600289C51 /* QBImagePicker.framework */,
 				707B61381B611A9900289C51 /* Alamofire.framework */,
@@ -293,6 +297,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/QBImagePicker.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FontAwesome.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SlackTextViewController.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
