@@ -15,10 +15,11 @@ import ImageIO
 import MobileCoreServices
 import Social
 
-class ImageView: UIViewController, UIScrollViewDelegate {
+class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var pageIndex : Int?
     var image : JSON?
+    var commentData: [JSON]? = []
     
     //let scrollView = UIScrollView()
     //let imageView = UIImageView()
@@ -27,12 +28,21 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var btnComment: UIBarButtonItem!
+    
+    @IBOutlet weak var commentTableView: UITableView!
     
     @IBAction func btnAction(sender: UIBarButtonItem) {
         actionButton()
     }
     @IBAction func btnExport(sender: UIBarButtonItem) {
         moreButton()
+    }
+    @IBAction func btnComment(sender: UIBarButtonItem) {
+        commentFunc()
+    }
+    @IBAction func btnCancel(sender: AnyObject) {
+        commentCancelFunc()
     }
     
     override func viewDidLoad() {
@@ -67,13 +77,12 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
-        
-        let btnComment = UIBarButtonItem()
-        btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
-        btnComment.title = String.fontAwesomeIconWithName(.CommentO)
-        self.toolBar.items?[3] = btnComment
-        
         //self.scrollView.addSubview(imageView)
+        
+        self.btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
+        self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
+        self.toolBar.items?[3] = self.btnComment
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -295,5 +304,50 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Comment
     
+    func commentFunc() {
+        
+        println("Commnet")
+        self.view.bringSubviewToFront(commentView)
+        self.commentTableView.estimatedRowHeight = 50.0
+        self.commentTableView.rowHeight = UITableViewAutomaticDimension
+        
+        let method = "zenphoto.get.comments"
+        var id = self.image?["id"].string!
+        var userData = userDatainit(id: id!)
+        var d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var param = [method : d]
+        
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+            //println(json)
+            if json != nil {
+                var jsonObj = JSON(json!)
+                if let results = jsonObj.arrayValue as [JSON]? {
+                    self.commentData = results
+                    self.commentTableView.reloadData()
+                }
+            }
+        }
+
+    }
     
+    func commentCancelFunc() {
+        self.view.sendSubviewToBack(commentView)
+    }
+    
+    // MARK: - Table view data source
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+        return self.commentData?.count ?? 0
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = commentTableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! commentViewCell
+        
+        cell.commentData = self.commentData?[indexPath.row]
+        return cell
+    }
+
 }
