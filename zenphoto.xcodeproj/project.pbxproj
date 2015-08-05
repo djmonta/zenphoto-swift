@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C6DDF1B71E034002D50C6 /* CommentViewController.swift */; };
 		702CC5C71B6FA80400DA218F /* ImageCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */; };
 		702CC5C91B6FC7F600DA218F /* SlackTextViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */; };
 		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		700C6DDF1B71E034002D50C6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCommentViewCell.swift; sourceTree = "<group>"; };
 		702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				708B1FFF1A94A11C00807758 /* ImagePageViewController.swift */,
 				708B20011A94A19700807758 /* ImageViewController.swift */,
 				702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */,
+				700C6DDF1B71E034002D50C6 /* CommentViewController.swift */,
 				708B20031A94A1E900807758 /* SettingsViewController.swift */,
 				70CB7C571AA07976005A9B5E /* InfoViewController.swift */,
 				708B1FB51A949C7700807758 /* Main.storyboard */,
@@ -321,6 +324,7 @@
 				708B20041A94A1E900807758 /* SettingsViewController.swift in Sources */,
 				708B20061A94A22700807758 /* Functions.swift in Sources */,
 				708B1FFC1A949FA100807758 /* AlbumListViewCell.swift in Sources */,
+				700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */,
 				708B1FFE1A94A07400807758 /* ImageListViewController.swift in Sources */,
 				708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,

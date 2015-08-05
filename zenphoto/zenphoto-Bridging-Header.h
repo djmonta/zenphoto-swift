@@ -3,3 +3,4 @@
 //
 
 #import <QBImagePicker/QBImagePicker.h>
+#import <SlackTextViewController/SlackTextViewController.h>

@@ -18,8 +18,13 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     
     var currentIndex : Int?
     
+    @IBOutlet weak var btnComment: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
+        self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.hidesBarsOnTap = true
