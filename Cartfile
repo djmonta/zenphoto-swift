@@ -3,3 +3,4 @@ github "Haneke/HanekeSwift"
 github "thii/FontAwesome.swift" >= 0.4.1
 github "questbeat/QBImagePicker"
 github "slackhq/SlackTextViewController" == 1.5.1
+github "djmonta/SWTableViewCell"

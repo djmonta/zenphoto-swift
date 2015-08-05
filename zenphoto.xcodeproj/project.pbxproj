@@ -33,6 +33,7 @@
 		708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B20071A94A25600807758 /* UIImage+Cropping.swift */; };
 		70A942F71AA485F400370B7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70A942F91AA485F400370B7C /* Localizable.strings */; };
 		70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CB7C571AA07976005A9B5E /* InfoViewController.swift */; };
+		70E365731B7290DE0035367C /* SWTableViewCellLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E365721B7290DE0035367C /* SWTableViewCellLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		70A942FA1AA485F700370B7C /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
 		70CB7C571AA07976005A9B5E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		70E365721B7290DE0035367C /* SWTableViewCellLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWTableViewCellLib.framework; path = Carthage/Build/iOS/SWTableViewCellLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */,
 				703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */,
 				702CC5C91B6FC7F600DA218F /* SlackTextViewController.framework in Frameworks */,
+				70E365731B7290DE0035367C /* SWTableViewCellLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +111,7 @@
 		70079AB41B67B92B00110202 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				70E365721B7290DE0035367C /* SWTableViewCellLib.framework */,
 				702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */,
 				707B613A1B611A9900289C51 /* Haneke.framework */,
 				707B61421B6140A600289C51 /* QBImagePicker.framework */,
@@ -301,6 +305,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/QBImagePicker.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FontAwesome.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SlackTextViewController.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SWTableViewCellLib.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
