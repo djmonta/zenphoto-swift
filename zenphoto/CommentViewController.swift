@@ -17,6 +17,19 @@ class CommentViewController: SLKTextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.getComment()
+        
+        self.inverted = false
+        self.tableView.registerClass(CommentCellSLK.self, forCellReuseIdentifier:"CommentCellSLK")
+        self.tableView.separatorStyle = .None
+        self.tableView.estimatedRowHeight = 70
+        self.tableView.backgroundColor = UIColor.blackColor()
+        
+        self.textView.placeholder = "Write a Comment"
+        self.textView.placeholderColor = UIColor.lightGrayColor()
+    }
+    
+    func getComment() {
         let method = "zenphoto.get.comments"
         var id = self.imageId
         var userData = userDatainit(id: id!)
@@ -33,13 +46,8 @@ class CommentViewController: SLKTextViewController {
                 }
             }
         }
-        
-        self.inverted = false
-        self.tableView.registerClass(CommentCellSLK.self, forCellReuseIdentifier:"CommentCellSLK")
-        self.tableView.separatorStyle = .None
-        self.tableView.estimatedRowHeight = 70
+
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,10 +62,41 @@ class CommentViewController: SLKTextViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> CommentCellSLK {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCellSLK", forIndexPath: indexPath) as! CommentCellSLK
+
+        cell.commentData = self.comment?[indexPath.row]
         
         cell.transform = self.tableView.transform
-        cell.commentData = self.comment?[indexPath.row]
+        cell.backgroundColor = UIColor.clearColor()
         return cell
+    }
+    
+    // MARK: - SLKTextViewController
+    
+    override func didPressLeftButton(sender: AnyObject!) {
+        
+    }
+    
+    override func didPressRightButton(sender: AnyObject!) {
+        
+        self.textView.refreshFirstResponder()
+        
+        let method = "zenphoto.add.comment"
+        var id = self.imageId
+        var commentText = self.textView.text.copy() as! String
+        var userData = userDatainit(id: id!)
+        userData["commentText"] = commentText
+        var d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var param = [method : d]
+        
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+            //println(json)
+            if json != nil {
+                self.getComment()
+            }
+        }
+        
+        
+        super.didPressRightButton(sender)
     }
     
 }
