@@ -35,6 +35,8 @@ class CommentViewController: SLKTextViewController {
         
         self.textView.placeholder = "Write a Comment"
         self.textView.placeholderColor = UIColor.lightGrayColor()
+        
+        //self.forceTextInputbarAdjustmentForResponder(UIResponder())
     }
     
     func getComment() {
@@ -55,10 +57,6 @@ class CommentViewController: SLKTextViewController {
             }
         }
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.navigationController?.hidesBarsOnTap = false
     }
     
     override func didReceiveMemoryWarning() {
