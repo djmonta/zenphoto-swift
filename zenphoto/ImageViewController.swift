@@ -15,23 +15,21 @@ import ImageIO
 import MobileCoreServices
 import Social
 
-class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class ImageView: UIViewController, UIScrollViewDelegate {
     
     var pageIndex : Int?
     var image : JSON?
     var commentData: [JSON]? = []
+    var flag = false
     
     //let scrollView = UIScrollView()
     //let imageView = UIImageView()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var commentContainer: UIView!
     @IBOutlet weak var btnComment: UIBarButtonItem!
-    @IBOutlet weak var btnCommentSLK: UIBarButtonItem!
-    
-    @IBOutlet weak var commentTableView: UITableView!
     
     @IBAction func btnAction(sender: UIBarButtonItem) {
         actionButton()
@@ -41,9 +39,6 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
     }
     @IBAction func btnComment(sender: UIBarButtonItem) {
         commentFunc()
-    }
-    @IBAction func btnCancel(sender: AnyObject) {
-        commentCancelFunc()
     }
     
     override func viewDidLoad() {
@@ -83,10 +78,6 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
         self.btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
         self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
         self.toolBar.items?[3] = self.btnComment
-        
-        self.btnCommentSLK.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
-        self.btnCommentSLK.title = String.fontAwesomeIconWithName(.Comment)
-        self.toolBar.items?[4] = self.btnCommentSLK
         
     }
     
@@ -311,49 +302,16 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
     
     func commentFunc() {
         
-        println("Commnet")
-        self.view.bringSubviewToFront(commentView)
-        self.commentTableView.estimatedRowHeight = 50.0
-        self.commentTableView.rowHeight = UITableViewAutomaticDimension
-        
-        let method = "zenphoto.get.comments"
-        var id = self.image?["id"].string!
-        var userData = userDatainit(id: id!)
-        var d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method : d]
-        
-        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-            //println(json)
-            if json != nil {
-                var jsonObj = JSON(json!)
-                if let results = jsonObj.arrayValue as [JSON]? {
-                    self.commentData = results
-                    self.commentTableView.reloadData()
-                }
-            }
+        if self.flag == false {
+            self.view.bringSubviewToFront(commentContainer)
+            self.flag = true
+        } else {
+            self.view.sendSubviewToBack(commentContainer)
+            self.flag = false
         }
 
     }
     
-    func commentCancelFunc() {
-        self.view.sendSubviewToBack(commentView)
-    }
-    
-    // MARK: - Table view data source
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.commentData?.count ?? 0
-        
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = commentTableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! commentViewCell
-        
-        cell.commentData = self.commentData?[indexPath.row]
-        return cell
-    }
     
     // MARK: - Segue
     

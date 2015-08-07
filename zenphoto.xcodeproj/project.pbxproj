@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C6DDF1B71E034002D50C6 /* CommentViewController.swift */; };
-		702CC5C71B6FA80400DA218F /* ImageCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */; };
 		702CC5C91B6FC7F600DA218F /* SlackTextViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */; };
 		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
 		703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
@@ -49,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		700C6DDF1B71E034002D50C6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCommentViewCell.swift; sourceTree = "<group>"; };
 		702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 				708B1FFD1A94A07400807758 /* ImageListViewController.swift */,
 				708B1FFF1A94A11C00807758 /* ImagePageViewController.swift */,
 				708B20011A94A19700807758 /* ImageViewController.swift */,
-				702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */,
 				700C6DDF1B71E034002D50C6 /* CommentViewController.swift */,
 				7068E4BF1B744C0B009BE221 /* CommentCell.swift */,
 				708B20031A94A1E900807758 /* SettingsViewController.swift */,
@@ -325,7 +322,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */,
-				702CC5C71B6FA80400DA218F /* ImageCommentViewCell.swift in Sources */,
 				708B20021A94A19700807758 /* ImageViewController.swift in Sources */,
 				708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */,
 				70CB7C581AA07976005A9B5E /* InfoViewController.swift in Sources */,

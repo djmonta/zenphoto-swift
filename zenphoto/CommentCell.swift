@@ -25,7 +25,7 @@ class CommentCellSLK: UITableViewCell {
         usernameLabel.numberOfLines = 0
         
         usernameLabel.font = UIFont.boldSystemFontOfSize(14.0)
-        usernameLabel.textColor = UIColor.grayColor()
+        usernameLabel.textColor = UIColor.whiteColor()
         
         usernameLabel.text = self.commentData?["commentRealname"].string
         
@@ -36,7 +36,7 @@ class CommentCellSLK: UITableViewCell {
         dateLabel.numberOfLines = 0
         
         dateLabel.font = UIFont.boldSystemFontOfSize(14.0)
-        dateLabel.textColor = UIColor.grayColor()
+        dateLabel.textColor = UIColor.whiteColor()
         dateLabel.textAlignment = .Right
         
         var dateString = self.commentData?["commentDate"].string
@@ -58,7 +58,7 @@ class CommentCellSLK: UITableViewCell {
         bodyLabel.lineBreakMode = .ByWordWrapping
         
         bodyLabel.font = UIFont.systemFontOfSize(16.0)
-        bodyLabel.textColor = UIColor.darkGrayColor()
+        bodyLabel.textColor = UIColor.whiteColor()
         
         bodyLabel.text = self.commentData?["commentData"].string
         
