@@ -17,14 +17,9 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     var indexPath: Int?
     
     var currentIndex : Int?
-    
-    @IBOutlet weak var btnComment: UIBarButtonItem!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
-        self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.hidesBarsOnTap = true
@@ -125,15 +120,5 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
         self.navigationItem.title = viewController.navigationItem.title
         
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

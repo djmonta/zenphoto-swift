@@ -238,16 +238,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YRI-aL-jwa">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="Goi-wH-qOi">
-                            <connections>
-                                <segue destination="0Rd-oF-CIH" kind="show" id="tZb-56-llI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="btnComment" destination="Goi-wH-qOi" id="jOe-Nb-OM5"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="YRI-aL-jwa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOS-ui-qz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -383,6 +374,7 @@
                                                         <constraint firstItem="tid-JX-5zO" firstAttribute="top" secondItem="FwE-ls-Lbi" secondAttribute="bottom" constant="3" id="Cre-Wr-EqK"/>
                                                         <constraint firstItem="FwE-ls-Lbi" firstAttribute="top" secondItem="scF-wU-viV" secondAttribute="topMargin" id="JDv-oV-fOR"/>
                                                         <constraint firstItem="tid-JX-5zO" firstAttribute="trailing" secondItem="scF-wU-viV" secondAttribute="trailingMargin" constant="8" id="MFc-jU-Dfi"/>
+                                                        <constraint firstItem="FwE-ls-Lbi" firstAttribute="top" secondItem="scF-wU-viV" secondAttribute="topMargin" id="Z4B-FF-Ufp"/>
                                                         <constraint firstItem="tid-JX-5zO" firstAttribute="leading" secondItem="scF-wU-viV" secondAttribute="leadingMargin" constant="8" id="a3y-Yi-EsS"/>
                                                         <constraint firstItem="KRE-7q-tC9" firstAttribute="top" secondItem="scF-wU-viV" secondAttribute="topMargin" id="c71-zX-2cH"/>
                                                         <constraint firstItem="FwE-ls-Lbi" firstAttribute="trailing" secondItem="scF-wU-viV" secondAttribute="trailingMargin" id="g63-8I-nR4"/>
@@ -470,6 +462,11 @@
                                             <action selector="btnComment:" destination="Dxl-U7-H4i" id="gSo-XW-M4n"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Item" id="2Mo-H1-60C">
+                                        <connections>
+                                            <segue destination="0Rd-oF-CIH" kind="show" identifier="showComments" id="GcA-3R-WnE"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -489,6 +486,7 @@
                     </view>
                     <connections>
                         <outlet property="btnComment" destination="4B5-0f-uOJ" id="Lvx-ye-rnY"/>
+                        <outlet property="btnCommentSLK" destination="2Mo-H1-60C" id="kjb-EM-WYE"/>
                         <outlet property="commentTableView" destination="Lus-wA-6TA" id="7jB-M8-IJW"/>
                         <outlet property="commentView" destination="cYY-8D-yof" id="eJV-tk-agv"/>
                         <outlet property="imageView" destination="d9B-xH-zeV" id="arU-aw-U58"/>

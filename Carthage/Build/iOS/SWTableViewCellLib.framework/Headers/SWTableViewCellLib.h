@@ -2,7 +2,7 @@
 //  SWTableViewCellLib.h
 //  SWTableViewCellLib
 //
-//  Created by 宮本幸子 on 2015/08/06.
+//  Created by 宮本幸子 on 2015/08/07.
 //  Copyright (c) 2015年 Chris Wendel. All rights reserved.
 //
 

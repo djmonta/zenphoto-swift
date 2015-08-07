@@ -29,6 +29,7 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var btnComment: UIBarButtonItem!
+    @IBOutlet weak var btnCommentSLK: UIBarButtonItem!
     
     @IBOutlet weak var commentTableView: UITableView!
     
@@ -82,6 +83,10 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
         self.btnComment.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
         self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
         self.toolBar.items?[3] = self.btnComment
+        
+        self.btnCommentSLK.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(26)], forState: .Normal)
+        self.btnCommentSLK.title = String.fontAwesomeIconWithName(.Comment)
+        self.toolBar.items?[4] = self.btnCommentSLK
         
     }
     
@@ -349,5 +354,14 @@ class ImageView: UIViewController, UIScrollViewDelegate, UITableViewDataSource, 
         cell.commentData = self.commentData?[indexPath.row]
         return cell
     }
-
+    
+    // MARK: - Segue
+    
+    override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
+        if segue.identifier == "showComments" {
+            let commentViewController = segue.destinationViewController as! CommentViewController
+            commentViewController.imageId = self.image?["id"].string!
+        }
+    }
+    
 }

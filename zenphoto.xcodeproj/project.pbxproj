@@ -16,6 +16,7 @@
 		703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
+		7068E4C01B744C0B009BE221 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068E4BF1B744C0B009BE221 /* CommentCell.swift */; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
@@ -52,6 +53,7 @@
 		702CC5C81B6FC7F600DA218F /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
+		7068E4BF1B744C0B009BE221 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		707B61381B611A9900289C51 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		707B613A1B611A9900289C51 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
 		707B61421B6140A600289C51 /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePicker.framework; path = Carthage/Build/iOS/QBImagePicker.framework; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				708B20011A94A19700807758 /* ImageViewController.swift */,
 				702CC5C61B6FA80400DA218F /* ImageCommentViewCell.swift */,
 				700C6DDF1B71E034002D50C6 /* CommentViewController.swift */,
+				7068E4BF1B744C0B009BE221 /* CommentCell.swift */,
 				708B20031A94A1E900807758 /* SettingsViewController.swift */,
 				70CB7C571AA07976005A9B5E /* InfoViewController.swift */,
 				708B1FB51A949C7700807758 /* Main.storyboard */,
@@ -330,6 +333,7 @@
 				708B20061A94A22700807758 /* Functions.swift in Sources */,
 				708B1FFC1A949FA100807758 /* AlbumListViewCell.swift in Sources */,
 				700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */,
+				7068E4C01B744C0B009BE221 /* CommentCell.swift in Sources */,
 				708B1FFE1A94A07400807758 /* ImageListViewController.swift in Sources */,
 				708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
