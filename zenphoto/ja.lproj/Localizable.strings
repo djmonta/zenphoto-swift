@@ -33,3 +33,6 @@
 "renameAlbumAlertTitle"="アルバム名変更";
 "renameAlbumAlertMessage"="アルバム名を入力してください";
 "renameAlbumAlertOKBtn"="変更";
+"editAlbumAlertTitle"="アルバム説明を変更";
+"editAlbumAlertMessage"="アルバム説明を入力して下さい";
+"editAlbumAlertOKBtn"="変更";

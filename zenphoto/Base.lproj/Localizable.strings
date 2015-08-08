@@ -33,3 +33,6 @@
 "renameAlbumAlertTitle"="Rename Album";
 "renameAlbumAlertMessage"="Enter Album Name.";
 "renameAlbumAlertOKBtn"="Rename";
+"editAlbumAlertTitle"="Change Album Description";
+"editAlbumAlertMessage"="Enter Album Description.";
+"editAlbumAlertOKBtn"="Done";

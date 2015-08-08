@@ -136,7 +136,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as! AlbumListViewCell
         
         var rightButtons = NSMutableArray()
-        rightButtons.sw_addUtilityButtonWithColor(UIColor.grayColor(), title: "More")
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.grayColor(), title: "Edit")
         rightButtons.sw_addUtilityButtonWithColor(UIColor.orangeColor(), title: "Rename")
         rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "Delete")
         
@@ -187,6 +187,61 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         println("More button was pressed")
         println(changingAlbum)
         
+        //1. Create the alert controller.
+        var alert = UIAlertController(title: NSLocalizedString("editAlbumAlertTitle", comment: "editAlbumAlertTitle"), message: NSLocalizedString("editAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = changingAlbum?["description"].string
+        })
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+            println("Cancel")
+            })
+        
+        //3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: NSLocalizedString("editAlbumAlertOKBtn", comment: "editAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as! UITextField
+            println("Text field: \(textField.text)")
+            
+            let method = "zenphoto.album.edit"
+            var id = changingAlbum?["id"].string
+            var userData = userDatainit(id: id!)
+            userData["description"] = textField.text
+            userData["name"] = changingAlbum?["name"].string
+            userData["location"] = changingAlbum?["location"].string
+            userData["albumpassword"] = changingAlbum?["albumpassword"].string
+            userData["show"] = changingAlbum?["show"].string
+            userData["commentson"] = changingAlbum?["commentson"].string
+            userData["parentFolder"] = changingAlbum?["parentFolder"].string
+            
+            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var param = [method: p]
+            
+            println(param)
+            
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+                println(json)
+                
+                if json != nil {
+                    var jsonObj = JSON(json!)
+                    if jsonObj["code"].stringValue == "-1" {
+                        println("error")
+                        alertView.title = "Error!"
+                        alertView.message = jsonObj["message"].stringValue
+                        alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                        alertView.show()
+                    } else {
+                        self.getAlbumList()
+                    }
+                }
+            }
+            
+        }))
+        
+        // 4. Present the alert.
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     func renameAlbum(renamingAlbum: JSON?) {
@@ -215,6 +270,13 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             var userData = userDatainit(id: id!)
             userData["folder"] = textField.text
             userData["name"] = userData["folder"]
+            userData["description"] = renamingAlbum?["description"].string
+            userData["location"] = renamingAlbum?["location"].string
+            userData["albumpassword"] = renamingAlbum?["albumpassword"].string
+            userData["show"] = renamingAlbum?["show"].string
+            userData["commentson"] = renamingAlbum?["commentson"].string
+            userData["parentFolder"] = renamingAlbum?["parentFolder"].string
+            
             var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             var param = [method: p]
             
