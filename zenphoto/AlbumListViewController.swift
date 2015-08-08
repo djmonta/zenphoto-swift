@@ -46,8 +46,18 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             
             Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
                 println(json)
+
                 if json != nil {
-                    self.getAlbumList()
+                    var jsonObj = JSON(json!)
+                    if jsonObj["code"].stringValue == "-1" {
+                        println("error")
+                        alertView.title = "Error!"
+                        alertView.message = jsonObj["message"].stringValue
+                        alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                        alertView.show()
+                    } else {
+                        self.getAlbumList()
+                    }
                 }
             }
 
@@ -163,7 +173,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             self.changeAlbum(self.albums?[cellIndexPath!.row])
             break
         case 1:
-            self.changeAlbum(self.albums?[cellIndexPath!.row])
+            self.renameAlbum(self.albums?[cellIndexPath!.row])
             break
         case 2:
             self.deleteAlbum(self.albums?[cellIndexPath!.row])
@@ -176,6 +186,61 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     func changeAlbum(changingAlbum: JSON?) {
         println("More button was pressed")
         println(changingAlbum)
+        
+    }
+    
+    func renameAlbum(renamingAlbum: JSON?) {
+        println("Rename button was pressed")
+        println(renamingAlbum)
+        
+        //1. Create the alert controller.
+        var alert = UIAlertController(title: NSLocalizedString("renameAlbumAlertTitle", comment: "renameAlbumAlertTitle"), message: NSLocalizedString("renameAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = renamingAlbum?["name"].string
+        })
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+            println("Cancel")
+            })
+        
+        //3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: NSLocalizedString("renameAlbumAlertOKBtn", comment: "renameAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as! UITextField
+            println("Text field: \(textField.text)")
+            
+            let method = "zenphoto.album.edit"
+            var id = renamingAlbum?["id"].string
+            var userData = userDatainit(id: id!)
+            userData["folder"] = textField.text
+            userData["name"] = userData["folder"]
+            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var param = [method: p]
+            
+            println(param)
+            
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+                println(json)
+                
+                if json != nil {
+                    var jsonObj = JSON(json!)
+                    if jsonObj["code"].stringValue == "-1" {
+                        println("error")
+                        alertView.title = "Error!"
+                        alertView.message = jsonObj["message"].stringValue
+                        alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                        alertView.show()
+                    } else {
+                        self.getAlbumList()
+                    }
+                }
+            }
+            
+        }))
+        
+        // 4. Present the alert.
+        self.presentViewController(alert, animated: true, completion: nil)
         
     }
     

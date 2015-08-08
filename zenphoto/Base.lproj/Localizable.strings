@@ -10,12 +10,12 @@
 "close"="Close";
 "errorAlertTitle"="Error";
 "createAlbumAlertTitle"="Create new Album";
-"createAlbumAlertMessage"="Enter album Name.";
+"createAlbumAlertMessage"="Enter Album Name.";
 "createAlbumAlertOKBtn"="Create";
 "pullToRefresh"="Pull to Refresh";
 "loginErrorAlertMessage"="Incorrect Username or Password";
 "imagePickerAlertTitle"="Let's get a picture";
-"imagePickerAlertMessage"="Add photo to this album";
+"imagePickerAlertMessage"="Add photo to this Album";
 "libButtonTitle"="Select photo from library";
 "cameraButtonTitle"="Take a picture";
 "moreButtonAlertTitle"="Organize";
@@ -30,3 +30,6 @@
 "delete"="Delete";
 "deleteAlbumAlertTitle"="Delete Album";
 "deleteAlbumAlertMessage"="Deleting Album cannot be UNDONE!";
+"renameAlbumAlertTitle"="Rename Album";
+"renameAlbumAlertMessage"="Enter Album Name.";
+"renameAlbumAlertOKBtn"="Rename";

@@ -305,7 +305,16 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                     .responseJSON { request, response, json, error in
                         println(json)
                         if json != nil {
-                            self.getImageList(id!)
+                            var jsonObj = JSON(json!)
+                            if jsonObj["code"].stringValue == "-1" {
+                                println("error")
+                                alertView.title = "Error!"
+                                alertView.message = jsonObj["message"].stringValue
+                                alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                                alertView.show()
+                            } else {
+                                self.getImageList(id!)
+                            }
                         }
                     }
                 
@@ -389,7 +398,16 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                     .responseJSON { request, response, json, error in
                         println(json)
                         if json != nil {
-                            self.getImageList(id!)
+                            var jsonObj = JSON(json!)
+                            if jsonObj["code"].stringValue == "-1" {
+                                println("error")
+                                alertView.title = "Error!"
+                                alertView.message = jsonObj["message"].stringValue
+                                alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                                alertView.show()
+                            } else {
+                                self.getImageList(id!)
+                            }
                         }
                 }
             }
