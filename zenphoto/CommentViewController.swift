@@ -24,13 +24,13 @@ class CommentViewController: SLKTextViewController {
         self.tableView.separatorStyle = .None
         self.tableView.estimatedRowHeight = 70
         self.tableView.backgroundColor = UIColor.blackColor()
-        self.tableView.alpha = 0.5
+        self.tableView.alpha = 0.8
         
         // Make textInputbar transparent
         self.textInputbar.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
         self.textInputbar.setShadowImage(UIImage(), forToolbarPosition: .Any)
         
-        self.textView.backgroundColor = UIColor.clearColor()
+        self.textView.backgroundColor = UIColor.blackColor()
         self.textView.textColor = UIColor.whiteColor()
         
         self.textView.placeholder = "Write a Comment"

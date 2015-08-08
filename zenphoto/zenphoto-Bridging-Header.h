@@ -4,3 +4,4 @@
 
 #import <QBImagePicker/QBImagePicker.h>
 #import <SlackTextViewController/SlackTextViewController.h>
+#import <SWTableViewCell/SWTableViewCell.h>

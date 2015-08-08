@@ -9,6 +9,7 @@
 import UIKit
 import Haneke
 import FontAwesome
+import SWTableViewCell
 
 class AlbumListViewCell: UITableViewCell {
     

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bgV-s7-mwa">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Settings-->
@@ -128,22 +129,36 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0Z-6L-Bhn" id="6w6-o0-mZ3">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gof-g1-4qr">
-                                            <rect key="frame" x="8" y="1" width="79" height="79"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-iN-es9">
-                                            <rect key="frame" x="95" y="47" width="472" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-iN-es9">
+                                            <rect key="frame" x="95" y="47" width="29" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ0-QR-Tsg">
-                                            <rect key="frame" x="95" y="13" width="472" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ0-QR-Tsg">
+                                            <rect key="frame" x="95" y="13" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gof-g1-4qr">
+                                            <rect key="frame" x="8" y="0.0" width="79" height="79"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="79" id="yj9-bK-LO0"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="gQ0-QR-Tsg" firstAttribute="top" secondItem="6w6-o0-mZ3" secondAttribute="topMargin" constant="5" id="7h0-25-BgH"/>
+                                        <constraint firstItem="gQ0-QR-Tsg" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" symbolic="YES" id="AOZ-zM-Bpe"/>
+                                        <constraint firstItem="gQ0-QR-Tsg" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" id="J8I-9r-CBp"/>
+                                        <constraint firstAttribute="centerY" secondItem="gof-g1-4qr" secondAttribute="centerY" id="MSV-Jf-Z75"/>
+                                        <constraint firstItem="gof-g1-4qr" firstAttribute="leading" secondItem="6w6-o0-mZ3" secondAttribute="leadingMargin" id="Y29-VY-rka"/>
+                                        <constraint firstItem="0Dh-iN-es9" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" id="aot-vt-vxk"/>
+                                        <constraint firstItem="gof-g1-4qr" firstAttribute="top" secondItem="6w6-o0-mZ3" secondAttribute="top" id="rFI-A0-stb"/>
+                                        <constraint firstItem="0Dh-iN-es9" firstAttribute="top" secondItem="gQ0-QR-Tsg" secondAttribute="bottom" constant="13" id="xMF-h5-O89"/>
+                                        <constraint firstItem="0Dh-iN-es9" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" symbolic="YES" id="zad-OO-mKz"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="albumDesc" destination="0Dh-iN-es9" id="sra-s8-gBt"/>

@@ -124,6 +124,9 @@ class AlbumListViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as! AlbumListViewCell
         
+        //cell.rightUtilityButtons = self.rightButtons
+        //cell.delegate = self
+        
         cell.albumInfo = self.albums?[indexPath.row]
         return cell
     }
