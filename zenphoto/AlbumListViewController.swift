@@ -14,6 +14,7 @@ import FontAwesome
 class AlbumListViewController: UITableViewController {
     
     var albums: [JSON]? = []
+    var albumInfo: JSON?
     
     @IBAction func btnAdd(sender: AnyObject) {
         
@@ -131,14 +132,19 @@ class AlbumListViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.albumInfo = self.albums?[indexPath.row]
+        self.performSegueWithIdentifier("showImageList", sender: tableView.cellForRowAtIndexPath(indexPath))
+        
+    }
+    
     // MARK: - Segues
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if segue.identifier == "showImageList" {
-            var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
             let imageListViewController = segue.destinationViewController as! ImageListViewController
-            let albumInfo = self.albums?[indexPath.row]
-            imageListViewController.albumInfo = albumInfo
+            imageListViewController.albumInfo = self.albumInfo
         }
     }
     

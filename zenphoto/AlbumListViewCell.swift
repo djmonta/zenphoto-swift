@@ -11,7 +11,7 @@ import Haneke
 import FontAwesome
 import SWTableViewCell
 
-class AlbumListViewCell: UITableViewCell {
+class AlbumListViewCell: SWTableViewCell {
     
     @IBOutlet weak var albumName: UILabel!
     @IBOutlet weak var albumThumb: UIImageView!
