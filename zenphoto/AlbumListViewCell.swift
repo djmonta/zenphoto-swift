@@ -16,6 +16,7 @@ class AlbumListViewCell: SWTableViewCell {
     @IBOutlet weak var albumName: UILabel!
     @IBOutlet weak var albumThumb: UIImageView!
     @IBOutlet weak var albumDesc: UILabel!
+    @IBOutlet weak var imageCount: UILabel!
     
     var albumInfo: JSON? {
         didSet {
@@ -26,8 +27,10 @@ class AlbumListViewCell: SWTableViewCell {
     func setupAlbumList() {
         var webpath = self.albumInfo?["thumbnail"].string
         var albumFolder = self.albumInfo?["folder"].string
+        var album = self.albumInfo?["name"].string
         var id = self.albumInfo?["id"].string
         var owner = self.albumInfo?["owner"].string
+        var desc = self.albumInfo?["description"].string
         var imagescount = self.albumInfo?["imagescount"].string
         
         var imageURL: NSURL
@@ -55,9 +58,10 @@ class AlbumListViewCell: SWTableViewCell {
             //http://gallery.ampomtan.com/zp-core/i.php?a=newAlbum&i=image0.png&s=300&cw=300&ch=300
         }
         
-        self.albumName.text = albumFolder
-        self.albumDesc.font = UIFont.fontAwesomeOfSize(12)
-        self.albumDesc.text = String.fontAwesomeIconWithName(.PictureO) + " " + imagescount! + " images"
+        self.albumName.text = album
+        self.albumDesc.text = desc
+        self.imageCount.font = UIFont.fontAwesomeOfSize(11)
+        self.imageCount.text = String.fontAwesomeIconWithName(.PictureO) + " " + imagescount! + " images"
         
         let cache = Shared.imageCache
         

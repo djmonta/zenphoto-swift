@@ -11,7 +11,7 @@ import Alamofire
 import Haneke
 import FontAwesome
 
-class AlbumListViewController: UITableViewController {
+class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     
     var albums: [JSON]? = []
     var albumInfo: JSON?
@@ -125,8 +125,13 @@ class AlbumListViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as! AlbumListViewCell
         
-        //cell.rightUtilityButtons = self.rightButtons
-        //cell.delegate = self
+        var rightButtons = NSMutableArray()
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.grayColor(), title: "More")
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.orangeColor(), title: "Rename")
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "Delete")
+        
+        cell.rightUtilityButtons = rightButtons as [AnyObject]
+        cell.delegate = self
         
         cell.albumInfo = self.albums?[indexPath.row]
         return cell
@@ -146,6 +151,68 @@ class AlbumListViewController: UITableViewController {
             let imageListViewController = segue.destinationViewController as! ImageListViewController
             imageListViewController.albumInfo = self.albumInfo
         }
+    }
+    
+    // MARK: - SWTableViewCell Delegate
+    
+    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+        
+        var cellIndexPath = self.tableView.indexPathForCell(cell)
+        switch (index) {
+        case 0:
+            self.changeAlbum(self.albums?[cellIndexPath!.row])
+            break
+        case 1:
+            self.changeAlbum(self.albums?[cellIndexPath!.row])
+            break
+        case 2:
+            self.deleteAlbum(self.albums?[cellIndexPath!.row])
+            break
+        default:
+            break
+        }
+    }
+    
+    func changeAlbum(changingAlbum: JSON?) {
+        println("More button was pressed")
+        println(changingAlbum)
+        
+    }
+    
+    func deleteAlbum(deletingAlbum: JSON?) {
+        println("Delete button was pressed")
+        println(deletingAlbum)
+        
+        //1. Create the alert controller.
+        var alert = UIAlertController(title: NSLocalizedString("deleteAlbumAlertTitle", comment: "deleteAlbumAlertTitle"), message: NSLocalizedString("deleteAlbumAlertMessage", comment: "deleteAlbumAlertMessage"), preferredStyle: .Alert)
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+            println("Cancel")
+            })
+        
+        //3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: "delete"), style: .Destructive, handler: { (action) -> Void in
+            
+            let method = "zenphoto.album.delete"
+            var id = deletingAlbum?["id"].string
+            var userData = userDatainit(id: id!)
+            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var param = [method: p]
+            
+            println(param)
+            
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+                println(json)
+                if json != nil {
+                    self.getAlbumList()
+                }
+            }
+            
+        }))
+        
+        // 4. Present the alert.
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
 }

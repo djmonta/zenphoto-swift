@@ -28,3 +28,5 @@
 "areYouSure"="本当に削除しますか？";
 "deleteCantBeUndone"="削除は取り消せません";
 "delete"="削除";
+"deleteAlbumAlertTitle"="アルバムを削除する";
+"deleteAlbumAlertMessage"="削除は取り消せません。アルバムの中にある写真も削除されます。";

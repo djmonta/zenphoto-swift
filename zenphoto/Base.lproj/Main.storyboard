@@ -129,8 +129,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0Z-6L-Bhn" id="6w6-o0-mZ3">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-iN-es9">
-                                            <rect key="frame" x="95" y="47" width="29" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-iN-es9">
+                                            <rect key="frame" x="95" y="47" width="59" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="Vaa-gk-5iD"/>
                                             </constraints>
@@ -150,14 +150,25 @@
                                                 <constraint firstAttribute="width" constant="79" id="yj9-bK-LO0"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="　images" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITF-s3-l3j">
+                                            <rect key="frame" x="517" y="13" width="48" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="cKY-vF-Aun"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="gQ0-QR-Tsg" firstAttribute="top" secondItem="6w6-o0-mZ3" secondAttribute="topMargin" constant="5" id="7h0-25-BgH"/>
                                         <constraint firstItem="gQ0-QR-Tsg" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" symbolic="YES" id="AOZ-zM-Bpe"/>
                                         <constraint firstItem="gQ0-QR-Tsg" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" id="J8I-9r-CBp"/>
                                         <constraint firstAttribute="centerY" secondItem="gof-g1-4qr" secondAttribute="centerY" id="MSV-Jf-Z75"/>
+                                        <constraint firstItem="ITF-s3-l3j" firstAttribute="top" secondItem="6w6-o0-mZ3" secondAttribute="topMargin" constant="5" id="PAs-x6-Oiy"/>
                                         <constraint firstItem="gof-g1-4qr" firstAttribute="leading" secondItem="6w6-o0-mZ3" secondAttribute="leadingMargin" id="Y29-VY-rka"/>
                                         <constraint firstItem="0Dh-iN-es9" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" id="aot-vt-vxk"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ITF-s3-l3j" secondAttribute="trailing" constant="-6" id="efr-Ec-drl"/>
                                         <constraint firstItem="gof-g1-4qr" firstAttribute="top" secondItem="6w6-o0-mZ3" secondAttribute="top" id="rFI-A0-stb"/>
                                         <constraint firstItem="0Dh-iN-es9" firstAttribute="top" secondItem="gQ0-QR-Tsg" secondAttribute="bottom" constant="13" id="xMF-h5-O89"/>
                                         <constraint firstItem="0Dh-iN-es9" firstAttribute="leading" secondItem="gof-g1-4qr" secondAttribute="trailing" constant="8" symbolic="YES" id="zad-OO-mKz"/>
@@ -167,6 +178,7 @@
                                     <outlet property="albumDesc" destination="0Dh-iN-es9" id="sra-s8-gBt"/>
                                     <outlet property="albumName" destination="gQ0-QR-Tsg" id="IfZ-BN-9SM"/>
                                     <outlet property="albumThumb" destination="gof-g1-4qr" id="aKR-Zg-ToV"/>
+                                    <outlet property="imageCount" destination="ITF-s3-l3j" id="MRp-B9-5T0"/>
                                     <segue destination="gEc-Fq-t9H" kind="show" identifier="showImageList" id="m10-z5-3ao"/>
                                 </connections>
                             </tableViewCell>

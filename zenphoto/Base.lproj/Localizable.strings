@@ -28,3 +28,5 @@
 "areYouSure"="Are you sure?";
 "deleteCantBeUndone"="Delete can't be undone!";
 "delete"="Delete";
+"deleteAlbumAlertTitle"="Delete Album";
+"deleteAlbumAlertMessage"="Deleting Album cannot be UNDONE!";
