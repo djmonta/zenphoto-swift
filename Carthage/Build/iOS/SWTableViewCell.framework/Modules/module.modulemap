@@ -1,6 +1,0 @@
-framework module SWTableViewCell {
-  umbrella header "SWTableViewCell.h"
-
-  export *
-  module * { export * }
-}
