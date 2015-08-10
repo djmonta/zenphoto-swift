@@ -364,7 +364,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAk-Oz-5DC">
-                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <connections>
                                     <segue destination="RTe-oz-K0V" kind="embed" identifier="showComments" id="TY5-av-p00"/>
                                 </connections>
@@ -417,10 +417,10 @@
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Agn-vf-EVx"/>
                             <constraint firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Cae-Xd-jM3"/>
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="bottom" secondItem="bUW-j8-uPQ" secondAttribute="top" id="D3G-HB-0xk"/>
-                            <constraint firstItem="RAk-Oz-5DC" firstAttribute="top" secondItem="tSE-ag-Ipy" secondAttribute="bottom" id="ZpE-Ni-eas"/>
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="leading" secondItem="hTN-LY-4er" secondAttribute="leading" id="f6l-UM-mNi"/>
                             <constraint firstItem="RAk-Oz-5DC" firstAttribute="trailing" secondItem="0f5-4c-rkI" secondAttribute="trailing" id="gx4-1n-eDo"/>
                             <constraint firstItem="hTN-LY-4er" firstAttribute="leading" secondItem="oNy-YT-yzH" secondAttribute="leading" id="hPe-4n-0fX"/>
+                            <constraint firstItem="RAk-Oz-5DC" firstAttribute="top" secondItem="tSE-ag-Ipy" secondAttribute="bottom" constant="-20" id="l9C-Jx-ZIV"/>
                         </constraints>
                     </view>
                     <connections>
@@ -466,7 +466,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2Qj-8h-hQv"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dA9-GU-wao">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
