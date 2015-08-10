@@ -25,6 +25,7 @@ class CommentViewController: SLKTextViewController {
         self.tableView.estimatedRowHeight = 70
         self.tableView.backgroundColor = UIColor.blackColor()
         self.tableView.alpha = 0.8
+        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
         // Make textInputbar transparent
         self.textInputbar.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
