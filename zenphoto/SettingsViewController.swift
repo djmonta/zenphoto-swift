@@ -10,19 +10,9 @@ import UIKit
 
 class SettingsViewController: UIViewController, UITextFieldDelegate {
     
-    
     @IBOutlet weak var SiteURL: UITextField!
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
-    
-    @IBAction func editingDidEnd(sender: AnyObject) {
-        save(sender)
-    }
-    @IBAction func didEndOnExit(sender: AnyObject) {
-        save(sender)
-    }
-
-    @IBOutlet weak var versionLabel: UILabel!
     
     let config = NSUserDefaults.standardUserDefaults()
     
@@ -62,6 +52,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func save(sender: AnyObject) {
+        resignFirstResponderAtControls()
+        
         config.setObject(Username.text, forKey: "loginUsername")
         config.setObject(Password.text, forKey: "loginPassword")
         config.setObject(SiteURL.text, forKey: "URL")
@@ -86,6 +78,17 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             alertView.show()
         }
     }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        resignFirstResponderAtControls()
+    }
+    
+    private func resignFirstResponderAtControls() {
+        SiteURL?.resignFirstResponder()
+        Username?.resignFirstResponder()
+        Password?.resignFirstResponder()
+    }
+    
     
     // MARK: - UITextFieldDelegate
     

@@ -18,6 +18,7 @@
 		7068E4C01B744C0B009BE221 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068E4BF1B744C0B009BE221 /* CommentCell.swift */; };
 		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708561511B78F2F100077C66 /* SlackTextViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 708561501B78F2F100077C66 /* SlackTextViewController.framework */; };
+		708561551B7A256D00077C66 /* TextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708561541B7A256D00077C66 /* TextFieldContainer.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
 		708B1FB21A949C7700807758 /* zenphoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FB01A949C7700807758 /* zenphoto.xcdatamodeld */; };
 		708B1FB71A949C7700807758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708B1FB51A949C7700807758 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zenphoto-Bridging-Header.h"; sourceTree = "<group>"; };
 		707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		708561501B78F2F100077C66 /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
+		708561541B7A256D00077C66 /* TextFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldContainer.swift; sourceTree = "<group>"; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		708B1FAD1A949C7700807758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708B1FAE1A949C7700807758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				7068E4BF1B744C0B009BE221 /* CommentCell.swift */,
 				708B20031A94A1E900807758 /* SettingsViewController.swift */,
 				70CB7C571AA07976005A9B5E /* InfoViewController.swift */,
+				708561541B7A256D00077C66 /* TextFieldContainer.swift */,
 				708B1FB51A949C7700807758 /* Main.storyboard */,
 				708B1FB81A949C7700807758 /* Images.xcassets */,
 				708B1FBA1A949C7700807758 /* LaunchScreen.xib */,
@@ -334,6 +337,7 @@
 				708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */,
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
+				708561551B7A256D00077C66 /* TextFieldContainer.swift in Sources */,
 				707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
