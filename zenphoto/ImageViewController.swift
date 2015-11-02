@@ -59,17 +59,17 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         let filename = self.image?["name"].string!
         var URL: String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
-        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+        let imageURLstr = URL + "albums/" + folder! + "/" + filename!
 
-        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        var imageURL = NSURL(string: encodedURL!)!
+        let encodedURL = imageURLstr.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
+        let imageURL = NSURL(string: encodedURL!)!
         self.navigationItem.title = filename
 
         //self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.imageView.contentMode = .ScaleAspectFit
         self.imageView.hnk_setImageFromURL(imageURL)
         
-        var doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
@@ -98,8 +98,8 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         
         if ( self.scrollView.zoomScale < self.scrollView.maximumZoomScale ) {
             
-            var newScale:CGFloat = self.scrollView.zoomScale * 3
-            var zoomRect:CGRect = self.zoomRectForScale(newScale, center: gesture.locationInView(gesture.view))
+            let newScale:CGFloat = self.scrollView.zoomScale * 3
+            let zoomRect:CGRect = self.zoomRectForScale(newScale, center: gesture.locationInView(gesture.view))
             self.scrollView.zoomToRect(zoomRect, animated: true)
             
         } else {
@@ -146,10 +146,10 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             let filename = self.image?["name"].string!
             var URL: String! = config.stringForKey("URL")
             if !URL.hasSuffix("/") { URL = URL + "/" }
-            var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+            let imageURLstr = URL + "albums/" + folder! + "/" + filename!
             
-            var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            var imageURL = NSURL(string: encodedURL!)!
+            let encodedURL = imageURLstr.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
+            let imageURL = NSURL(string: encodedURL!)!
             //println(imageURL)
             
             var fileName: String?
@@ -169,16 +169,16 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                 .response { (request, response, data, error) in
                     
                     if error != nil {
-                        println("REQUEST: \(request)")
-                        println("RESPONSE: \(response)")
+                        print("REQUEST: \(request)")
+                        print("RESPONSE: \(response)")
                     }
                     
                     if finalPath != nil {
                         PHPhotoLibrary.sharedPhotoLibrary().performChanges ({
-                            let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath)
+                            _ = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(finalPath!)
                             }, completionHandler: { (success, error) in
                                 // TODO: delete the temporary file
-                                println ("completion \(success) \(error)")
+                                print ("completion \(success) \(error)")
                                 // TODO: alert!
                         })
                     }
@@ -188,33 +188,33 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         
         let deleteButton = UIAlertAction(title: NSLocalizedString("deleteButton", comment: "deleteButton"), style: .Destructive) { (alert) -> Void in
             
-            var confirmAlert = UIAlertController(title: NSLocalizedString("areYouSure", comment: "Are you sure?"), message: NSLocalizedString("deleteCantBeUndone", comment: "Delete can't be undone!"), preferredStyle: UIAlertControllerStyle.Alert)
+            let confirmAlert = UIAlertController(title: NSLocalizedString("areYouSure", comment: "Are you sure?"), message: NSLocalizedString("deleteCantBeUndone", comment: "Delete can't be undone!"), preferredStyle: UIAlertControllerStyle.Alert)
             
-            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: "delete"), style: .Destructive, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: "delete"), style: .Destructive, handler: { (action: UIAlertAction) in
                 
-                println("Handle Ok logic here")
+                print("Handle Ok logic here")
                 
                 let method = "zenphoto.image.delete"
-                var id = self.image?["id"].string!
-                var userData = userDatainit(id: id!)
+                let id = self.image?["id"].string!
+                let userData = userDatainit(id!)
                 
-                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                var param = [method: p]
+                let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let param = [method: p]
                 
-                println(param)
+                print(param)
                 
-                Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                    println(json)
-                    if json != nil {
+                Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                    print(json)
+                    if json.result.value != nil {
                         self.navigationController?.popViewControllerAnimated(true)
-                        println("deleted")
+                        print("deleted")
                     }
                 }
 
             }))
             
-            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "Cancel"), style: .Cancel, handler: { (action: UIAlertAction!) in
-                println("Handle Cancel Logic here")
+            confirmAlert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "Cancel"), style: .Cancel, handler: { (action: UIAlertAction) in
+                print("Handle Cancel Logic here")
             }))
             
             self.presentViewController(confirmAlert, animated: true, completion: nil)
@@ -222,7 +222,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         }
         
         let cancelButton = UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel Pressed")
+            print("Cancel Pressed", terminator: "")
         }
 
         alert.addAction(downloadButton)
@@ -241,11 +241,11 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         let filename = self.image?["name"].string!
         var URL = config.stringForKey("URL") as String!
         if !URL.hasSuffix("/") { URL = URL + "/" }
-        var imageURLstr = URL + "albums/" + folder! + "/" + filename!
+        let imageURLstr = URL + "albums/" + folder! + "/" + filename!
         
         let shareText = filename!
         
-        var encodedURL = imageURLstr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let encodedURL = imageURLstr.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
         let imageURL = NSURL(string: encodedURL!)
         //println(imageURL)
         
@@ -269,13 +269,21 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             .response { (request, response, data, error) in
                 
                 if error != nil {
-                    println("REQUEST: \(request)")
-                    println("RESPONSE: \(response)")
+                    print("REQUEST: \(request)")
+                    print("RESPONSE: \(response)")
                 }
                 
+                
                 if finalPath != nil {
-                    println("FINALPATH: \(finalPath)")
-                    shareImage = NSData(contentsOfURL:finalPath!, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil)
+                    print("FINALPATH: \(finalPath)")
+                    do {
+                        shareImage = try NSData(contentsOfURL: finalPath!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    }
+                    catch {
+                        print("Handle \(error) here")
+                    }
+                    
+                    //shareImage = NSData(contentsOfURL:finalPath!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
                     
                     let activityItems = [shareText, imageURL!, shareImage!] as Array
                     

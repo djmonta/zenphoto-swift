@@ -35,7 +35,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         super.viewDidLoad()
 
         self.navigationItem.title = self.albumInfo?["name"].string!
-        var albumId = self.albumInfo?["id"].string as String!
+        let albumId = self.albumInfo?["id"].string as String!
         thumbsize = self.calcThumbSize()
         self.getImageList(albumId)
         
@@ -78,13 +78,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func getImageList(id: String) {
         
         let method = "zenphoto.album.getImages"
-        var d = encode64(userDatainit(id: id))!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method: d]
+        let d = encode64(userDatainit(id))!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let param = [method: d]
         
-        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
             //println(json)
-            if json != nil {
-                var jsonObj = JSON(json!)
+            if json.result.value != nil {
+                let jsonObj = JSON(json.result.value!)
                 if let results = jsonObj.arrayValue as [JSON]? {
                     self.images = results
                     self.collectionView?.reloadData()
@@ -117,45 +117,54 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) 
 
-        var imageView:UIImageView = cell.viewWithTag(1) as! UIImageView
+        let imageView:UIImageView = cell.viewWithTag(1) as! UIImageView
         
         imageView.clipsToBounds = true
         imageView.contentMode = .ScaleAspectFill
-        imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
         var imageInfo = self.images?[indexPath.row]
         
-        var filename = imageInfo?["name"].string!
-        var folder = imageInfo?["folder"].string!
-        var thumbnail = imageInfo?["thumbnail"].string!
+        let filename = imageInfo?["name"].string!
+        let folder = imageInfo?["folder"].string!
+        let thumbnail = imageInfo?["thumbnail"].string!
         
         var URL:String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
         
-        var pattern = "(zp-core.*\\..*)"
-        var regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: nil)
-        var range = thumbnail!.rangeOfString(pattern, options: .RegularExpressionSearch)
+        let pattern = "(zp-core.*\\..*)"
+        _ = try? NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators)
+        let range = thumbnail!.rangeOfString(pattern, options: .RegularExpressionSearch)
         
-        var imageThumbURL: String?
+        var imageThumbURL: NSURL?
         
         if (range != nil) {
-            var result = thumbnail?.substringWithRange(range!)
-            imageThumbURL = URL + result!
+            let result = thumbnail?.substringWithRange(range!)
+            imageThumbURL = NSURL(string: URL + result!)
         } else {
-            var i = "zp-core/i.php?a=" + folder! + "&i="
-            var imageThumbNameWOExt = filename!.stringByDeletingPathExtension
-            var suffix = "&s=300&cw=300&ch=300"
-            var ext = filename!.pathExtension
-            imageThumbURL = URL + i + imageThumbNameWOExt + "." + ext + suffix
+            let zp = "zp-core/i.php"
+            let a = NSURLQueryItem(name: "a", value: folder)
+            let i = NSURLQueryItem(name: "i", value: filename)
+            let s300 = NSURLQueryItem(name: "s", value: "300")
+            let cw300 = NSURLQueryItem(name: "cw", value: "300")
+            let ch300 = NSURLQueryItem(name: "ch", value: "300")
+
+            let components = NSURLComponents(string: URL + zp)
+            components?.queryItems = [a, i, s300, cw300, ch300]
+            imageThumbURL = (components?.URL)!
         }
         
-        //println(imageThumbURL)
+        //print(imageThumbURL)
         //var imageURL = NSURL(string: imageThumbURL!)
-        var encodedURL = imageThumbURL!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        var imageURL = NSURL(string: encodedURL!)!
-        imageView.hnk_setImageFromURL(imageURL)
+//        let encodedURL = imageThumbURL!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+//        let imageURL = NSURL(string: encodedURL!)!
+        
+//        print(imageThumbURL)
+        //http://gallery.ampomtan.com/zp-core/i.php?a=%E3%83%86%E3%82%B9%E3%83%88&i=20150226003408-0.jpg&s=300&cw=300&ch=300
+        
+        imageView.hnk_setImageFromURL(imageThumbURL!)
         
         return cell
     }
@@ -165,8 +174,8 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject!) {
         if segue.identifier == "showImage" {
-            var cell: UICollectionViewCell = sender as! UICollectionViewCell
-            var indexPath:NSIndexPath = self.collectionView!.indexPathForCell(cell)!
+            let cell: UICollectionViewCell = sender as! UICollectionViewCell
+            let indexPath:NSIndexPath = self.collectionView!.indexPathForCell(cell)!
             let imagesViewController = segue.destinationViewController as! ImagePageViewController
             let imageInfo = self.images?[indexPath.row]
             imagesViewController.indexPath = indexPath.row as Int
@@ -203,16 +212,16 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         }
         if( UIImagePickerController.isSourceTypeAvailable(.Camera) ) {
             let cameraButton = UIAlertAction(title: NSLocalizedString("cameraButtonTitle", comment: "cameraButtonTitle"), style: .Default) { (alert) -> Void in
-                println("Take Photo")
+                print("Take Photo")
                 imageController.sourceType = .Camera
                 self.presentViewController(imageController, animated: true, completion: nil)
             }
             alert.addAction(cameraButton)
         } else {
-            println("Camera not available")
+            print("Camera not available")
         }
         let cancelButton = UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel Pressed")
+            print("Cancel Pressed")
         }
         
         alert.addAction(libButton)
@@ -225,7 +234,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 
     // MARK: - UIImagePickerControllerDelegate methods
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         let activityIndicator = UIActivityIndicatorView()
@@ -236,26 +245,26 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
         
-        var image = info[UIImagePickerControllerOriginalImage] as! UIImage?
-        var metadata = info[UIImagePickerControllerMediaMetadata] as! NSDictionary?
-        var mutableMetadata = metadata?.mutableCopy() as! NSMutableDictionary?
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage?
+        let metadata = info[UIImagePickerControllerMediaMetadata] as! NSDictionary?
+        let mutableMetadata = metadata?.mutableCopy() as! NSMutableDictionary?
         
-        var exif = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as! NSDictionary
+        _ = mutableMetadata?[kCGImagePropertyExifDictionary as NSString] as! NSDictionary
         
         if ((self.locationManager) != nil) {
-            mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = GPSDictionaryForLocation(self.locationManager!.location)
+            mutableMetadata?[kCGImagePropertyGPSDictionary as NSString] = GPSDictionaryForLocation(self.locationManager!.location!)
         }
         
-        var imageData = createImageDataFromImage(image!, mutableMetadata!)
+        let imageData = createImageDataFromImage(image!, metadata: mutableMetadata!)
         
         //var fileName = self.fileNameByExif(exif)
         //self.storeFileAtDocumentDirectoryForData(imageData, fileName:fileName)
         
         // Set your compression quuality (0.0 to 1.0).
         mutableMetadata?.setObject(1.0, forKey: kCGImageDestinationLossyCompressionQuality as String)
-        var mdata: AnyObject? = mutableMetadata?.mutableCopy()
+        let mdata: AnyObject? = mutableMetadata?.mutableCopy()
         
-        var library = ALAssetsLibrary()
+        let library = ALAssetsLibrary()
         library.writeImageToSavedPhotosAlbum(image!.CGImage, metadata: mdata! as! [NSObject : AnyObject], completionBlock: { ( url, error ) in
             //println(url)
             library.assetForURL(url, resultBlock: { ( asset ) in
@@ -266,22 +275,22 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //                var imageData = NSData(bytesNoCopy: buffer, length: buffered, freeWhenDone: true)
                 
                 let method = "zenphoto.image.upload"
-                var id = self.albumInfo?["id"].string
-                var userData = userDatainit(id: id!)
+                let id = self.albumInfo?["id"].string
+                var userData = userDatainit(id!)
                 userData["folder"] = self.albumInfo?["folder"].string
                 
                 //var imageData = UIImageJPEGRepresentation(image as UIImage, 1) // EXIF are gone!!
-                let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+                let base64String = imageData.base64EncodedStringWithOptions([])
                 userData["file"] = base64String
                 
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyyMMddHHmmss"
-                var dt = dateFormatter.stringFromDate(NSDate())
+                let dt = dateFormatter.stringFromDate(NSDate())
                 
                 userData["filename"] = dt + ".jpg"
                 
-                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                var param = [method: p]
+                let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let param = [method: p]
                 
                 let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
                 mutableURLRequest.HTTPMethod = Method.POST.rawValue
@@ -294,22 +303,22 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 Alamofire.upload(mutableURLRequest, data: data)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                         dispatch_async(dispatch_get_main_queue()) {
-                            println("ENTER .PROGRESSS")
-                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                            print("ENTER .PROGRESSS")
+                            print("\(totalBytesRead) of \(totalBytesExpectedToRead)")
                             //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
                             if totalBytesRead == totalBytesExpectedToRead {
                                 activityIndicator.stopAnimating()
                             }
                         }
                     }
-                    .responseJSON { request, response, json, error in
-                        println(json)
-                        if json != nil {
-                            var jsonObj = JSON(json!)
-                            if jsonObj["code"].stringValue == "-1" {
-                                println("error")
+                    .responseJSON { json in
+                        print(json)
+                        if json.result.value != nil {
+                            let jsonObj = json.result.value
+                            if jsonObj!["code"]!!.stringValue == "-1" {
+                                print("error")
                                 alertView.title = "Error!"
-                                alertView.message = jsonObj["message"].stringValue
+                                alertView.message = jsonObj!["message"]!!.stringValue
                                 alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
                                 alertView.show()
                             } else {
@@ -333,7 +342,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        for (index, asset) in enumerate(assets) {
+        for (index, asset) in assets.enumerate() {
             //println(index, asset)
             
             let activityIndicator = UIActivityIndicatorView()
@@ -346,32 +355,32 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             
             // images prepare to upload
             let method = "zenphoto.image.upload"
-            var id = self.albumInfo?["id"].string
-            var userData = userDatainit(id: id!)
+            let id = self.albumInfo?["id"].string
+            var userData = userDatainit(id!)
             userData["folder"] = self.albumInfo?["folder"].string
             
-            var imageManager = PHImageManager()
+            let imageManager = PHImageManager()
             imageManager.requestImageDataForAsset(asset as! PHAsset, options: nil) {
-                (imageData: NSData!, dataUTI: String!, orientation: UIImageOrientation, info: [NSObject : AnyObject]!) -> Void in
-                println("Data process start")
+                (imageData: NSData?, dataUTI: String?, orientation: UIImageOrientation, info: [NSObject : AnyObject]?) -> Void in
+                print("Data process start")
                 
                 //let progressView = UIProgressView(frame: CGRect(x: 0.0, y: 200.0, width: self.view.bounds.width, height: 10.0))
                 //progressView.tintColor = UIColor.blueColor()
                 //self.view.addSubview(progressView)
                 
-                var base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+                let base64String = imageData!.base64EncodedStringWithOptions([])
                 userData["file"] = base64String
                 
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyyMMddHHmmss"
-                var dt = dateFormatter.stringFromDate(NSDate())
+                let dt = dateFormatter.stringFromDate(NSDate())
                 
-                var type = contentTypeForImageData(imageData)
+                let type = contentTypeForImageData(imageData!)
                 
                 userData["filename"] = dt + "-\(index)." + (type! as String)
                 
-                var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                var param = [method: p]
+                let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let param = [method: p]
                 
                 let mutableURLRequest = NSMutableURLRequest(URL: URLinit()!)
                 mutableURLRequest.HTTPMethod = Method.POST.rawValue
@@ -381,13 +390,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                 
                 let data = encodedURLRequest.HTTPBody!
                 
-                println("Data process end, Upload start")
+                print("Data process end, Upload start")
                 
                 Alamofire.upload(mutableURLRequest, data: data)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                         dispatch_async(dispatch_get_main_queue()) {
-                            println("ENTER .PROGRESSS")
-                            println("\(totalBytesRead) of \(totalBytesExpectedToRead)")
+                            print("ENTER .PROGRESSS")
+                            print("\(totalBytesRead) of \(totalBytesExpectedToRead)")
                             //progressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
                             if totalBytesRead == totalBytesExpectedToRead {
                                 //progressView.removeFromSuperview()
@@ -395,12 +404,12 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
                             }
                         }
                     }
-                    .responseJSON { request, response, json, error in
-                        println(json)
-                        if json != nil {
-                            var jsonObj = JSON(json!)
+                    .responseJSON { json in
+                        print(json)
+                        if json.result.value != nil {
+                            let jsonObj = JSON(json.result.value!)
                             if jsonObj["code"].stringValue == "-1" {
-                                println("error")
+                                print("error")
                                 alertView.title = "Error!"
                                 alertView.message = jsonObj["message"].stringValue
                                 alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
@@ -417,24 +426,22 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     
     // MARK: - CLLocationManagerDelegate Methods
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations:[AnyObject]) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         //NSLog("didUpdatesLocations")
         //println("locations = \(locations)")
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         //NSLog("didFailWithError: \(error)")
     }
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case .NotDetermined:
             if locationManager!.respondsToSelector("requestWhenInUseAuthorization") { locationManager!.requestWhenInUseAuthorization() }
         case .Restricted, .Denied:
             self.alertLocationServicesDisabled()
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            break
-        default:
             break
         }
     }

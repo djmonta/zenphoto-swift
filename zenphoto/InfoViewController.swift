@@ -20,8 +20,8 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var appBundleVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
-        var appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        let appBundleVersion = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+        let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
         versionLabel.text = appVersion + " (\(appBundleVersion))"
         
         var data = Dictionary<String, AnyObject>()
@@ -29,24 +29,23 @@ class InfoViewController: UIViewController {
         data["sysversion"] = appVersion
         
         let method = "zenphoto.get.update"
-        var d = encode64(data)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let d = encode64(data)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
-        var param = [method:d]
-        if var URL = URLinit() {
+        let param = [method:d]
+        if var _ = URLinit() {
             
-            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                if json != nil {
-                    var jsonObj = JSON(json!)
-                    if let results = jsonObj.stringValue as String? {
-                        if (results == "true") {
-                            self.btnUpdate.addTarget(self, action: "update:", forControlEvents:.TouchUpInside)
-                            
-                        } else {
-                            self.btnUpdate.enabled = false
-                            
-                        }
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                let jsonObj = json.result.value
+                if let results = jsonObj as! String? {
+                    if (results == "true") {
+                        self.btnUpdate.addTarget(self, action: "update:", forControlEvents:.TouchUpInside)
+                        
+                    } else {
+                        self.btnUpdate.enabled = false
+                        
                     }
                 }
+                
             }
         } else {
             self.btnUpdate.enabled = false
@@ -80,13 +79,13 @@ class InfoViewController: UIViewController {
         var URL = config.stringForKey("URL")
         if !(URL!.hasSuffix("/")) { URL = URL! + "/" }
         
-        var updateURL = NSURL(string: URL! + "plugins/iOS/updateRPC.php")
+        let updateURL = NSURL(string: URL! + "plugins/iOS/updateRPC.php")
         
         //var gitbranch = githubAPI()
-        var param = ["updateRPC":"master"]
+        let param = ["updateRPC":"master"]
         
-        Alamofire.request(.POST, updateURL!, parameters: param).responseJSON { request, response, json, error in
-            if response?.statusCode >= 400 {
+        Alamofire.request(.POST, updateURL!, parameters: param).responseJSON { json in
+            if json.response?.statusCode >= 400 {
                 alertView.title = "Error!"
                 alertView.message = "Error on your zenphoto server."
                 alertView.addButtonWithTitle("close")

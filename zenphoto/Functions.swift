@@ -29,11 +29,11 @@ func userDatainit(id: String = "1") -> Dictionary<String, AnyObject> {
 
 func encode64(userData: Dictionary<String, AnyObject>) -> String? {
     
-    var json = JSONStringify(userData)
+    let json = JSONStringify(userData)
     //println(json)
     
-    var utf8str = json.dataUsingEncoding(NSUTF8StringEncoding)
-    var base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
+    let utf8str = json.dataUsingEncoding(NSUTF8StringEncoding)
+    let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
     
     return base64Encoded
 }
@@ -60,12 +60,12 @@ func checkConnection() -> Bool {
     }
     
     let method = "zenphoto.login"
-    var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    var param = [method: d]
+    let d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    let param = [method: d]
     
-    Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-        if json != nil {
-            var jsonObj = JSON(json!)
+    Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+        if json.result.value != nil {
+            let jsonObj = JSON(json.result.value!)
             if let results = jsonObj["code"].stringValue as String? {
                 if (results != "-1") {
 //                    alertView.title = "Success!"
@@ -87,7 +87,7 @@ func checkConnection() -> Bool {
 }
 
 func controllerAvailable() -> Bool {
-    if let gotModernAlert: AnyClass = NSClassFromString("UIAlertController") {
+    if let _: AnyClass = NSClassFromString("UIAlertController") {
         return true
     }
     else {
@@ -99,10 +99,15 @@ func controllerAvailable() -> Bool {
 
 func JSONStringify(jsonObj: AnyObject) -> String {
     var e: NSError?
-    let jsonData = NSJSONSerialization.dataWithJSONObject(
-        jsonObj,
-        options: NSJSONWritingOptions(0),
-        error: &e)
+    let jsonData: NSData?
+    do {
+        jsonData = try NSJSONSerialization.dataWithJSONObject(
+                jsonObj,
+                options: NSJSONWritingOptions(rawValue: 0))
+    } catch let error as NSError {
+        e = error
+        jsonData = nil
+    }
     if (e != nil) {
         return ""
     } else {
@@ -110,34 +115,32 @@ func JSONStringify(jsonObj: AnyObject) -> String {
     }
 }
 
-func JSONParseArray(jsonString: String) -> Array<AnyObject> {
-    var e: NSError?
-    var data: NSData=jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
-    var jsonObj = NSJSONSerialization.JSONObjectWithData(
-        data,
-        options: NSJSONReadingOptions(0),
-        error: &e) as! Array<AnyObject>
-    if (e != nil) {
-        return Array<AnyObject>()
-    } else {
-        return jsonObj
-    }
-}
-
-func JSONParseDict(jsonString:String) -> Dictionary<String, AnyObject> {
-    var e: NSError?
-    var data: NSData! = jsonString.dataUsingEncoding(
-        NSUTF8StringEncoding)
-    var jsonObj = NSJSONSerialization.JSONObjectWithData(
-        data,
-        options: NSJSONReadingOptions(0),
-        error: &e) as! Dictionary<String, AnyObject>
-    if (e != nil) {
-        return Dictionary<String, AnyObject>()
-    } else {
-        return jsonObj
-    }
-}
+//func JSONParseArray(jsonString: String) -> Array<AnyObject> {
+//    let e: NSError?
+//    let data: NSData=jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
+//    let jsonObj = (try! NSJSONSerialization.JSONObjectWithData(
+//        data,
+//        options: NSJSONReadingOptions(rawValue: 0))) as! Array<AnyObject>
+//    if (e != nil) {
+//        return Array<AnyObject>()
+//    } else {
+//        return jsonObj
+//    }
+//}
+//
+//func JSONParseDict(jsonString:String) -> Dictionary<String, AnyObject> {
+//    let e: NSError?
+//    let data: NSData! = jsonString.dataUsingEncoding(
+//        NSUTF8StringEncoding)
+//    let jsonObj = (try! NSJSONSerialization.JSONObjectWithData(
+//        data,
+//        options: NSJSONReadingOptions(rawValue: 0))) as! Dictionary<String, AnyObject>
+//    if (e != nil) {
+//        return Dictionary<String, AnyObject>()
+//    } else {
+//        return jsonObj
+//    }
+//}
 
 // MARK: - Handle Image
 
@@ -173,25 +176,25 @@ func contentTypeForImageData(data:NSData) -> NSString? {
 // MARK: - Handle Image with Exif
 
 func createImageDataFromImage(image:UIImage, metadata:NSDictionary?) -> NSData {
-    var imageData = NSMutableData()
-    var dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil);
-    CGImageDestinationAddImage(dest, image.CGImage, metadata);
+    let imageData = NSMutableData()
+    let dest: CGImageDestinationRef = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, nil)!;
+    CGImageDestinationAddImage(dest, image.CGImage!, metadata);
     CGImageDestinationFinalize(dest);
     
     return imageData
 }
 
 func fileNameByExif(exif:NSDictionary) -> NSString {
-    var dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as! NSString
-    var date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString as String)
+    let dateTimeString = exif[kCGImagePropertyExifDateTimeOriginal as NSString] as! NSString
+    let date = FormatterUtil().exifDateFormatter.dateFromString(dateTimeString as String)
     
-    var fileName = FormatterUtil().fileNameDateFormatter.stringFromDate(date!).stringByAppendingPathExtension("jpg")
+    let fileName = (FormatterUtil().fileNameDateFormatter.stringFromDate(date!) as NSString).stringByAppendingPathExtension("jpg")
     
     return fileName!
 }
 
 func GPSDictionaryForLocation(location: CLLocation) -> NSDictionary {
-    var gps = NSMutableDictionary()
+    let gps = NSMutableDictionary()
     
     // 日付
     gps[kCGImagePropertyGPSDateStamp as NSString] = FormatterUtil().GPSDateFormatter.stringFromDate(location.timestamp)

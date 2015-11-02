@@ -42,15 +42,15 @@ class CommentViewController: SLKTextViewController {
     
     func getComment() {
         let method = "zenphoto.get.comments"
-        var id = self.imageId
-        var userData = userDatainit(id: id!)
-        var d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method : d]
+        let id = self.imageId
+        let userData = userDatainit(id!)
+        let d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let param = [method : d]
         
-        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
             //println(json)
-            if json != nil {
-                var jsonObj = JSON(json!)
+            if let json = json.result.value {
+                let jsonObj = JSON(json)
                 if let results = jsonObj.arrayValue as [JSON]? {
                     self.comment = results
                     self.tableView.reloadData()
@@ -93,16 +93,16 @@ class CommentViewController: SLKTextViewController {
         self.textView.refreshFirstResponder()
         
         let method = "zenphoto.add.comment"
-        var id = self.imageId
-        var commentText = self.textView.text.copy() as! String
-        var userData = userDatainit(id: id!)
+        let id = self.imageId
+        let commentText = self.textView.text.copy() as! String
+        var userData = userDatainit(id!)
         userData["commentText"] = commentText
-        var d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method : d]
+        let d = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let param = [method : d]
         
-        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
             //println(json)
-            if json != nil {
+            if json.result.value != nil {
                 self.getComment()
             }
         }

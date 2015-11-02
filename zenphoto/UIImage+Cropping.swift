@@ -34,35 +34,35 @@ extension UIImage {
             dstW = srcW * magnify
             dstH = srcH * magnify
         } else {
-            println("Your thumbnail options are set incorrectly.")
+            print("Your thumbnail options are set incorrectly.", terminator: "")
         }
         
-        var resizedImage = self.resizeImage(dstW, height: dstH)
+        let resizedImage = self.resizeImage(dstW, height: dstH)
         
         srcX = -((dstW / 2) - (resizeX / 2))
         srcY = -((dstH / 2) - (resizeX / 2))
         
-        var mainScreen = UIScreen()
+        let mainScreen = UIScreen()
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(resizeX, resizeX), false, mainScreen.scale)
-        var context = UIGraphicsGetCurrentContext()
+        _ = UIGraphicsGetCurrentContext()
         
         resizedImage.drawAtPoint(CGPointMake(srcX, srcY))
-        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         return newImage
     }
     
     func resizeImage(width: CGFloat, height: CGFloat) -> UIImage {
-        var oldWidth: CGFloat = self.size.width
-        var oldHeight: CGFloat = self.size.height
+        let oldWidth: CGFloat = self.size.width
+        let oldHeight: CGFloat = self.size.height
         
-        var scaleFactor = (oldWidth > oldHeight) ? width / oldWidth : height / oldHeight
+        let scaleFactor = (oldWidth > oldHeight) ? width / oldWidth : height / oldHeight
         
-        var newHeight: CGFloat = oldHeight * scaleFactor
-        var newWidth: CGFloat = oldWidth * scaleFactor
+        let newHeight: CGFloat = oldHeight * scaleFactor
+        let newWidth: CGFloat = oldWidth * scaleFactor
         
-        var mainScreen = UIScreen()
+        let mainScreen = UIScreen()
         if (mainScreen.scale >= 2.0){
             UIGraphicsBeginImageContextWithOptions(CGSizeMake(newWidth, newHeight), false, mainScreen.scale)
         } else {
@@ -71,7 +71,7 @@ extension UIImage {
         
         self.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
         
-        var newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
         

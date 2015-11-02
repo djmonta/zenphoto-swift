@@ -19,7 +19,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     @IBAction func btnAdd(sender: AnyObject) {
         
         //1. Create the alert controller.
-        var alert = UIAlertController(title: NSLocalizedString("createAlbumAlertTitle", comment: "createAlbumAlertTitle"), message: NSLocalizedString("createAlbumAlertMessage", comment: "createAlbumAlertMessage"), preferredStyle: .Alert)
+        let alert = UIAlertController(title: NSLocalizedString("createAlbumAlertTitle", comment: "createAlbumAlertTitle"), message: NSLocalizedString("createAlbumAlertMessage", comment: "createAlbumAlertMessage"), preferredStyle: .Alert)
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
@@ -27,30 +27,30 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         })
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel")
+            print("Cancel", terminator: "")
         })
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: NSLocalizedString("createAlbumAlertOKBtn", comment: "createAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
-            let textField = alert.textFields![0] as! UITextField
-            println("Text field: \(textField.text)")
+            let textField = alert.textFields![0] 
+            print("Text field: \(textField.text)", terminator: "")
             
             let method = "zenphoto.album.create"
             var userData = userDatainit()
             userData["folder"] = textField.text
             userData["name"] = userData["folder"]
-            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var param = [method: p]
+            let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let param = [method: p]
             
-            println(param)
+            print(param, terminator: "")
             
-            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                println(json)
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                print(json)
 
-                if json != nil {
-                    var jsonObj = JSON(json!)
+                if json.result.value != nil {
+                    let jsonObj = JSON(json.result.value!)
                     if jsonObj["code"].stringValue == "-1" {
-                        println("error")
+                        print("error")
                         alertView.title = "Error!"
                         alertView.message = jsonObj["message"].stringValue
                         alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
@@ -107,14 +107,14 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         //refreshControl?.beginRefreshing()
         
         let method = "zenphoto.album.getList"
-        var d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var param = [method : d]
+        let d = encode64(userDatainit())!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let param = [method : d]
         
-        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
+        Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
             //println(json)
-            if json != nil {
-                var jsonObj = JSON(json!)
-                if let results = jsonObj.arrayValue as [JSON]? {
+            if json.result.value != nil {
+                let jsonObj = JSON(json.result.value!)
+                if let results = jsonObj.arrayValue as? [JSON] {
                     self.albums = results
                     self.tableView.reloadData()
                 }
@@ -135,7 +135,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AlbumCell", forIndexPath: indexPath) as! AlbumListViewCell
         
-        var rightButtons = NSMutableArray()
+        let rightButtons = NSMutableArray()
         rightButtons.sw_addUtilityButtonWithColor(UIColor.grayColor(), title: "Edit")
         rightButtons.sw_addUtilityButtonWithColor(UIColor.orangeColor(), title: "Rename")
         rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "Delete")
@@ -167,7 +167,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
         
-        var cellIndexPath = self.tableView.indexPathForCell(cell)
+        let cellIndexPath = self.tableView.indexPathForCell(cell)
         switch (index) {
         case 0:
             self.changeAlbum(self.albums?[cellIndexPath!.row])
@@ -184,11 +184,11 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     }
     
     func changeAlbum(changingAlbum: JSON?) {
-        println("More button was pressed")
-        println(changingAlbum)
+        print("More button was pressed", terminator: "")
+        print(changingAlbum, terminator: "")
         
         //1. Create the alert controller.
-        var alert = UIAlertController(title: NSLocalizedString("editAlbumAlertTitle", comment: "editAlbumAlertTitle"), message: NSLocalizedString("editAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
+        let alert = UIAlertController(title: NSLocalizedString("editAlbumAlertTitle", comment: "editAlbumAlertTitle"), message: NSLocalizedString("editAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
@@ -196,17 +196,17 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         })
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel")
+            print("Cancel", terminator: "")
             })
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: NSLocalizedString("editAlbumAlertOKBtn", comment: "editAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
-            let textField = alert.textFields![0] as! UITextField
-            println("Text field: \(textField.text)")
+            let textField = alert.textFields![0] 
+            print("Text field: \(textField.text)", terminator: "")
             
             let method = "zenphoto.album.edit"
-            var id = changingAlbum?["id"].string
-            var userData = userDatainit(id: id!)
+            let id = changingAlbum?["id"].string
+            var userData = userDatainit(id!)
             userData["description"] = textField.text
             userData["name"] = changingAlbum?["name"].string
             userData["location"] = changingAlbum?["location"].string
@@ -215,18 +215,18 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             userData["commentson"] = changingAlbum?["commentson"].string
             userData["parentFolder"] = changingAlbum?["parentFolder"].string
             
-            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var param = [method: p]
+            let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let param = [method: p]
             
-            println(param)
+            print(param)
             
-            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                println(json)
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                print(json)
                 
-                if json != nil {
-                    var jsonObj = JSON(json!)
+                if json.result.value != nil {
+                    let jsonObj = JSON(json.result.value!)
                     if jsonObj["code"].stringValue == "-1" {
-                        println("error")
+                        print("error")
                         alertView.title = "Error!"
                         alertView.message = jsonObj["message"].stringValue
                         alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
@@ -245,11 +245,11 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     }
     
     func renameAlbum(renamingAlbum: JSON?) {
-        println("Rename button was pressed")
-        println(renamingAlbum)
+        print("Rename button was pressed", terminator: "")
+        print(renamingAlbum, terminator: "")
         
         //1. Create the alert controller.
-        var alert = UIAlertController(title: NSLocalizedString("renameAlbumAlertTitle", comment: "renameAlbumAlertTitle"), message: NSLocalizedString("renameAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
+        let alert = UIAlertController(title: NSLocalizedString("renameAlbumAlertTitle", comment: "renameAlbumAlertTitle"), message: NSLocalizedString("renameAlbumAlertMessage", comment: "renameAlbumAlertMessage"), preferredStyle: .Alert)
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
@@ -257,17 +257,17 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         })
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel")
+            print("Cancel", terminator: "")
             })
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: NSLocalizedString("renameAlbumAlertOKBtn", comment: "renameAlbumAlertOKBtn"), style: .Default, handler: { (action) -> Void in
-            let textField = alert.textFields![0] as! UITextField
-            println("Text field: \(textField.text)")
+            let textField = alert.textFields![0] 
+            print("Text field: \(textField.text)", terminator: "")
             
             let method = "zenphoto.album.edit"
-            var id = renamingAlbum?["id"].string
-            var userData = userDatainit(id: id!)
+            let id = renamingAlbum?["id"].string
+            var userData = userDatainit(id!)
             userData["folder"] = textField.text
             userData["name"] = userData["folder"]
             userData["description"] = renamingAlbum?["description"].string
@@ -277,18 +277,18 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             userData["commentson"] = renamingAlbum?["commentson"].string
             userData["parentFolder"] = renamingAlbum?["parentFolder"].string
             
-            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var param = [method: p]
+            let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let param = [method: p]
             
-            println(param)
+            print(param)
             
-            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                println(json)
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                print(json)
                 
-                if json != nil {
-                    var jsonObj = JSON(json!)
+                if json.result.value != nil {
+                    let jsonObj = JSON(json.result.value!)
                     if jsonObj["code"].stringValue == "-1" {
-                        println("error")
+                        print("error")
                         alertView.title = "Error!"
                         alertView.message = jsonObj["message"].stringValue
                         alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
@@ -307,30 +307,30 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
     }
     
     func deleteAlbum(deletingAlbum: JSON?) {
-        println("Delete button was pressed")
-        println(deletingAlbum)
+        print("Delete button was pressed", terminator: "")
+        print(deletingAlbum, terminator: "")
         
         //1. Create the alert controller.
-        var alert = UIAlertController(title: NSLocalizedString("deleteAlbumAlertTitle", comment: "deleteAlbumAlertTitle"), message: NSLocalizedString("deleteAlbumAlertMessage", comment: "deleteAlbumAlertMessage"), preferredStyle: .Alert)
+        let alert = UIAlertController(title: NSLocalizedString("deleteAlbumAlertTitle", comment: "deleteAlbumAlertTitle"), message: NSLocalizedString("deleteAlbumAlertMessage", comment: "deleteAlbumAlertMessage"), preferredStyle: .Alert)
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
-            println("Cancel")
+            print("Cancel", terminator: "")
             })
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: "delete"), style: .Destructive, handler: { (action) -> Void in
             
             let method = "zenphoto.album.delete"
-            var id = deletingAlbum?["id"].string
-            var userData = userDatainit(id: id!)
-            var p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var param = [method: p]
+            let id = deletingAlbum?["id"].string
+            let userData = userDatainit(id!)
+            let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let param = [method: p]
             
-            println(param)
+            print(param)
             
-            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { request, response, json, error in
-                println(json)
-                if json != nil {
+            Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                print(json)
+                if json.result.value != nil {
                     self.getAlbumList()
                 }
             }

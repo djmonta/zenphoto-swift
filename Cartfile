@@ -1,6 +1,6 @@
-github "Alamofire/Alamofire" >= 1.3
+github "Alamofire/Alamofire"
 github "Haneke/HanekeSwift"
-github "thii/FontAwesome.swift" >= 0.4.1
+github "thii/FontAwesome.swift"
 github "questbeat/QBImagePicker"
-github "slackhq/SlackTextViewController" == 1.5.1
+github "slackhq/SlackTextViewController" == 1.7
 github "djmonta/SWTableViewCell"

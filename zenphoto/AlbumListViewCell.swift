@@ -25,13 +25,13 @@ class AlbumListViewCell: SWTableViewCell {
     }
     
     func setupAlbumList() {
-        var webpath = self.albumInfo?["thumbnail"].string
-        var albumFolder = self.albumInfo?["folder"].string
-        var album = self.albumInfo?["name"].string
-        var id = self.albumInfo?["id"].string
-        var owner = self.albumInfo?["owner"].string
-        var desc = self.albumInfo?["description"].string
-        var imagescount = self.albumInfo?["imagescount"].string
+        let webpath = self.albumInfo?["thumbnail"].string
+        let albumFolder = self.albumInfo?["folder"].string
+        let album = self.albumInfo?["name"].string
+        //let id = self.albumInfo?["id"].string
+        //let owner = self.albumInfo?["owner"].string
+        let desc = self.albumInfo?["description"].string
+        let imagescount = self.albumInfo?["imagescount"].string
         
         var imageURL: NSURL
         var URL: String! = config.stringForKey("URL")
@@ -39,22 +39,27 @@ class AlbumListViewCell: SWTableViewCell {
         
         if webpath == "/albums/zp-core/images/imageDefault.png" {
             
-            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8))
-            var albumThumbURL = String(format: URL + albumThumbFileName)
+            let startIndex = webpath!.startIndex.advancedBy(8)
+            let albumThumbFileName = webpath!.substringFromIndex(startIndex)
+            let albumThumbURL = String(format: URL + albumThumbFileName)
             
             imageURL = NSURL(string: albumThumbURL)!
 
         } else {
-            var albumFolderLength = count(albumFolder!)
-            var i = "zp-core/i.php?a=" + albumFolder! + "&i="
-            var albumThumbFileName = webpath!.substringFromIndex(advance(webpath!.startIndex, 8 + albumFolderLength + 1))
-            var ext = webpath!.pathExtension
-            var albumThumbNameWOExt = albumThumbFileName.stringByDeletingPathExtension
-            var suffix = "&s=300&cw=300&ch=300"
+
+            let i = "zp-core/i.php"
+            let albumThumbFileName = webpath!.substringWithRange(webpath!.startIndex.advancedBy(8+albumFolder!.characters.count+1)..<webpath!.endIndex)
             
-            var albumThumbURL = URL + i + albumThumbNameWOExt + "." + ext + suffix
-            var encodedURL = albumThumbURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            imageURL = NSURL(string: encodedURL!)!
+            let item1 = NSURLQueryItem(name: "a", value: albumFolder)
+            let item2 = NSURLQueryItem(name: "i", value: albumThumbFileName)
+            let s300 = NSURLQueryItem(name: "s", value: "300")
+            let cw300 = NSURLQueryItem(name: "cw", value: "300")
+            let ch300 = NSURLQueryItem(name: "ch", value: "300")
+            
+            let components = NSURLComponents(string: URL + i)
+            components?.queryItems = [item1, item2, s300, cw300, ch300]
+            imageURL = (components?.URL)!
+
             //http://gallery.ampomtan.com/zp-core/i.php?a=newAlbum&i=image0.png&s=300&cw=300&ch=300
         }
         
@@ -71,7 +76,7 @@ class AlbumListViewCell: SWTableViewCell {
         }
         cache.addFormat(iconFormat)
         
-        var image = cache.fetch(URL: imageURL, formatName: "icons").onSuccess { image in
+        _ = cache.fetch(URL: imageURL, formatName: "icons").onSuccess { image in
             
             self.albumThumb.image = image
         }

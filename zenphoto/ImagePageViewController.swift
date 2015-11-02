@@ -41,7 +41,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
         self.currentPage(indexPath)
         
         let viewControllers: NSArray = [startingViewController]
-        pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: false, completion: nil)
+        pageViewController!.setViewControllers(viewControllers as? [UIViewController], direction: .Forward, animated: false, completion: nil)
         pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.navigationItem.title = startingViewController.navigationItem.title
         
@@ -114,9 +114,9 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
     
     // MARK: - UIPageViewControllerDelegate
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        var viewController = self.pageViewController?.viewControllers.first as! UIViewController
+        let viewController = (self.pageViewController?.viewControllers!.first)! as UIViewController
         self.navigationItem.title = viewController.navigationItem.title
         
     }

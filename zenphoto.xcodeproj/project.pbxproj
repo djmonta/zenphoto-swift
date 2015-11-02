@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C6DDF1B71E034002D50C6 /* CommentViewController.swift */; };
+		700F038F1BE7E556009F2059 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F038E1BE7E556009F2059 /* SwiftyJSON.swift */; };
 		703AF6911B7603E700F048E7 /* SWTableViewCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703AF6901B7603E700F048E7 /* SWTableViewCell.framework */; };
 		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
 		703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
@@ -16,7 +17,6 @@
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		7068E4C01B744C0B009BE221 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068E4BF1B744C0B009BE221 /* CommentCell.swift */; };
-		707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */; };
 		708561511B78F2F100077C66 /* SlackTextViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 708561501B78F2F100077C66 /* SlackTextViewController.framework */; };
 		708561551B7A256D00077C66 /* TextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708561541B7A256D00077C66 /* TextFieldContainer.swift */; };
 		708B1FAF1A949C7700807758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708B1FAE1A949C7700807758 /* AppDelegate.swift */; };
@@ -49,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		700C6DDF1B71E034002D50C6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		700F038E1BE7E556009F2059 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		703AF6901B7603E700F048E7 /* SWTableViewCell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWTableViewCell.framework; path = Carthage/Build/iOS/SWTableViewCell.framework; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		707B613A1B611A9900289C51 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
 		707B61421B6140A600289C51 /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePicker.framework; path = Carthage/Build/iOS/QBImagePicker.framework; sourceTree = "<group>"; };
 		707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zenphoto-Bridging-Header.h"; sourceTree = "<group>"; };
-		707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		708561501B78F2F100077C66 /* SlackTextViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlackTextViewController.framework; path = Carthage/Build/iOS/SlackTextViewController.framework; sourceTree = "<group>"; };
 		708561541B7A256D00077C66 /* TextFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldContainer.swift; sourceTree = "<group>"; };
 		708B1FA91A949C7700807758 /* zenphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zenphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,8 +163,8 @@
 				708B20051A94A22700807758 /* Functions.swift */,
 				708B20071A94A25600807758 /* UIImage+Cropping.swift */,
 				705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */,
-				707BBE721AE65B0500D6AF35 /* SwiftyJSON.swift */,
 				705FE5F81A9C855C00198D7D /* FormatterUtil.swift */,
+				700F038E1BE7E556009F2059 /* SwiftyJSON.swift */,
 				708B1FAC1A949C7700807758 /* Supporting Files */,
 				707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */,
 			);
@@ -242,7 +242,9 @@
 		708B1FA11A949C7700807758 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "宮本幸子";
 				TargetAttributes = {
 					708B1FA81A949C7700807758 = {
@@ -338,7 +340,7 @@
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
 				708561551B7A256D00077C66 /* TextFieldContainer.swift in Sources */,
-				707BBE731AE65B0500D6AF35 /* SwiftyJSON.swift in Sources */,
+				700F038F1BE7E556009F2059 /* SwiftyJSON.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
 			);
@@ -413,6 +415,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -487,6 +490,7 @@
 				INFOPLIST_FILE = zenphoto/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7f4d2d33-8eb8-4b7c-a132-bd573cb19806";
 				SWIFT_OBJC_BRIDGING_HEADER = "zenphoto/zenphoto-Bridging-Header.h";
@@ -510,6 +514,7 @@
 				INFOPLIST_FILE = zenphoto/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8c832312-f40e-4677-96c4-e589bc6f5019";
 				SWIFT_OBJC_BRIDGING_HEADER = "zenphoto/zenphoto-Bridging-Header.h";
@@ -530,6 +535,7 @@
 				);
 				INFOPLIST_FILE = zenphotoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/zenphoto.app/zenphoto";
 			};
@@ -545,6 +551,7 @@
 				);
 				INFOPLIST_FILE = zenphotoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/zenphoto.app/zenphoto";
 			};
