@@ -114,7 +114,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
             //println(json)
             if json.result.value != nil {
                 let jsonObj = JSON(json.result.value!)
-                if let results = jsonObj.arrayValue as? [JSON] {
+                if let results = jsonObj.arrayValue as [JSON]? {
                     self.albums = results
                     self.tableView.reloadData()
                 }

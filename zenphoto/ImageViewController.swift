@@ -157,7 +157,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             
             Alamofire.download(.GET, imageURL) { temporaryURL, response in
                 
-                if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+                if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL? {
                     
                     fileName = response.suggestedFilename!
                     finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
@@ -257,7 +257,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
  
         Alamofire.download(.GET, imageURL!) { temporaryURL, response in
             
-            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL? {
                 
                 fileName = response.suggestedFilename!
                 finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
