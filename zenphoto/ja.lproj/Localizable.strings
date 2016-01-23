@@ -36,3 +36,7 @@
 "editAlbumAlertTitle"="アルバム説明を変更";
 "editAlbumAlertMessage"="アルバム説明を入力して下さい";
 "editAlbumAlertOKBtn"="変更";
+"renameImageButton"="タイトル変更";
+"renameImageAlertTitle"="タイトル変更";
+"renameImageAlertMessage"="タイトルを入力してください";
+"renameImageAlertOKBtn"="変更";

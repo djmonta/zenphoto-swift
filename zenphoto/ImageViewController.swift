@@ -30,6 +30,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var commentContainer: UIView!
     @IBOutlet weak var btnComment: UIBarButtonItem!
+    @IBOutlet weak var imageDescLabel: UILabel!
     
     @IBAction func btnAction(sender: UIBarButtonItem) {
         actionButton()
@@ -57,6 +58,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         
         let folder = self.image?["folder"].string!
         let filename = self.image?["name"].string!
+        let imageDesc = self.image?["description"].string!
         var URL: String! = config.stringForKey("URL")
         if !URL.hasSuffix("/") { URL = URL + "/" }
         let imageURLstr = URL + "albums/" + folder! + "/" + filename!
@@ -64,6 +66,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         let encodedURL = imageURLstr.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
         let imageURL = NSURL(string: encodedURL!)!
         self.navigationItem.title = filename
+        self.imageDescLabel.text = imageDesc
 
         //self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.imageView.contentMode = .ScaleAspectFit
@@ -130,6 +133,8 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Save/Delete Image (More Button)
     
+
+
     func moreButton() {
         let alert = UIAlertController(title: NSLocalizedString("moreButtonAlertTitle", comment: "moreButtonAlertTitle"), message: NSLocalizedString("moreButtonAlertMessage", comment: "moreButtonAlertMessage"), preferredStyle: .ActionSheet)
         
@@ -137,6 +142,72 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         alert.popoverPresentationController?.sourceView = self.view
         alert.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
         
+        let renameImageButton = UIAlertAction(title: NSLocalizedString("renameImageButton", comment: "renameImageButton"), style: .Default) { (alert) -> Void in
+            
+            let filename = self.image?["name"].string
+            let exurl = NSURL(string: filename!)
+            let ext = exurl!.pathExtension
+            
+            //1. Create the alert controller.
+            let alert = UIAlertController(title: NSLocalizedString("renameImageAlertTitle", comment: "renameImageAlertTitle"), message: NSLocalizedString("renameImageAlertMessage", comment: "renameImageAlertMessage"), preferredStyle: .Alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+                textField.text = NSURL(fileURLWithPath: filename!).URLByDeletingPathExtension?.lastPathComponent
+            })
+            
+            alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+                print("Cancel", terminator: "")
+                })
+            
+            //3. Grab the value from the text field, and print it when the user clicks OK.
+            alert.addAction(UIAlertAction(title: NSLocalizedString("renameImageAlertOKBtn", comment: "renameImageAlertOKBtn"), style: .Default, handler: { (action) -> Void in
+                let textField = alert.textFields![0]
+                print("Text field: \(textField.text)", terminator: "")
+                
+                let method = "zenphoto.image.edit"
+                let id = self.image?["id"].string
+                var userData = userDatainit(id!)
+                if textField.text != "" {
+                    userData["filename"] = textField.text! + "." + ext!
+                } else {
+                    alertView.title = "Error!"
+                    alertView.message = "Please input title"
+                    alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                    alertView.show()
+                }
+                userData["description"] = self.image?["description"].string
+                userData["location"] = self.image?["location"].string
+                
+                let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let param = [method: p]
+                
+                print(param)
+                
+                Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                    print(json)
+                    
+                    if json.result.value != nil {
+                        let jsonObj = JSON(json.result.value!)
+                        if jsonObj["code"].stringValue == "-1" {
+                            print("error")
+                            alertView.title = "Error!"
+                            alertView.message = jsonObj["message"].stringValue
+                            alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                            alertView.show()
+                        } else {
+                            print("renamed")
+                        }
+                    }
+                }
+                
+            }))
+            
+            // 4. Present the alert.
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        }
+
         let downloadButton = UIAlertAction(title: NSLocalizedString("downloadButtonTitle", comment: "downloadButtonTitle"), style: .Default) { (alert) -> Void in
             
             //println(image)
@@ -225,6 +296,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
             print("Cancel Pressed", terminator: "")
         }
 
+        alert.addAction(renameImageButton)
         alert.addAction(downloadButton)
         alert.addAction(deleteButton)
         alert.addAction(cancelButton)

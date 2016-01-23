@@ -36,3 +36,7 @@
 "editAlbumAlertTitle"="Change Album Description";
 "editAlbumAlertMessage"="Enter Album Description.";
 "editAlbumAlertOKBtn"="Done";
+"renameImageButton"="Edit Title";
+"renameImageAlertTitle"="Edit Title";
+"renameImageAlertMessage"="Enter Image Name.";
+"renameImageAlertOKBtn"="OK";

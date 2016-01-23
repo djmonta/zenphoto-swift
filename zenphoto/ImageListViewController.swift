@@ -82,7 +82,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         let param = [method: d]
         
         Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
-            //println(json)
+            print(json)
             if json.result.value != nil {
                 let jsonObj = JSON(json.result.value!)
                 if let results = jsonObj.arrayValue as [JSON]? {
