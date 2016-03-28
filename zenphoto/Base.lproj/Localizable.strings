@@ -40,3 +40,7 @@
 "renameImageAlertTitle"="Edit Title";
 "renameImageAlertMessage"="Enter Image Name.";
 "renameImageAlertOKBtn"="OK";
+"editDescButton"="Edit Description";
+"editDescAlertTitle"="Edit Description";
+"editDescAlertMessage"="Enter Description.";
+"editDescAlertOKBtn"="OK";

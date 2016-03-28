@@ -79,7 +79,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
             return nil
         }
         
-        index--
+        index -= 1
         
         return viewControllerAtIndex(index)
     }
@@ -92,7 +92,7 @@ class ImagePageViewController: UIViewController, UIPageViewControllerDataSource,
             return nil
         }
         
-        index++
+        index += 1
         
         if (index == self.images?.count) {
             return nil

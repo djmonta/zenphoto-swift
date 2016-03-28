@@ -72,7 +72,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         self.imageView.contentMode = .ScaleAspectFit
         self.imageView.hnk_setImageFromURL(imageURL)
         
-        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(ImageView.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(doubleTapGesture)
@@ -196,7 +196,67 @@ class ImageView: UIViewController, UIScrollViewDelegate {
                             alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
                             alertView.show()
                         } else {
+                            self.image = jsonObj
+                            self.navigationItem.title = self.image?["name"].string
                             print("renamed")
+                        }
+                    }
+                }
+                
+            }))
+            
+            // 4. Present the alert.
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        }
+
+        let editDescButton = UIAlertAction(title: NSLocalizedString("editDescButton", comment: "editDescButton"), style: .Default) { (alert) -> Void in
+            
+            let desc = self.image?["description"].string
+            
+            //1. Create the alert controller.
+            let alert = UIAlertController(title: NSLocalizedString("editDescAlertTitle", comment: "editDescAlertTitle"), message: NSLocalizedString("editDescAlertMessage", comment: "editDescAlertMessage"), preferredStyle: .Alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+                textField.text = desc
+            })
+            
+            alert.addAction(UIAlertAction(title: NSLocalizedString("alertCancelBtn", comment: "alertCancelBtn"), style: .Cancel) { (alert) -> Void in
+                print("Cancel", terminator: "")
+                })
+            
+            //3. Grab the value from the text field, and print it when the user clicks OK.
+            alert.addAction(UIAlertAction(title: NSLocalizedString("editDescAlertOKBtn", comment: "editDescAlertOKBtn"), style: .Default, handler: { (action) -> Void in
+                let textField = alert.textFields![0]
+                print("Text field: \(textField.text)", terminator: "")
+                
+                let method = "zenphoto.image.edit"
+                let id = self.image?["id"].string
+                var userData = userDatainit(id!)
+                userData["description"] = textField.text
+                userData["location"] = self.image?["location"].string
+                
+                let p = encode64(userData)!.stringByReplacingOccurrencesOfString("=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let param = [method: p]
+                
+                print(param)
+                
+                Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
+                    print(json)
+                    
+                    if json.result.value != nil {
+                        let jsonObj = JSON(json.result.value!)
+                        if jsonObj["code"].stringValue == "-1" {
+                            print("error")
+                            alertView.title = "Error!"
+                            alertView.message = jsonObj["message"].stringValue
+                            alertView.addButtonWithTitle(NSLocalizedString("close", comment: "close"))
+                            alertView.show()
+                        } else {
+                            self.image = jsonObj
+                            self.imageDescLabel.text = self.image?["description"].string
+                            print("edit description")
                         }
                     }
                 }
@@ -297,6 +357,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         }
 
         alert.addAction(renameImageButton)
+        alert.addAction(editDescButton)
         alert.addAction(downloadButton)
         alert.addAction(deleteButton)
         alert.addAction(cancelButton)

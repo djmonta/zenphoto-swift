@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		700C6DE01B71E034002D50C6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C6DDF1B71E034002D50C6 /* CommentViewController.swift */; };
-		700F038F1BE7E556009F2059 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F038E1BE7E556009F2059 /* SwiftyJSON.swift */; };
 		703AF6911B7603E700F048E7 /* SWTableViewCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703AF6901B7603E700F048E7 /* SWTableViewCell.framework */; };
 		703F94751B6B16FA00D0CAE3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61381B611A9900289C51 /* Alamofire.framework */; };
 		703F94761B6B16FA00D0CAE3 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB33B61B61EAEB00A4EA3D /* FontAwesome.framework */; };
 		703F94771B6B16FA00D0CAE3 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B613A1B611A9900289C51 /* Haneke.framework */; };
 		703F94781B6B16FA00D0CAE3 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707B61421B6140A600289C51 /* QBImagePicker.framework */; };
+		704B0BEC1CA93F7C00ADCE2C /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704B0BEB1CA93F7C00ADCE2C /* SwiftyJSON.swift */; };
 		705FE5F91A9C855C00198D7D /* FormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE5F81A9C855C00198D7D /* FormatterUtil.swift */; };
 		705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */; };
 		7068E4C01B744C0B009BE221 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068E4BF1B744C0B009BE221 /* CommentCell.swift */; };
@@ -49,8 +49,8 @@
 
 /* Begin PBXFileReference section */
 		700C6DDF1B71E034002D50C6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		700F038E1BE7E556009F2059 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		703AF6901B7603E700F048E7 /* SWTableViewCell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWTableViewCell.framework; path = Carthage/Build/iOS/SWTableViewCell.framework; sourceTree = "<group>"; };
+		704B0BEB1CA93F7C00ADCE2C /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		705FE5F81A9C855C00198D7D /* FormatterUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterUtil.swift; sourceTree = "<group>"; };
 		705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
 		7068E4BF1B744C0B009BE221 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 				708B20051A94A22700807758 /* Functions.swift */,
 				708B20071A94A25600807758 /* UIImage+Cropping.swift */,
 				705FE62F1A9CD50100198D7D /* UIImage+ImageOrientation.swift */,
+				704B0BEB1CA93F7C00ADCE2C /* SwiftyJSON.swift */,
 				705FE5F81A9C855C00198D7D /* FormatterUtil.swift */,
-				700F038E1BE7E556009F2059 /* SwiftyJSON.swift */,
 				708B1FAC1A949C7700807758 /* Supporting Files */,
 				707B61451B61412B00289C51 /* zenphoto-Bridging-Header.h */,
 			);
@@ -340,7 +340,7 @@
 				708B1FFA1A949F3F00807758 /* AlbumListViewController.swift in Sources */,
 				705FE6301A9CD50100198D7D /* UIImage+ImageOrientation.swift in Sources */,
 				708561551B7A256D00077C66 /* TextFieldContainer.swift in Sources */,
-				700F038F1BE7E556009F2059 /* SwiftyJSON.swift in Sources */,
+				704B0BEC1CA93F7C00ADCE2C /* SwiftyJSON.swift in Sources */,
 				708B20001A94A11C00807758 /* ImagePageViewController.swift in Sources */,
 				708B20081A94A25600807758 /* UIImage+Cropping.swift in Sources */,
 			);
@@ -481,7 +481,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sachiko Miyamoto (7DABZWZ3B4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -492,7 +493,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f4d2d33-8eb8-4b7c-a132-bd573cb19806";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "zenphoto/zenphoto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -504,8 +505,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sachiko Miyamoto (JP7CKXLT25)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -516,7 +517,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ampomtan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8c832312-f40e-4677-96c4-e589bc6f5019";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "zenphoto/zenphoto-Bridging-Header.h";
 			};
 			name = Release;

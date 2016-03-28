@@ -38,7 +38,7 @@ class InfoViewController: UIViewController {
                 let jsonObj = json.result.value
                 if let results = jsonObj as! String? {
                     if (results == "true") {
-                        self.btnUpdate.addTarget(self, action: "update:", forControlEvents:.TouchUpInside)
+                        self.btnUpdate.addTarget(self, action: #selector(InfoViewController.update(_:)), forControlEvents:.TouchUpInside)
                         
                     } else {
                         self.btnUpdate.enabled = false
@@ -51,7 +51,7 @@ class InfoViewController: UIViewController {
             self.btnUpdate.enabled = false
         }
         
-        self.btnLink.addTarget(self, action: "instruction:", forControlEvents: .TouchUpInside)
+        self.btnLink.addTarget(self, action: #selector(InfoViewController.instruction(_:)), forControlEvents: .TouchUpInside)
         
     }
 

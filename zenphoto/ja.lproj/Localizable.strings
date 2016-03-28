@@ -40,3 +40,7 @@
 "renameImageAlertTitle"="タイトル変更";
 "renameImageAlertMessage"="タイトルを入力してください";
 "renameImageAlertOKBtn"="変更";
+"editDescButton"="説明変更";
+"editDescAlertTitle"="説明変更";
+"editDescAlertMessage"="説明を入力してください";
+"editDescAlertOKBtn"="変更";

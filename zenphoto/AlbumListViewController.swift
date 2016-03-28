@@ -84,7 +84,7 @@ class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {
         
         self.refreshControl = UIRefreshControl()
         refreshControl?.attributedTitle = NSAttributedString(string: NSLocalizedString("pullToRefresh", comment:"pullToRefresh"))
-        refreshControl?.addTarget(self, action: "getAlbumList", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(AlbumListViewController.getAlbumList), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
         
     }

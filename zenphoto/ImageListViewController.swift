@@ -82,7 +82,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
         let param = [method: d]
         
         Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
-            print(json)
+            //print(json)
             if json.result.value != nil {
                 let jsonObj = JSON(json.result.value!)
                 if let results = jsonObj.arrayValue as [JSON]? {
@@ -438,7 +438,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case .NotDetermined:
-            if locationManager!.respondsToSelector("requestWhenInUseAuthorization") { locationManager!.requestWhenInUseAuthorization() }
+            if locationManager!.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)) { locationManager!.requestWhenInUseAuthorization() }
         case .Restricted, .Denied:
             self.alertLocationServicesDisabled()
         case .AuthorizedAlways, .AuthorizedWhenInUse:
