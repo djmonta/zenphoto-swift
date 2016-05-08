@@ -21,6 +21,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     var image : JSON?
     var commentData: [JSON]? = []
     var flag = false
+    var postDismissionAction: (() -> Void)?
     
     //let scrollView = UIScrollView()
     //let imageView = UIImageView()

@@ -36,13 +36,15 @@ class InfoViewController: UIViewController {
             
             Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
                 let jsonObj = json.result.value
-                if let results = jsonObj as! String? {
-                    if (results == "true") {
-                        self.btnUpdate.addTarget(self, action: #selector(InfoViewController.update(_:)), forControlEvents:.TouchUpInside)
-                        
-                    } else {
-                        self.btnUpdate.enabled = false
-                        
+                if jsonObj != nil {
+                    if let results = jsonObj {
+                        if (results as! NSNumber == true) {
+                            self.btnUpdate.addTarget(self, action: #selector(InfoViewController.update(_:)), forControlEvents:.TouchUpInside)
+                            
+                        } else {
+                            self.btnUpdate.enabled = false
+                            
+                        }
                     }
                 }
                 
