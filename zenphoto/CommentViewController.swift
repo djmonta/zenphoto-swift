@@ -13,6 +13,11 @@ class CommentViewController: SLKTextViewController {
     
     var imageId: String?
     var comment: [JSON]? = []
+    override var tableView: UITableView {
+        get {
+            return super.tableView!
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +25,7 @@ class CommentViewController: SLKTextViewController {
         self.getComment()
         
         self.inverted = false
-        self.tableView.registerClass(CommentCellSLK.self, forCellReuseIdentifier:"CommentCellSLK")
+        self.tableView.registerClass(CommentCell.classForCoder(), forCellReuseIdentifier: "CommentCell")
         self.tableView.separatorStyle = .None
         self.tableView.estimatedRowHeight = 70
         self.tableView.backgroundColor = UIColor.blackColor()
@@ -48,7 +53,7 @@ class CommentViewController: SLKTextViewController {
         let param = [method : d]
         
         Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
-            //println(json)
+            //print(json)
             if let json = json.result.value {
                 let jsonObj = JSON(json)
                 if let results = jsonObj.arrayValue as [JSON]? {
@@ -57,7 +62,6 @@ class CommentViewController: SLKTextViewController {
                 }
             }
         }
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,14 +73,13 @@ class CommentViewController: SLKTextViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return self.comment?.count ?? 0
-        
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> CommentCellSLK {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CommentCellSLK", forIndexPath: indexPath) as! CommentCellSLK
-
-        cell.commentData = self.comment?[indexPath.row]
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> CommentCell {
         
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CommentCell") as! CommentCell
+        cell.commentData = self.comment?[indexPath.row]
+                
         cell.transform = self.tableView.transform
         cell.backgroundColor = UIColor.clearColor()
         return cell
@@ -101,7 +104,7 @@ class CommentViewController: SLKTextViewController {
         let param = [method : d]
         
         Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
-            //println(json)
+            //print(json)
             if json.result.value != nil {
                 self.getComment()
             }

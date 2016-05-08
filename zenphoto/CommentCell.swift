@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentCellSLK: UITableViewCell {
+class CommentCell: UITableViewCell {
     
     var commentData: JSON? {
         didSet {
@@ -70,18 +70,15 @@ class CommentCellSLK: UITableViewCell {
         
         let metrics = ["leading":8, "trailing":8, "dateSize": 170, "vertical": 20]
         
-        let firstLine =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[usernameLabel(>=0)]-[dateLabel(dateSize)]-trailing-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
+        let firstLine = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[usernameLabel(>=0)]-[dateLabel(dateSize)]-trailing-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
         
         let secondLine = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[bodyLabel(>=0)]-trailing-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
         
         let vertical = NSLayoutConstraint.constraintsWithVisualFormat("V:|-vertical-[bodyLabel(>=0)]-trailing-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
         
-        let constraints = []
-        constraints.arrayByAddingObject(firstLine)
-        constraints.arrayByAddingObject(secondLine)
-        constraints.arrayByAddingObject(vertical)
-        
-        self.contentView.addConstraints(constraints as! [NSLayoutConstraint])
+        self.contentView.addConstraints(firstLine)
+        self.contentView.addConstraints(secondLine)
+        self.contentView.addConstraints(vertical)
         
         self.selectionStyle = .None
         

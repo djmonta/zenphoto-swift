@@ -31,6 +31,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var commentContainer: UIView!
     @IBOutlet weak var btnComment: UIBarButtonItem!
+    @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var imageDescLabel: UILabel!
     
     @IBAction func btnAction(sender: UIBarButtonItem) {
@@ -83,6 +84,11 @@ class ImageView: UIViewController, UIScrollViewDelegate {
         self.btnComment.title = String.fontAwesomeIconWithName(.CommentO)
         self.toolBar.items?[3] = self.btnComment
         
+        if self.image?["commentcount"].intValue != 0 {
+            self.commentLabel.text = self.image?["commentcount"].string
+        } else {
+            self.commentLabel.text = ""
+        }
     }
     
     override func didReceiveMemoryWarning() {

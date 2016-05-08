@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bgV-s7-mwa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bgV-s7-mwa">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -445,6 +445,12 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9e-ha-o8d">
+                                <rect key="frame" x="544" y="562" width="36" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="RAk-Oz-5DC" firstAttribute="leading" secondItem="0f5-4c-rkI" secondAttribute="leading" id="09F-OE-04T"/>
@@ -454,15 +460,19 @@
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Agn-vf-EVx"/>
                             <constraint firstAttribute="trailing" secondItem="hTN-LY-4er" secondAttribute="trailing" id="Cae-Xd-jM3"/>
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="bottom" secondItem="bUW-j8-uPQ" secondAttribute="top" id="D3G-HB-0xk"/>
+                            <constraint firstItem="r9e-ha-o8d" firstAttribute="top" secondItem="RAk-Oz-5DC" secondAttribute="bottom" constant="6" id="InS-xN-Sjn"/>
                             <constraint firstItem="0f5-4c-rkI" firstAttribute="leading" secondItem="hTN-LY-4er" secondAttribute="leading" id="f6l-UM-mNi"/>
                             <constraint firstItem="RAk-Oz-5DC" firstAttribute="trailing" secondItem="0f5-4c-rkI" secondAttribute="trailing" id="gx4-1n-eDo"/>
                             <constraint firstItem="hTN-LY-4er" firstAttribute="leading" secondItem="oNy-YT-yzH" secondAttribute="leading" id="hPe-4n-0fX"/>
                             <constraint firstItem="RAk-Oz-5DC" firstAttribute="top" secondItem="tSE-ag-Ipy" secondAttribute="bottom" constant="-20" id="l9C-Jx-ZIV"/>
+                            <constraint firstItem="bUW-j8-uPQ" firstAttribute="top" secondItem="r9e-ha-o8d" secondAttribute="bottom" constant="12" id="pCG-kX-fix"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r9e-ha-o8d" secondAttribute="trailing" id="tkx-2c-fX8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnComment" destination="4B5-0f-uOJ" id="Lvx-ye-rnY"/>
                         <outlet property="commentContainer" destination="RAk-Oz-5DC" id="vba-x4-6lT"/>
+                        <outlet property="commentLabel" destination="r9e-ha-o8d" id="3F4-37-Z82"/>
                         <outlet property="imageDescLabel" destination="eIQ-Yr-th2" id="fKd-eL-FkI"/>
                         <outlet property="imageView" destination="d9B-xH-zeV" id="arU-aw-U58"/>
                         <outlet property="scrollView" destination="hTN-LY-4er" id="Ad3-Fl-wGN"/>
