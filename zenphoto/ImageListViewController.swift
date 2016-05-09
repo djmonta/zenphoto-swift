@@ -22,6 +22,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
     var images: [JSON]? = []
     var thumbsize: CGSize!
     var locationManager: CLLocationManager!
+    var refreshControl: UIRefreshControl!
     
     @IBAction func btnAdd(sender: AnyObject) {
         /* Supports UIAlert Controller */
@@ -45,7 +46,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             self.locationManager?.startUpdatingLocation()
         }
         
-        // Do any additional setup after loading the view.
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("pullToRefresh", comment:"pullToRefresh"))
+        self.refreshControl.addTarget(self, action: #selector(ImageListViewController.refreshAction), forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView!.addSubview(self.refreshControl)
+        
+        self.collectionView?.alwaysBounceVertical = true
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -92,7 +99,13 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
             }
         }
         
-        
+    }
+    
+    func refreshAction() {
+        self.refreshControl.beginRefreshing()
+        let albumId = self.albumInfo?["id"].string as String!
+        self.getImageList(albumId)
+        self.refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
