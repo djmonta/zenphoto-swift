@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import Haneke
+import SwiftyJSON
 import FontAwesome
 
 class AlbumListViewController: UITableViewController, SWTableViewCellDelegate {

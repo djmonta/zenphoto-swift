@@ -11,7 +11,7 @@ import CoreLocation
 import ImageIO
 import MobileCoreServices
 import Alamofire
-import Haneke
+import SwiftyJSON
 
 let config = NSUserDefaults.standardUserDefaults()
 let alertView = UIAlertView()

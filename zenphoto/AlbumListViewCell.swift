@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Haneke
+import SwiftyJSON
 import FontAwesome
 import SWTableViewCell
+import WebImage
 
 class AlbumListViewCell: SWTableViewCell {
     
@@ -68,18 +69,19 @@ class AlbumListViewCell: SWTableViewCell {
         self.imageCount.font = UIFont.fontAwesomeOfSize(11)
         self.imageCount.text = String.fontAwesomeIconWithName(.PictureO) + " " + imagescount! + " images"
         
-        let cache = Shared.imageCache
-        
-        let iconFormat = Format<UIImage>(name: "icons", diskCapacity: 3 * 1024 * 1024) { image in
-            let resizer = ImageResizer(size: CGSizeMake(300,300), scaleMode: .AspectFill)
-            return resizer.resizeImage(image)
-        }
-        cache.addFormat(iconFormat)
-        
-        _ = cache.fetch(URL: imageURL, formatName: "icons").onSuccess { image in
-            
-            self.albumThumb.image = image
-        }
+//        let cache = Shared.imageCache
+//        
+//        let iconFormat = Format<UIImage>(name: "icons", diskCapacity: 3 * 1024 * 1024) { image in
+//            let resizer = ImageResizer(size: CGSizeMake(300,300), scaleMode: .AspectFill)
+//            return resizer.resizeImage(image)
+//        }
+//        cache.addFormat(iconFormat)
+//        
+//        _ = cache.fetch(URL: imageURL, formatName: "icons").onSuccess { image in
+//            
+//            self.albumThumb.image = image
+//        }
+        self.albumThumb.sd_setImageWithURL(imageURL)
         
     }
     

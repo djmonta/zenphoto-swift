@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Haneke
+import SwiftyJSON
 import Alamofire
 import FontAwesome
 import Photos
 import ImageIO
 import MobileCoreServices
 import Social
+import WebImage
 
 class ImageView: UIViewController, UIScrollViewDelegate {
     
@@ -72,7 +73,7 @@ class ImageView: UIViewController, UIScrollViewDelegate {
 
         //self.imageView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.hnk_setImageFromURL(imageURL)
+        self.imageView.sd_setImageWithURL(imageURL)
         
         let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(ImageView.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2

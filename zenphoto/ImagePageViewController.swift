@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Haneke
+import SwiftyJSON
 
 class ImagePageViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     

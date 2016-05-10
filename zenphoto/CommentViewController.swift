@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class CommentViewController: SLKTextViewController {
     
@@ -54,14 +55,15 @@ class CommentViewController: SLKTextViewController {
         
         Alamofire.request(.POST, URLinit()!, parameters: param).responseJSON { json in
             //print(json)
-            if let json = json.result.value {
-                let jsonObj = JSON(json)
+            if json.result.value != nil {
+                let jsonObj = JSON(json.result.value!)
                 if let results = jsonObj.arrayValue as [JSON]? {
                     self.comment = results
                     self.tableView.reloadData()
                 }
             }
         }
+
     }
     
     override func didReceiveMemoryWarning() {

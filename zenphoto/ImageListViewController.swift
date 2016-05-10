@@ -12,7 +12,8 @@ import CoreLocation
 import ImageIO
 import MobileCoreServices
 import Alamofire
-import Haneke
+import SwiftyJSON
+import WebImage
 
 let reuseIdentifier = "Cell"
 
@@ -177,7 +178,7 @@ class ImageListViewController: UICollectionViewController, UINavigationControlle
 //        print(imageThumbURL)
         //http://gallery.ampomtan.com/zp-core/i.php?a=%E3%83%86%E3%82%B9%E3%83%88&i=20150226003408-0.jpg&s=300&cw=300&ch=300
         
-        imageView.hnk_setImageFromURL(imageThumbURL!)
+        imageView.sd_setImageWithURL(imageThumbURL!)
         
         return cell
     }
